@@ -24,9 +24,11 @@ Sago is not designed to replace natural languages. It is designed to be the *lay
 
 ---
 
-## The 90 Taps
+## The 90 Chords
 
-Sago has 90 semantic units, organized into 5 acquisition tiers:
+Sago has 90 primitive chords — semantic units, each a single CV syllable (consonant + vowel: *sa, to, na, wu...*). The phoneme inventory is 18 consonants × 5 vowels = exactly 90 syllables. Every syllable encodes exactly one meaning. No syllable is wasted; no syllable is ambiguous.
+
+Chords combine into **words**: *nafu* (NOT·HEAT = cold), *fumo* (HEAT·MOVE = fire), *bago* (FEEL·GOOD = joy). Words flow — chord boundaries are just syllable boundaries, never consonant clusters. The language sounds like speech, not a list.
 
 | Tier | Count | What it adds |
 |---|---|---|
@@ -34,11 +36,9 @@ Sago has 90 semantic units, organized into 5 acquisition tiers:
 | L2 · Physical | 8 | Life, mind, the physical world |
 | L3 · Grammar | 16 | Causation, sequence, degree, space, senses |
 | L4 · Wierzbicka | 32 | Completes the NSM prime set |
-| L5 · Molecules | 26 | Widespread concepts with no single-primitive equivalent |
+| L5 · Molecules | 26 | Widespread concepts with no single-chord equivalent |
 
-Every tap is a **CV syllable** (consonant + vowel: *sa, to, na, wu...*). The phoneme inventory is 18 consonants × 5 vowels = exactly 90 syllables — the phonological space and the semantic space are in perfect bijection. No syllable is unused; no syllable is ambiguous.
-
-The full tap inventory is defined in [`language/TAPS.md`](language/TAPS.md).
+The full chord inventory and phonological rules are in [`language/CHORDS.md`](language/CHORDS.md) and [`language/PHONOLOGY.md`](language/PHONOLOGY.md).
 
 ---
 
@@ -75,23 +75,31 @@ python3 word_builder.py "nostalgia"
 #   good feeling caused by the past
 ```
 
-New words are proposed by opening a pull request that adds an entry to [`language/dictionary.json`](language/dictionary.json).
+New words are proposed by opening a pull request adding an entry to [`language/concepts.json`](language/concepts.json).
 
 ---
 
-## Dictionary
+## Concept Dictionary
 
-[`language/dictionary.json`](language/dictionary.json) contains 5,000 English words mapped to their Sago compositions, generated computationally and open for community refinement.
+[`language/concepts.json`](language/concepts.json) is a language-neutral concept browser. Entries are Sago words — not English translations. Any language speaker can look up a concept by domain and find the Sago word and its chord structure.
 
-Format:
 ```json
 {
-  "freedom": {
-    "taps": ["na", "de", "na"],
-    "tap_names": ["NOT", "DO", "NOT"],
-    "type": "composition",
-    "confidence": 0.72,
-    "gloss": "NOT-DO-NOT — the absence of the prevention of action"
+  "nafu": {
+    "word": "nafu",
+    "chords": ["na", "fu"],
+    "chord_names": ["NOT", "HEAT"],
+    "concept": "absence of heat; low temperature",
+    "domain": "physical",
+    "level": 2
+  },
+  "fumo": {
+    "word": "fumo",
+    "chords": ["fu", "mo"],
+    "chord_names": ["HEAT", "MOVE"],
+    "concept": "heat in motion; combustion; fire",
+    "domain": "physical",
+    "level": 2
   }
 }
 ```
@@ -108,16 +116,18 @@ Format:
 
 ```
 language/
-  TAPS.md          Canonical 90-tap definitions (the alphabet)
+  CHORDS.md        The 90 primitive chords (the alphabet)
   GRAMMAR.md       Complete grammar (22 rules)
-  dictionary.json  5,001-word English → Sago dictionary
+  PHONOLOGY.md     How chords flow together into words
+  concepts.json    Concept-based dictionary (language-neutral)
+  dictionary.json  English lookup table (legacy, 5,001 words)
   sago_paper.md    Academic paper (submission version)
 
 tools/
-  word_builder.py  Create or look up any word
-  translate.py     Bidirectional English ↔ Sago translator
-  evaluate.py      Vocabulary coverage and orthogonality analysis
-  taps.py          Shared tap definitions module (import this)
+  word_builder.py  Build or look up any concept
+  translate.py     Bidirectional translation
+  evaluate.py      Coverage and orthogonality analysis
+  chords.py        Shared chord definitions module (import this)
   requirements.txt Python dependencies
 ```
 
@@ -131,13 +141,13 @@ Sago needs a speaker community to stabilize its conventions. Three ways to contr
 2. **Report a collision** — two compositions for the same concept, or the same composition for two concepts
 3. **Translate something** — open an issue with your source text and the Sago output
 
-Word proposals require: the concept, proposed tap sequence, tap names, a gloss explaining the composition, and confidence (0.0–1.0).
+Word proposals require: the Sago word, its chord sequence, chord names, a concept description (language-neutral), and confidence (0.0–1.0).
 
 ---
 
 ## License
 
-Language specification (TAPS.md, GRAMMAR.md, paper): [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/) — use freely, credit Sago  
+Language specification (CHORDS.md, GRAMMAR.md, PHONOLOGY.md, paper): [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/) — use freely, credit Sago  
 Code (tools/): [MIT](LICENSE)  
 Dictionary: [CC0](https://creativecommons.org/publicdomain/zero/1.0/) — public domain, no restrictions
 

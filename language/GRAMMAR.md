@@ -4,7 +4,7 @@
 **Author:** Ryan Funk  
 **Date:** May 2026
 
-A language needs two things: a vocabulary and a grammar. TAPS.md defines the 90-tap vocabulary. This document defines the rules for combining taps into meaning.
+A language needs two things: a vocabulary and a grammar. TAPS.md defines the 90-chord vocabulary. This document defines the rules for combining taps into meaning.
 
 ---
 

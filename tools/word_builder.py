@@ -30,7 +30,7 @@ LANG_DIR = TOOLS_DIR.parent / "language"
 DICT_FILE = LANG_DIR / "dictionary.json"
 
 sys.path.insert(0, str(TOOLS_DIR))
-from taps import TAPS, BY_NAME, GRAMMAR_RULES, COMPOSITION_EXAMPLES, tap_inventory_string
+from chords import CHORDS as TAPS, BY_NAME, GRAMMAR_RULES, COMPOSITION_EXAMPLES, chord_inventory_string as tap_inventory_string
 
 
 # ── API ───────────────────────────────────────────────────────────────────────
@@ -125,24 +125,55 @@ def compose_word(client, concept: str) -> dict:
     return result
 
 
+def segment_word(word: str):
+    """Try to segment a flowing Sago word into its component chords (greedy, left-to-right)."""
+    word = word.lower()
+    result = []
+    i = 0
+    while i < len(word):
+        matched = False
+        for length in (2,):  # all chords are exactly 2 characters (CV)
+            candidate = word[i:i+length]
+            if candidate in TAPS:
+                result.append(candidate)
+                i += length
+                matched = True
+                break
+        if not matched:
+            return None  # couldn't segment
+    return result if result else None
+
+
 def validate_composition(taps_str: str) -> dict:
-    """Parse and validate a tap sequence string."""
-    syls = taps_str.lower().split()
+    """Parse and validate chord sequences or flowing composed words."""
+    tokens = taps_str.lower().split()
     valid = []
     invalid = []
-    for s in syls:
-        if s in TAPS:
-            valid.append(s)
+    segmented_from = []
+
+    for token in tokens:
+        if token in TAPS:
+            valid.append(token)
         else:
-            invalid.append(s)
-    return {
+            # Try to segment it as a flowing composed word (nafu → na + fu)
+            parts = segment_word(token)
+            if parts:
+                valid.extend(parts)
+                segmented_from.append((token, parts))
+            else:
+                invalid.append(token)
+
+    result = {
         "input": taps_str,
-        "valid_taps": valid,
-        "invalid_taps": invalid,
-        "tap_names": [TAPS[t]["name"] for t in valid],
+        "valid_chords": valid,
+        "invalid_tokens": invalid,
+        "chord_names": [TAPS[t]["name"] for t in valid],
         "gloss": " + ".join(TAPS[t]["name"] for t in valid),
         "is_valid": len(invalid) == 0 and len(valid) > 0,
     }
+    if segmented_from:
+        result["segmented"] = {w: parts for w, parts in segmented_from}
+    return result
 
 
 # ── Display ───────────────────────────────────────────────────────────────────
@@ -214,14 +245,17 @@ def cmd_validate(taps_str: str):
     result = validate_composition(taps_str)
     print(f"\n  Input:  {result['input']}")
     if result["is_valid"]:
-        print(f"  Valid:  {' '.join(result['valid_taps'])}")
+        print(f"  Chords: {' '.join(result['valid_chords'])}")
         print(f"  Gloss:  {result['gloss']}")
+        if result.get("segmented"):
+            for word, parts in result["segmented"].items():
+                print(f"  Parsed: {word} → {' + '.join(parts)}")
     else:
-        if result["valid_taps"]:
-            print(f"  Valid taps:   {' '.join(result['valid_taps'])}")
-        if result["invalid_taps"]:
-            print(f"  Invalid taps: {' '.join(result['invalid_taps'])}")
-            print(f"  Hint: all Sago taps are CV syllables (consonant + vowel)")
+        if result["valid_chords"]:
+            print(f"  Valid chords:    {' '.join(result['valid_chords'])}")
+        if result["invalid_tokens"]:
+            print(f"  Could not parse: {' '.join(result['invalid_tokens'])}")
+            print(f"  Hint: use space-separated chords (na fu) or a valid composed word (nafu)")
 
 
 def cmd_interactive(client, dictionary: dict):
