@@ -63,15 +63,15 @@ Sago is an open semantic system. Any concept can be expressed by composing primi
 ```bash
 cd tools
 python3 word_builder.py "photosynthesis"
-# → li re lu ko  (ALIVE AIR LIGHT SOLID)
-#   a living process of air, light, and solid matter
+# → lu fa  (LIGHT · PLANT)
+#   the process by which plants use light to live and grow
 
 python3 word_builder.py "democracy"
-# → ka pu de ro  (MANY PEOPLE DO WORD)
+# → ka pu de ro  (MANY · PEOPLE · DO · WORD)
 #   governance by the word of many people
 
 python3 word_builder.py "nostalgia"
-# → ba go da pa  (FEEL GOOD BECAUSE BEFORE)
+# → ba go da pa  (FEEL · GOOD · BECAUSE · BEFORE)
 #   good feeling caused by the past
 ```
 
@@ -110,20 +110,15 @@ Format:
 language/
   TAPS.md          Canonical 90-tap definitions (the alphabet)
   GRAMMAR.md       Complete grammar (22 rules)
-  dictionary.json  5,000-word English → Sago dictionary
+  dictionary.json  5,001-word English → Sago dictionary
+  sago_paper.md    Academic paper (submission version)
 
 tools/
   word_builder.py  Create or look up any word
   translate.py     Bidirectional English ↔ Sago translator
   evaluate.py      Vocabulary coverage and orthogonality analysis
   taps.py          Shared tap definitions module (import this)
-
-notebooks/
-  semantic_coverage.ipynb    Coverage analysis across tiers
-  composition_test.ipynb     Vector and LLM composition experiments
-
-language/
-  sago_paper.md    Academic paper (submission version)
+  requirements.txt Python dependencies
 ```
 
 ---
@@ -132,9 +127,9 @@ language/
 
 Sago needs a speaker community to stabilize its conventions. Three ways to contribute:
 
-1. **Propose a word** — open a PR adding to `dictionary.json`
+1. **Propose a word** — open a PR adding to `language/dictionary.json`
 2. **Report a collision** — two compositions for the same concept, or the same composition for two concepts
-3. **Translate something** — add a back-translation test to `notebooks/`
+3. **Translate something** — open an issue with your source text and the Sago output
 
 Word proposals require: the concept, proposed tap sequence, tap names, a gloss explaining the composition, and confidence (0.0–1.0).
 
@@ -142,9 +137,9 @@ Word proposals require: the concept, proposed tap sequence, tap names, a gloss e
 
 ## License
 
-Language specification (TAPS.md, GRAMMAR.md): [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/)  
-Code: MIT  
-Dictionary: CC BY 4.0
+Language specification (TAPS.md, GRAMMAR.md, paper): [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/) — use freely, credit Sago  
+Code (tools/): [MIT](LICENSE)  
+Dictionary: [CC0](https://creativecommons.org/publicdomain/zero/1.0/) — public domain, no restrictions
 
 ---
 

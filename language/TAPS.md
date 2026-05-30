@@ -219,7 +219,7 @@ These require companion mechanisms, not more taps:
 | Institutional vocabulary | salary, fiscal, database, bureau | Dictionary lookup (Claude API) |
 | Proper nouns | Paris, Beethoven, Ryan | Name bracket `we...we` |
 | Species names | house sparrow vs. starling | Compositional description + context |
-| Numbers | 12,030,455,021 | Number bracket `ko...mo` in base 8 |
+| Numbers | 12,030,455,021 | CVC nasal-coda digits (base-16): `nun win tim ron...` — see number system above |
 | Technical terms | algorithm, mitochondria | Dictionary + composition |
 
 ---
