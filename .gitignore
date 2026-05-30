@@ -29,3 +29,6 @@ venv/
 creds.json
 *.env
 .env
+
+# Expo
+.expo/
