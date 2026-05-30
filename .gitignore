@@ -1,9 +1,11 @@
 # Development workspace — not part of the public Sago spec
 notebooks/
 desktop/
-docs/
 data/
 mobile/
+
+# Keep docs/site/ but ignore old dev notes
+docs/*.md
 
 # Images and screenshots
 *.png

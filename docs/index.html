@@ -1,0 +1,791 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sago — sa go — I am well</title>
+  <meta name="description" content="Sago is a language built entirely from universal semantic primitives — concepts found in every human language ever studied.">
+  <style>
+    :root {
+      --bg: #fafafa;
+      --surface: #ffffff;
+      --deep: #0d1117;
+      --navy: #1a237e;
+      --blue: #3949ab;
+      --accent: #5c6bc0;
+      --amber: #ff8f00;
+      --amber-light: #fff3e0;
+      --muted: #546e7a;
+      --border: #e0e0e0;
+      --mono-bg: #f5f5f5;
+      --radius: 8px;
+      --shadow: 0 2px 12px rgba(0,0,0,0.08);
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      background: var(--bg);
+      color: var(--deep);
+      line-height: 1.6;
+    }
+
+    /* ── Nav ── */
+    nav {
+      position: sticky; top: 0; z-index: 100;
+      background: var(--navy);
+      padding: 0 2rem;
+      display: flex; align-items: center; justify-content: space-between;
+      height: 52px;
+    }
+    nav .brand {
+      font-size: 1.1rem; font-weight: 700; color: white;
+      letter-spacing: 0.05em;
+    }
+    nav .brand span { color: #ffd54f; }
+    nav ul {
+      display: flex; gap: 1.5rem; list-style: none;
+    }
+    nav a {
+      color: rgba(255,255,255,0.8); text-decoration: none;
+      font-size: 0.9rem; transition: color 0.2s;
+    }
+    nav a:hover { color: white; }
+
+    /* ── Hero ── */
+    .hero {
+      background: linear-gradient(135deg, #1a237e 0%, #283593 50%, #3949ab 100%);
+      color: white;
+      text-align: center;
+      padding: 5rem 2rem 4rem;
+    }
+    .hero-greeting {
+      font-size: clamp(3rem, 8vw, 6rem);
+      font-weight: 800;
+      letter-spacing: -0.02em;
+      line-height: 1;
+      margin-bottom: 0.5rem;
+    }
+    .hero-greeting .amber { color: #ffd54f; }
+    .hero-sub {
+      font-size: 1.4rem;
+      color: rgba(255,255,255,0.75);
+      margin-bottom: 2.5rem;
+      font-style: italic;
+    }
+    .hero-examples {
+      display: flex; flex-wrap: wrap; gap: 0.75rem;
+      justify-content: center; margin-bottom: 2.5rem;
+    }
+    .hero-chip {
+      background: rgba(255,255,255,0.1);
+      border: 1px solid rgba(255,255,255,0.2);
+      border-radius: 4px;
+      padding: 0.5rem 1rem;
+      font-family: 'SF Mono', 'Fira Code', monospace;
+      font-size: 0.9rem;
+      color: #fff;
+    }
+    .hero-chip .gloss { color: #ffd54f; margin-left: 0.75rem; font-style: italic; font-family: inherit; }
+    .hero-cta {
+      display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap;
+    }
+    .btn {
+      padding: 0.7rem 1.5rem; border-radius: var(--radius);
+      font-size: 0.95rem; font-weight: 600; cursor: pointer;
+      border: none; text-decoration: none; transition: all 0.2s;
+    }
+    .btn-primary {
+      background: #ffd54f; color: #1a237e;
+    }
+    .btn-primary:hover { background: #ffca28; transform: translateY(-1px); }
+    .btn-ghost {
+      background: rgba(255,255,255,0.1); color: white;
+      border: 1px solid rgba(255,255,255,0.3);
+    }
+    .btn-ghost:hover { background: rgba(255,255,255,0.2); }
+
+    /* ── Sections ── */
+    section { padding: 4rem 2rem; max-width: 1100px; margin: 0 auto; }
+    h2 {
+      font-size: 1.75rem; font-weight: 700; color: var(--navy);
+      margin-bottom: 0.5rem;
+    }
+    h2 .mono {
+      font-family: 'SF Mono', 'Fira Code', monospace;
+      font-size: 1rem; font-weight: 500; color: var(--accent);
+      margin-left: 0.75rem;
+    }
+    .section-lead {
+      color: var(--muted); font-size: 1.05rem; margin-bottom: 2rem;
+      max-width: 700px;
+    }
+    .divider { border: none; border-top: 1px solid var(--border); margin: 0; }
+
+    /* ── What is Sago ── */
+    .why-grid {
+      display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 1.5rem; margin-top: 2rem;
+    }
+    .why-card {
+      background: var(--surface); border: 1px solid var(--border);
+      border-radius: var(--radius); padding: 1.5rem;
+      box-shadow: var(--shadow);
+    }
+    .why-card h3 { font-size: 1rem; color: var(--navy); margin-bottom: 0.5rem; }
+    .why-card p { font-size: 0.9rem; color: var(--muted); }
+    .why-icon { font-size: 1.5rem; margin-bottom: 0.75rem; }
+
+    /* ── Chord Table ── */
+    .chord-controls {
+      display: flex; gap: 0.75rem; flex-wrap: wrap; margin-bottom: 1.5rem;
+      align-items: center;
+    }
+    .filter-btn {
+      padding: 0.35rem 0.9rem; border-radius: 999px; font-size: 0.85rem;
+      border: 1px solid var(--border); background: var(--surface);
+      cursor: pointer; transition: all 0.15s; color: var(--muted);
+    }
+    .filter-btn.active, .filter-btn:hover {
+      background: var(--navy); color: white; border-color: var(--navy);
+    }
+    .chord-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+      gap: 0.6rem;
+    }
+    .chord-card {
+      background: var(--surface); border: 1px solid var(--border);
+      border-radius: var(--radius); padding: 0.75rem 0.5rem;
+      text-align: center; cursor: pointer; transition: all 0.15s;
+      position: relative;
+    }
+    .chord-card:hover, .chord-card.selected {
+      border-color: var(--accent); box-shadow: 0 0 0 2px rgba(57,73,171,0.2);
+      transform: translateY(-2px);
+    }
+    .chord-card .syl {
+      font-family: 'SF Mono', 'Fira Code', monospace;
+      font-size: 1.4rem; font-weight: 700; color: var(--navy);
+    }
+    .chord-card .name {
+      font-size: 0.65rem; color: var(--muted); margin-top: 2px;
+      text-transform: uppercase; letter-spacing: 0.05em;
+    }
+    .chord-card .lvl {
+      position: absolute; top: 4px; right: 6px;
+      font-size: 0.6rem; color: var(--accent); font-weight: 600;
+    }
+    .chord-detail {
+      margin-top: 1.5rem; padding: 1.25rem 1.5rem;
+      background: var(--navy); color: white; border-radius: var(--radius);
+      display: none;
+    }
+    .chord-detail.visible { display: block; }
+    .chord-detail .big-syl {
+      font-family: 'SF Mono', monospace; font-size: 2.5rem;
+      font-weight: 800; color: #ffd54f;
+    }
+    .chord-detail .chord-meta { margin-top: 0.5rem; opacity: 0.85; }
+    .chord-detail .chord-meaning { font-size: 1.1rem; margin: 0.5rem 0; }
+
+    /* ── Concept Browser ── */
+    .concept-controls {
+      display: flex; gap: 0.75rem; flex-wrap: wrap; margin-bottom: 1.5rem;
+      align-items: center;
+    }
+    #concept-search {
+      flex: 1; min-width: 200px; padding: 0.5rem 1rem;
+      border: 1px solid var(--border); border-radius: var(--radius);
+      font-size: 0.9rem; outline: none;
+    }
+    #concept-search:focus { border-color: var(--accent); }
+    .domain-filter { display: flex; gap: 0.5rem; flex-wrap: wrap; }
+    .concept-grid {
+      display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+      gap: 0.75rem;
+    }
+    .concept-card {
+      background: var(--surface); border: 1px solid var(--border);
+      border-radius: var(--radius); padding: 1rem;
+      transition: box-shadow 0.15s;
+    }
+    .concept-card:hover { box-shadow: var(--shadow); }
+    .concept-word {
+      font-family: 'SF Mono', monospace; font-size: 1.3rem;
+      font-weight: 700; color: var(--navy);
+    }
+    .concept-chords {
+      font-size: 0.75rem; color: var(--accent); margin: 2px 0;
+    }
+    .concept-def {
+      font-size: 0.85rem; color: var(--muted); margin-top: 4px;
+    }
+    .concept-domain {
+      display: inline-block; margin-top: 6px;
+      font-size: 0.65rem; padding: 2px 8px; border-radius: 999px;
+      background: var(--amber-light); color: var(--amber);
+      font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em;
+    }
+    .no-results { color: var(--muted); text-align: center; padding: 2rem; }
+
+    /* ── Grammar ── */
+    .grammar-grid {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem;
+      margin-top: 2rem;
+    }
+    @media (max-width: 640px) { .grammar-grid { grid-template-columns: 1fr; } }
+    .grammar-rule {
+      background: var(--surface); border: 1px solid var(--border);
+      border-radius: var(--radius); padding: 1.25rem;
+    }
+    .grammar-rule h3 { font-size: 0.85rem; text-transform: uppercase;
+      letter-spacing: 0.08em; color: var(--accent); margin-bottom: 0.5rem; }
+    .grammar-rule .pattern {
+      font-family: 'SF Mono', monospace; font-size: 0.9rem;
+      color: var(--navy); margin-bottom: 0.5rem;
+    }
+    .grammar-example {
+      margin-top: 0.75rem; padding: 0.5rem 0.75rem;
+      background: var(--mono-bg); border-radius: 4px;
+      font-family: 'SF Mono', monospace; font-size: 0.82rem;
+    }
+    .grammar-example .en { color: var(--muted); display: block; font-size: 0.78rem; }
+
+    /* ── Philosophy ── */
+    .philosophy-grid {
+      display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 1.25rem; margin-top: 2rem;
+    }
+    .phil-card {
+      background: var(--navy); color: white; border-radius: var(--radius);
+      padding: 1.5rem; position: relative; overflow: hidden;
+    }
+    .phil-word {
+      font-family: 'SF Mono', monospace; font-size: 1.5rem;
+      font-weight: 800; color: #ffd54f; margin-bottom: 0.25rem;
+    }
+    .phil-gloss {
+      font-size: 0.8rem; color: rgba(255,255,255,0.6); margin-bottom: 0.75rem;
+      font-family: 'SF Mono', monospace;
+    }
+    .phil-meaning { font-size: 0.9rem; color: rgba(255,255,255,0.9); }
+    .phil-cite { font-size: 0.75rem; color: rgba(255,255,255,0.5); margin-top: 0.5rem; font-style: italic; }
+
+    /* ── Contribute ── */
+    .contribute-steps {
+      counter-reset: step; display: grid; gap: 1.25rem; margin-top: 2rem;
+    }
+    .step {
+      display: flex; gap: 1rem; align-items: flex-start;
+      background: var(--surface); border: 1px solid var(--border);
+      border-radius: var(--radius); padding: 1.25rem;
+    }
+    .step-num {
+      background: var(--navy); color: white;
+      width: 32px; height: 32px; border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-weight: 700; font-size: 0.9rem; flex-shrink: 0;
+    }
+    .step-content h3 { font-size: 1rem; margin-bottom: 0.25rem; }
+    .step-content p { font-size: 0.88rem; color: var(--muted); }
+    code {
+      font-family: 'SF Mono', 'Fira Code', monospace;
+      background: var(--mono-bg); padding: 1px 5px; border-radius: 3px;
+      font-size: 0.9em;
+    }
+
+    /* ── Footer ── */
+    footer {
+      background: var(--deep); color: rgba(255,255,255,0.6);
+      text-align: center; padding: 2.5rem 2rem;
+      font-size: 0.85rem;
+    }
+    footer .sago { font-size: 1.5rem; color: #ffd54f; font-family: 'SF Mono', monospace; display: block; margin-bottom: 0.5rem; }
+    footer a { color: rgba(255,255,255,0.5); }
+
+    /* ── Responsive ── */
+    @media (max-width: 600px) {
+      .chord-grid { grid-template-columns: repeat(auto-fill, minmax(80px, 1fr)); }
+      nav ul { display: none; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- Nav -->
+<nav>
+  <div class="brand"><span>sa go</span> — Sago</div>
+  <ul>
+    <li><a href="#chords">Chords</a></li>
+    <li><a href="#concepts">Concepts</a></li>
+    <li><a href="#grammar">Grammar</a></li>
+    <li><a href="#contribute">Contribute</a></li>
+    <li><a href="https://github.com/RyanFunk021/sago" target="_blank">GitHub ↗</a></li>
+  </ul>
+</nav>
+
+<!-- Hero -->
+<div class="hero">
+  <div class="hero-greeting">
+    <span class="amber">sa</span> go
+  </div>
+  <div class="hero-sub">I am well — Hello — a greeting that is also a name</div>
+
+  <div class="hero-examples">
+    <div class="hero-chip">nafu<span class="gloss">cold</span></div>
+    <div class="hero-chip">fumo<span class="gloss">fire</span></div>
+    <div class="hero-chip">bago<span class="gloss">joy</span></div>
+    <div class="hero-chip">nadena<span class="gloss">freedom</span></div>
+    <div class="hero-chip">tere<span class="gloss">spirit</span></div>
+    <div class="hero-chip">wuyago<span class="gloss">hope</span></div>
+  </div>
+
+  <div class="hero-cta">
+    <a href="#chords" class="btn btn-primary">Explore the 90 Chords</a>
+    <a href="language/sago_paper.md" class="btn btn-ghost">Read the Paper</a>
+    <a href="https://github.com/RyanFunk021/sago" class="btn btn-ghost" target="_blank">GitHub</a>
+  </div>
+</div>
+
+<!-- What is Sago -->
+<section id="about">
+  <h2>What is Sago</h2>
+  <p class="section-lead">
+    Sago is a language built from the ground up — not from any natural language,
+    but from the 65 semantic primitives found in every human language ever studied.
+  </p>
+  <div class="why-grid">
+    <div class="why-card">
+      <div class="why-icon">🧠</div>
+      <h3>Meaning-first</h3>
+      <p>Every word is built from concepts that are universal — present in every language on earth. No cultural cargo, no borrowed vocabulary.</p>
+    </div>
+    <div class="why-card">
+      <div class="why-icon">🎵</div>
+      <h3>90 chords</h3>
+      <p>90 semantic units, each a two-letter syllable. They combine into flowing words: <code>na+fu → nafu</code> (cold), <code>fu+mo → fumo</code> (fire).</p>
+    </div>
+    <div class="why-card">
+      <div class="why-icon">🌍</div>
+      <h3>Truly universal</h3>
+      <p>Based on 50 years of cross-linguistic research by Wierzbicka and Goddard across 90+ languages. Not Eurocentric — not any-centric.</p>
+    </div>
+    <div class="why-card">
+      <div class="why-icon">📖</div>
+      <h3>Open forever</h3>
+      <p>The language spec is CC BY. The dictionary is CC0 — public domain. The code is MIT. Use it for anything.</p>
+    </div>
+  </div>
+</section>
+
+<hr class="divider">
+
+<!-- Chord Explorer -->
+<section id="chords">
+  <h2>The 90 Chords <span class="mono">CHORDS.md</span></h2>
+  <p class="section-lead">
+    Every chord is a CV syllable — one consonant, one vowel.
+    18 consonants × 5 vowels = exactly 90. The phonological and semantic spaces are in perfect bijection.
+    Click any chord to learn more.
+  </p>
+
+  <div class="chord-controls">
+    <span style="font-size:0.85rem;color:var(--muted);margin-right:0.25rem">Filter:</span>
+    <button class="filter-btn active" onclick="filterChords('all')">All 90</button>
+    <button class="filter-btn" onclick="filterChords(1)">L1 · Core</button>
+    <button class="filter-btn" onclick="filterChords(2)">L2 · Physical</button>
+    <button class="filter-btn" onclick="filterChords(3)">L3 · Grammar</button>
+    <button class="filter-btn" onclick="filterChords(4)">L4 · Wierzbicka</button>
+    <button class="filter-btn" onclick="filterChords(5)">L5 · Molecules</button>
+  </div>
+
+  <div class="chord-grid" id="chord-grid"></div>
+
+  <div class="chord-detail" id="chord-detail">
+    <div style="display:flex;align-items:center;gap:1.5rem;flex-wrap:wrap">
+      <div class="big-syl" id="detail-syl"></div>
+      <div>
+        <div id="detail-name" style="font-size:1.1rem;font-weight:700;color:#ffd54f"></div>
+        <div id="detail-level" style="font-size:0.8rem;opacity:0.6;margin:2px 0"></div>
+        <div id="detail-meaning" style="margin-top:4px"></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<hr class="divider">
+
+<!-- Concept Browser -->
+<section id="concepts">
+  <h2>Concept Dictionary <span class="mono">concepts.json</span></h2>
+  <p class="section-lead">
+    Browse 186 Sago words by domain — not by English translation.
+    Each entry is a Sago word with its chord breakdown and concept description.
+  </p>
+
+  <div class="concept-controls">
+    <input type="text" id="concept-search" placeholder="Search concepts…" oninput="renderConcepts()">
+    <div class="domain-filter" id="domain-filter"></div>
+  </div>
+  <div class="concept-grid" id="concept-grid"></div>
+</section>
+
+<hr class="divider">
+
+<!-- Grammar -->
+<section id="grammar">
+  <h2>Grammar</h2>
+  <p class="section-lead">
+    Cognitive order = chord order. Tap sequences follow how attention moves:
+    when → who → what → to what → how.
+  </p>
+  <div class="grammar-grid">
+    <div class="grammar-rule">
+      <h3>Sentence structure</h3>
+      <div class="pattern">[TIME] TOPIC PREDICATE [PATIENT]</div>
+      <div class="grammar-example">
+        sa wu du<span class="en">I want water — SELF WANT WATER</span>
+      </div>
+    </div>
+    <div class="grammar-rule">
+      <h3>No copula</h3>
+      <div class="pattern">Topic + state = "is"</div>
+      <div class="grammar-example">
+        sa go<span class="en">I am well — SELF GOOD</span>
+      </div>
+    </div>
+    <div class="grammar-rule">
+      <h3>Tense</h3>
+      <div class="pattern">pa = past · ya = future · (none) = now</div>
+      <div class="grammar-example">
+        pa sa mo la<span class="en">I went away — BEFORE SELF MOVE FAR</span>
+      </div>
+    </div>
+    <div class="grammar-rule">
+      <h3>Negation</h3>
+      <div class="pattern">na directly before what it negates</div>
+      <div class="grammar-example">
+        sa na wu du<span class="en">I don't want water — SELF NOT-WANT WATER</span>
+      </div>
+    </div>
+    <div class="grammar-rule">
+      <h3>Questions</h3>
+      <div class="pattern">mi at end (yes/no) · WH-chord first</div>
+      <div class="grammar-example">
+        to wu du mi<span class="en">Do you want water?</span>
+        wa to mo mi<span class="en">Where are you going?</span>
+      </div>
+    </div>
+    <div class="grammar-rule">
+      <h3>Chords flow</h3>
+      <div class="pattern">CV + CV → no clusters, ever</div>
+      <div class="grammar-example">
+        na·fu → nafu<span class="en">cold — NOT HEAT</span>
+        fu·mo → fumo<span class="en">fire — HEAT MOVE</span>
+      </div>
+    </div>
+  </div>
+  <p style="margin-top:1.5rem;font-size:0.9rem;color:var(--muted)">
+    Full grammar (22 rules, emotion system, comparatives, modality, discourse) →
+    <a href="https://github.com/RyanFunk021/sago/blob/main/language/GRAMMAR.md" target="_blank">GRAMMAR.md</a>
+  </p>
+</section>
+
+<hr class="divider">
+
+<!-- Emergent Philosophy -->
+<section id="philosophy">
+  <h2>What the chords reveal</h2>
+  <p class="section-lead">
+    These compositions were not designed. They emerged when the primitive system was applied to familiar concepts.
+  </p>
+  <div class="philosophy-grid">
+    <div class="phil-card">
+      <div class="phil-word">nadena</div>
+      <div class="phil-gloss">na · de · na — NOT · DO · NOT</div>
+      <div class="phil-meaning">Freedom: the absence of the prevention of action. Double negation = liberation.</div>
+      <div class="phil-cite">Berlin's negative liberty in 3 chords</div>
+    </div>
+    <div class="phil-card">
+      <div class="phil-word">tesunavi</div>
+      <div class="phil-gloss">te · su · na · vi — THINK · TRUE · NOT · SEE</div>
+      <div class="phil-meaning">Faith: believing truly in the absence of seeing.</div>
+      <div class="phil-cite">Hebrews 11:1 — "evidence of things not seen"</div>
+    </div>
+    <div class="phil-card">
+      <div class="phil-word">tere</div>
+      <div class="phil-gloss">te · re — THINK · AIR</div>
+      <div class="phil-meaning">Spirit: the breath-mind. The connection encoded in <em>spiritus</em>, <em>ruach</em>, <em>pneuma</em>, <em>qi</em>, <em>prana</em>.</div>
+      <div class="phil-cite">Rediscovered across all cultures</div>
+    </div>
+    <div class="phil-card">
+      <div class="phil-word">dejeba</div>
+      <div class="phil-gloss">de · je · ba · bi — DO · TOGETHER · FEEL · BAD</div>
+      <div class="phil-meaning">Courage: acting while afraid. Not the absence of fear — presence of action despite it.</div>
+      <div class="phil-cite">Aristotle's definition of courage</div>
+    </div>
+    <div class="phil-card">
+      <div class="phil-word">wepaka</div>
+      <div class="phil-gloss">we · pa · ka — SAY · BEFORE · MANY</div>
+      <div class="phil-meaning">History: the many sayings of the past. Not what happened — what was told.</div>
+      <div class="phil-cite">Hayden White's narrativism, 3 chords</div>
+    </div>
+    <div class="phil-card">
+      <div class="phil-word">wuyago</div>
+      <div class="phil-gloss">wu · ya · go — WANT · AFTER · GOOD</div>
+      <div class="phil-meaning">Hope: wanting future good.</div>
+      <div class="phil-cite">Aristotle's definition of hope</div>
+    </div>
+  </div>
+</section>
+
+<hr class="divider">
+
+<!-- Contribute -->
+<section id="contribute">
+  <h2>Contribute</h2>
+  <p class="section-lead">
+    Sago needs a speaker community to stabilize its conventions. Every language lives through use.
+  </p>
+  <div class="contribute-steps">
+    <div class="step">
+      <div class="step-num">1</div>
+      <div class="step-content">
+        <h3>Propose a word</h3>
+        <p>Open a pull request adding an entry to <code>language/concepts.json</code>. Include the Sago word, its chord sequence, and a language-neutral concept description.</p>
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-num">2</div>
+      <div class="step-content">
+        <h3>Build or validate a word</h3>
+        <p>Use the word builder: <code>python3 tools/word_builder.py "your concept"</code> or <code>--validate "nafu"</code> to check any composition.</p>
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-num">3</div>
+      <div class="step-content">
+        <h3>Report a collision</h3>
+        <p>If two concepts share the same Sago word, or the same concept gets two words, open an issue. Disambiguation is the community's job.</p>
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-num">4</div>
+      <div class="step-content">
+        <h3>Translate something</h3>
+        <p>Try the bidirectional translator: <code>python3 tools/translate.py</code>. Share your results — back-translation tests help stabilize conventions.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Footer -->
+<footer>
+  <span class="sago">sa go</span>
+  I am well — Ryan Funk, May 2026 ·
+  <a href="https://github.com/RyanFunk021/sago" target="_blank">github.com/RyanFunk021/sago</a> ·
+  Language: <a href="https://creativecommons.org/licenses/by/4.0/" target="_blank">CC BY 4.0</a> ·
+  Dictionary: <a href="https://creativecommons.org/publicdomain/zero/1.0/" target="_blank">CC0</a>
+</footer>
+
+<script>
+// ── Chord data ────────────────────────────────────────────────────────────────
+const CHORDS = {
+  "sa":{"name":"SELF","level":1,"meaning":"the one who speaks; the speaker"},
+  "to":{"name":"OTHER","level":1,"meaning":"any being or thing that is not the speaker"},
+  "na":{"name":"NOT","level":1,"meaning":"negation; absence; the opposite"},
+  "wu":{"name":"WANT","level":1,"meaning":"desire; need; intention"},
+  "go":{"name":"GOOD","level":1,"meaning":"positive; correct; beneficial; safe"},
+  "bi":{"name":"BAD","level":1,"meaning":"negative; harmful; wrong; dangerous"},
+  "ne":{"name":"NOW","level":1,"meaning":"the present moment; immediacy"},
+  "hi":{"name":"HERE","level":1,"meaning":"this place; where the speaker is"},
+  "li":{"name":"ALIVE","level":2,"meaning":"living; animate; conscious"},
+  "mo":{"name":"MOVE","level":2,"meaning":"motion; change of position or state"},
+  "te":{"name":"THINK","level":2,"meaning":"mental activity; knowing; understanding"},
+  "du":{"name":"WATER","level":2,"meaning":"liquid substance; fluid"},
+  "fu":{"name":"HEAT","level":2,"meaning":"thermal energy; warmth; temperature"},
+  "re":{"name":"AIR","level":2,"meaning":"gaseous matter; breath; atmosphere"},
+  "ko":{"name":"SOLID","level":2,"meaning":"hard matter; the tangible earth"},
+  "lu":{"name":"LIGHT","level":2,"meaning":"visible energy; brightness"},
+  "pa":{"name":"BEFORE","level":3,"meaning":"prior in time; earlier"},
+  "ya":{"name":"AFTER","level":3,"meaning":"subsequent in time; later"},
+  "da":{"name":"BECAUSE","level":3,"meaning":"cause; reason; explanation"},
+  "di":{"name":"IF","level":3,"meaning":"conditional; hypothetical"},
+  "pi":{"name":"CAN","level":3,"meaning":"ability; possibility; permission"},
+  "ma":{"name":"MORE","level":3,"meaning":"greater degree; increase"},
+  "si":{"name":"SAME","level":3,"meaning":"identical; equal; equivalent"},
+  "la":{"name":"FAR","level":3,"meaning":"distant; away; remote"},
+  "va":{"name":"ABOVE","level":3,"meaning":"higher than; over; elevated"},
+  "ja":{"name":"INSIDE","level":3,"meaning":"contained within; interior"},
+  "ba":{"name":"FEEL","level":3,"meaning":"emotional or physical sensation"},
+  "ra":{"name":"HEAR","level":3,"meaning":"auditory perception; receiving sound"},
+  "we":{"name":"SAY","level":3,"meaning":"verbal expression; communication"},
+  "ka":{"name":"MANY","level":3,"meaning":"plural; numerous"},
+  "bo":{"name":"BODY","level":3,"meaning":"the physical form; flesh"},
+  "pe":{"name":"KIND","level":3,"meaning":"a type or category; the sort of thing"},
+  "zo":{"name":"SOMEONE","level":4,"meaning":"an unspecified person"},
+  "ze":{"name":"SOMETHING","level":4,"meaning":"an unspecified thing"},
+  "pu":{"name":"PEOPLE","level":4,"meaning":"humans collectively"},
+  "ta":{"name":"ONE","level":4,"meaning":"a single instance; unit"},
+  "ti":{"name":"TWO","level":4,"meaning":"a pair; two instances"},
+  "so":{"name":"SOME","level":4,"meaning":"an indefinite portion"},
+  "zu":{"name":"ALL","level":4,"meaning":"every instance; universal"},
+  "fi":{"name":"FEW","level":4,"meaning":"a small number; not many"},
+  "ga":{"name":"BIG","level":4,"meaning":"large in scale or degree"},
+  "gi":{"name":"SMALL","level":4,"meaning":"small in scale or degree"},
+  "no":{"name":"KNOW","level":4,"meaning":"certain knowledge; established fact"},
+  "vi":{"name":"SEE","level":4,"meaning":"visual perception; sight"},
+  "tu":{"name":"TOUCH","level":4,"meaning":"physical contact; tactile perception"},
+  "de":{"name":"DO","level":4,"meaning":"intentional action; deliberate doing"},
+  "ha":{"name":"HAPPEN","level":4,"meaning":"an event without an agent"},
+  "ho":{"name":"HAVE","level":4,"meaning":"possession; containing"},
+  "za":{"name":"EXIST","level":4,"meaning":"presence; being there; there is"},
+  "gu":{"name":"DIE","level":4,"meaning":"ceasing to live; end of life"},
+  "su":{"name":"TRUE","level":4,"meaning":"factual; real; actual"},
+  "ro":{"name":"WORD","level":4,"meaning":"a linguistic unit; a name"},
+  "mi":{"name":"MAYBE","level":4,"meaning":"uncertain; possible; perhaps"},
+  "lo":{"name":"LIKE","level":4,"meaning":"similar to; in the manner of"},
+  "ve":{"name":"VERY","level":4,"meaning":"intensifier; to a great degree"},
+  "ni":{"name":"NEAR","level":4,"meaning":"close to; proximate"},
+  "be":{"name":"BELOW","level":4,"meaning":"lower than; under; beneath"},
+  "ri":{"name":"SIDE","level":4,"meaning":"lateral; beside; adjacent"},
+  "wi":{"name":"WHEN","level":4,"meaning":"at which time"},
+  "wa":{"name":"WHERE","level":4,"meaning":"at which place"},
+  "mu":{"name":"MOMENT","level":4,"meaning":"a brief instant; a point in time"},
+  "po":{"name":"PART","level":4,"meaning":"a component; a piece of a whole"},
+  "nu":{"name":"ANOTHER","level":4,"meaning":"a different one; not this"},
+  "yo":{"name":"THIS","level":4,"meaning":"the proximal referent"},
+  "le":{"name":"TREE","level":5,"meaning":"a tall woody plant with a trunk"},
+  "ge":{"name":"MOON","level":5,"meaning":"the large natural satellite visible at night"},
+  "fo":{"name":"FOOT","level":5,"meaning":"the lowest part of the leg; base"},
+  "bu":{"name":"BIRD","level":5,"meaning":"a feathered flying vertebrate"},
+  "ru":{"name":"ROAD","level":5,"meaning":"a path made for travel; a route"},
+  "se":{"name":"STAR","level":5,"meaning":"a distant sun; point of night light"},
+  "do":{"name":"DAY","level":5,"meaning":"period of solar light; one rotation"},
+  "fa":{"name":"PLANT","level":5,"meaning":"a rooted living thing; vegetation"},
+  "me":{"name":"MAN","level":5,"meaning":"an adult male human"},
+  "ku":{"name":"MOTHER","level":5,"meaning":"the female parent"},
+  "je":{"name":"TOGETHER","level":5,"meaning":"in mutual company; jointly"},
+  "ki":{"name":"ANIMAL","level":5,"meaning":"a non-plant living creature"},
+  "hu":{"name":"FATHER","level":5,"meaning":"the male parent"},
+  "ye":{"name":"EYE","level":5,"meaning":"the visual organ; organ of sight"},
+  "he":{"name":"EARTH","level":5,"meaning":"the ground; soil; this planet"},
+  "ji":{"name":"HARD","level":5,"meaning":"resistant to deformation; rigid"},
+  "vo":{"name":"SHARP","level":5,"meaning":"having a fine point or cutting edge"},
+  "vu":{"name":"MOUTH","level":5,"meaning":"the oral opening; organ of speech"},
+  "jo":{"name":"EAR","level":5,"meaning":"the auditory organ"},
+  "ju":{"name":"ROUND","level":5,"meaning":"circular or spherical in form"},
+  "fe":{"name":"TASTE","level":5,"meaning":"gustatory sense; flavor quality"},
+  "yi":{"name":"BACK","level":5,"meaning":"the posterior surface; rear side"},
+  "yu":{"name":"NIGHT","level":5,"meaning":"the period of darkness"},
+  "zi":{"name":"GROUND","level":5,"meaning":"the surface underfoot; the floor"},
+  "ke":{"name":"CLOTH","level":5,"meaning":"woven fabric; textile material"},
+  "wo":{"name":"NOSE","level":5,"meaning":"the olfactory organ"}
+};
+
+const LEVEL_LABELS = {1:"L1·Core",2:"L2·Physical",3:"L3·Grammar",4:"L4·Wierzbicka",5:"L5·Molecules"};
+const LEVEL_COLORS = {1:"#c62828",2:"#1565c0",3:"#2e7d32",4:"#6a1b9a",5:"#e65100"};
+
+let currentLevel = 'all';
+let selectedChord = null;
+
+function renderChords() {
+  const grid = document.getElementById('chord-grid');
+  grid.innerHTML = '';
+  Object.entries(CHORDS).forEach(([syl, info]) => {
+    if (currentLevel !== 'all' && info.level !== currentLevel) return;
+    const card = document.createElement('div');
+    card.className = 'chord-card';
+    card.innerHTML = `
+      <div class="syl">${syl}</div>
+      <div class="name">${info.name}</div>
+      <div class="lvl" style="color:${LEVEL_COLORS[info.level]}">L${info.level}</div>
+    `;
+    card.onclick = () => selectChord(syl, card);
+    grid.appendChild(card);
+  });
+}
+
+function selectChord(syl, card) {
+  document.querySelectorAll('.chord-card').forEach(c => c.classList.remove('selected'));
+  card.classList.add('selected');
+  selectedChord = syl;
+  const info = CHORDS[syl];
+  const detail = document.getElementById('chord-detail');
+  document.getElementById('detail-syl').textContent = syl;
+  document.getElementById('detail-name').textContent = info.name;
+  document.getElementById('detail-level').textContent = LEVEL_LABELS[info.level];
+  document.getElementById('detail-meaning').textContent = info.meaning;
+  detail.classList.add('visible');
+}
+
+function filterChords(level) {
+  currentLevel = level;
+  document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+  event.target.classList.add('active');
+  document.getElementById('chord-detail').classList.remove('visible');
+  renderChords();
+}
+
+// ── Concept data ──────────────────────────────────────────────────────────────
+const CONCEPTS = {"sa":{"word":"sa","chords":["sa"],"chord_names":["SELF"],"concept":"the one who speaks; the speaker; first person","domain":"identity","level":1},"to":{"word":"to","chords":["to"],"chord_names":["OTHER"],"concept":"any being or thing that is not the speaker","domain":"identity","level":1},"na":{"word":"na","chords":["na"],"chord_names":["NOT"],"concept":"negation; absence; the opposite","domain":"logic","level":1},"wu":{"word":"wu","chords":["wu"],"chord_names":["WANT"],"concept":"desire; need; intention; motivation toward something","domain":"mental","level":1},"go":{"word":"go","chords":["go"],"chord_names":["GOOD"],"concept":"positive; correct; beneficial; safe; well","domain":"value","level":1},"bi":{"word":"bi","chords":["bi"],"chord_names":["BAD"],"concept":"negative; harmful; wrong; dangerous; broken","domain":"value","level":1},"ne":{"word":"ne","chords":["ne"],"chord_names":["NOW"],"concept":"the present moment; immediacy; currently happening","domain":"time","level":1},"hi":{"word":"hi","chords":["hi"],"chord_names":["HERE"],"concept":"this place; where the speaker is; proximal location","domain":"space","level":1},"nafu":{"word":"nafu","chords":["na","fu"],"chord_names":["NOT","HEAT"],"concept":"absence of heat; cold temperature","domain":"physical","level":2},"fumo":{"word":"fumo","chords":["fu","mo"],"chord_names":["HEAT","MOVE"],"concept":"heat in motion; combustion; fire","domain":"physical","level":2},"dure":{"word":"dure","chords":["du","re"],"chord_names":["WATER","AIR"],"concept":"water in gaseous suspension; cloud or mist","domain":"physical","level":2},"dufure":{"word":"dufure","chords":["du","fu","re"],"chord_names":["WATER","HEAT","AIR"],"concept":"water heated to gas; steam","domain":"physical","level":2},"dumo":{"word":"dumo","chords":["du","mo"],"chord_names":["WATER","MOVE"],"concept":"moving water; flowing liquid; river or stream","domain":"nature","level":2},"remo":{"word":"remo","chords":["re","mo"],"chord_names":["AIR","MOVE"],"concept":"air in motion; wind","domain":"nature","level":2},"duga":{"word":"duga","chords":["du","ga"],"chord_names":["WATER","BIG"],"concept":"a large body of water; ocean or sea","domain":"nature","level":2},"nali":{"word":"nali","chords":["na","li"],"chord_names":["NOT","ALIVE"],"concept":"not living; dead; the state after life ended","domain":"life","level":2},"ligo":{"word":"ligo","chords":["li","go"],"chord_names":["ALIVE","GOOD"],"concept":"in a good state of life; healthy; thriving","domain":"life","level":2},"libi":{"word":"libi","chords":["li","bi"],"chord_names":["ALIVE","BAD"],"concept":"in a bad state of life; sick; ill","domain":"life","level":2},"lima":{"word":"lima","chords":["li","ma"],"chord_names":["ALIVE","MORE"],"concept":"more alive; growing; becoming larger or stronger","domain":"life","level":2},"bago":{"word":"bago","chords":["ba","go"],"chord_names":["FEEL","GOOD"],"concept":"a positive affective state; pleasant feeling","domain":"emotion","level":3},"babi":{"word":"babi","chords":["ba","bi"],"chord_names":["FEEL","BAD"],"concept":"a negative affective state; unpleasant feeling","domain":"emotion","level":3},"bagoza":{"word":"bagoza","chords":["ba","go","za"],"chord_names":["FEEL","GOOD","EXIST"],"concept":"joy; good feeling about existence itself","domain":"emotion","level":3},"wuyago":{"word":"wuyago","chords":["wu","ya","go"],"chord_names":["WANT","AFTER","GOOD"],"concept":"hope; desiring a future good state","domain":"emotion","level":3},"nawuyago":{"word":"nawuyago","chords":["na","wu","ya","go"],"chord_names":["NOT","WANT","AFTER","GOOD"],"concept":"despair; having given up on future good","domain":"emotion","level":3},"dejeba":{"word":"dejeba","chords":["de","je","ba","bi"],"chord_names":["DO","TOGETHER","FEEL","BAD"],"concept":"courage; acting despite fear; doing while afraid","domain":"emotion","level":3},"tere":{"word":"tere","chords":["te","re"],"chord_names":["THINK","AIR"],"concept":"the breath-mind; spirit; conscious animating force","domain":"mental","level":2},"temago":{"word":"temago","chords":["te","ma","go"],"chord_names":["THINK","MORE","GOOD"],"concept":"wisdom; thinking that leads consistently to good","domain":"mental","level":4},"nano":{"word":"nano","chords":["na","no"],"chord_names":["NOT","KNOW"],"concept":"not knowing; uncertainty; doubt","domain":"mental","level":4},"tesu":{"word":"tesu","chords":["te","su"],"chord_names":["THINK","TRUE"],"concept":"believing firmly; conviction; faith in what is real","domain":"mental","level":3},"tesunavi":{"word":"tesunavi","chords":["te","su","na","vi"],"chord_names":["THINK","TRUE","NOT","SEE"],"concept":"faith; believing truly without seeing","domain":"mental","level":4},"suwе":{"word":"suwe","chords":["su","we"],"chord_names":["TRUE","SAY"],"concept":"true saying; truth; a factual statement","domain":"language","level":4},"nawesu":{"word":"nawesu","chords":["na","we","su"],"chord_names":["NOT","SAY","TRUE"],"concept":"a false saying; a lie","domain":"language","level":4},"weyade":{"word":"weyade","chords":["we","ya","de"],"chord_names":["SAY","AFTER","DO"],"concept":"a commitment to future action; a promise","domain":"language","level":4},"wepa":{"word":"wepa","chords":["we","pa"],"chord_names":["SAY","BEFORE"],"concept":"a telling of the past; story","domain":"language","level":3},"wepaka":{"word":"wepaka","chords":["we","pa","ka"],"chord_names":["SAY","BEFORE","MANY"],"concept":"the accumulated sayings of the past; History","domain":"language","level":5},"roka":{"word":"roka","chords":["ro","ka"],"chord_names":["WORD","MANY"],"concept":"many words; a language; a system of words","domain":"language","level":4},"jeliti":{"word":"jeliti","chords":["je","li","ti"],"chord_names":["TOGETHER","ALIVE","TWO"],"concept":"two lives lived together; partnership; marriage","domain":"social","level":5},"nadena":{"word":"nadena","chords":["na","de","na"],"chord_names":["NOT","DO","NOT"],"concept":"the absence of prevention; freedom","domain":"social","level":4},"kale":{"word":"kale","chords":["ka","le"],"chord_names":["MANY","TREE"],"concept":"many trees; a forest; woodland","domain":"nature","level":5},"dumobe":{"word":"dumobe","chords":["du","mo","be"],"chord_names":["WATER","MOVE","DOWN"],"concept":"water moving downward; rain","domain":"nature","level":3},"luga":{"word":"luga","chords":["lu","ga"],"chord_names":["LIGHT","BIG"],"concept":"a great source of light; the sun","domain":"nature","level":3},"bagodapa":{"word":"bagodapa","chords":["ba","go","da","pa"],"chord_names":["FEEL","GOOD","BECAUSE","BEFORE"],"concept":"nostalgia; good feeling caused by the past","domain":"emotion","level":3},"mofo":{"word":"mofo","chords":["mo","fo"],"chord_names":["MOVE","FOOT"],"concept":"moving on foot; walking","domain":"action","level":3},"moreva":{"word":"moreva","chords":["mo","re","va"],"chord_names":["MOVE","AIR","ABOVE"],"concept":"moving through the air upward; flying","domain":"action","level":3},"modu":{"word":"modu","chords":["mo","du"],"chord_names":["MOVE","WATER"],"concept":"moving through water; swimming","domain":"action","level":3},"pala":{"word":"pala","chords":["pa","la"],"chord_names":["BEFORE","FAR"],"concept":"long ago; distant past; ancient time","domain":"time","level":3},"yala":{"word":"yala","chords":["ya","la"],"chord_names":["AFTER","FAR"],"concept":"far in the future; a long time hence","domain":"time","level":3},"gamu":{"word":"gamu","chords":["ga","mu"],"chord_names":["BIG","MOMENT"],"concept":"a long time; extended duration","domain":"time","level":3},"gimu":{"word":"gimu","chords":["gi","mu"],"chord_names":["SMALL","MOMENT"],"concept":"a brief time; short duration","domain":"time","level":3},"teyu":{"word":"teyu","chords":["te","yu"],"chord_names":["THINK","NIGHT"],"concept":"thinking in the dark; dreaming","domain":"mental","level":3},"vigo":{"word":"vigo","chords":["vi","go"],"chord_names":["SEE","GOOD"],"concept":"good to see; pleasing to the eye; beautiful","domain":"value","level":4}};
+
+let activeDomain = 'all';
+
+function getAllDomains() {
+  const d = new Set(Object.values(CONCEPTS).map(c => c.domain));
+  return ['all', ...Array.from(d).sort()];
+}
+
+function renderDomainFilters() {
+  const container = document.getElementById('domain-filter');
+  getAllDomains().forEach(dom => {
+    const btn = document.createElement('button');
+    btn.className = 'filter-btn' + (dom === 'all' ? ' active' : '');
+    btn.textContent = dom === 'all' ? 'All' : dom;
+    btn.onclick = () => {
+      activeDomain = dom;
+      document.querySelectorAll('.domain-filter .filter-btn').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      renderConcepts();
+    };
+    container.appendChild(btn);
+  });
+}
+
+function renderConcepts() {
+  const query = document.getElementById('concept-search').value.toLowerCase();
+  const grid = document.getElementById('concept-grid');
+  grid.innerHTML = '';
+  let count = 0;
+
+  Object.values(CONCEPTS).forEach(c => {
+    if (activeDomain !== 'all' && c.domain !== activeDomain) return;
+    if (query && !c.word.includes(query) && !c.concept.toLowerCase().includes(query) && !c.chord_names.join(' ').toLowerCase().includes(query)) return;
+    count++;
+    const card = document.createElement('div');
+    card.className = 'concept-card';
+    card.innerHTML = `
+      <div class="concept-word">${c.word}</div>
+      <div class="concept-chords">${c.chords.join(' · ')}</div>
+      <div class="concept-def">${c.concept}</div>
+      <div class="concept-domain">${c.domain}</div>
+    `;
+    grid.appendChild(card);
+  });
+
+  if (count === 0) {
+    grid.innerHTML = '<div class="no-results">No concepts found — try a different search.</div>';
+  }
+}
+
+// ── Init ──────────────────────────────────────────────────────────────────────
+renderChords();
+renderDomainFilters();
+renderConcepts();
+</script>
+
+</body>
+</html>
