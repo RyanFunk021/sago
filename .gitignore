@@ -1,0 +1,8 @@
+node_modules/
+__pycache__/
+*.pyc
+.expo/
+.DS_Store
+*.egg-info/
+.streamlit/
+/desktop/learner_model.json
