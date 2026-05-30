@@ -1,8 +1,31 @@
-node_modules/
+# Development workspace — not part of the public Sago spec
+notebooks/
+desktop/
+docs/
+data/
+mobile/
+
+# Images and screenshots
+*.png
+*.jpg
+*.jpeg
+Screenshot*
+
+# Python
 __pycache__/
 *.pyc
-.expo/
-.DS_Store
+*.pyo
+.venv/
+venv/
 *.egg-info/
-.streamlit/
-/desktop/learner_model.json
+
+# Editor
+.DS_Store
+.vscode/
+.idea/
+*.swp
+
+# API keys — never commit
+creds.json
+*.env
+.env

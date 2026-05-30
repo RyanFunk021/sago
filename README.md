@@ -1,0 +1,152 @@
+# Sago — *sa go* — "I am well"
+
+**A language built entirely from universal semantic primitives.**
+
+```
+sa go ne hi          →   Hello. I am here and well.
+sa wu du             →   I want water.
+ba go ma to          →   I love you.
+na de na             →   Freedom.
+te su na vi          →   Faith.
+```
+
+Sago is a constructed language whose entire vocabulary derives from the 65 semantic primes identified by Wierzbicka's [Natural Semantic Metalanguage](https://intranet.secure.griffith.edu.au/schools-departments/natural-semantic-metalanguage) — the smallest set of concepts found in every human language studied over 50 years of cross-linguistic research. Every word in Sago is either a semantic primitive or a composition of primitives. Nothing is borrowed from any natural language.
+
+The language's name is its greeting: **sago** = `sa` (SELF) + `go` (GOOD) = *I am well.*
+
+---
+
+## Why Sago
+
+Natural languages carry enormous cultural cargo. "Democracy," "justice," "love" mean different things to different speakers. Sago is built from the semantic floor — concepts so fundamental they exist in every language humans have ever developed. Two speakers who know Sago's primitives share all meaning without translation.
+
+Sago is not designed to replace natural languages. It is designed to be the *layer beneath them* — a shared semantic foundation where meaning can be verified, not just assumed.
+
+---
+
+## The 90 Taps
+
+Sago has 90 semantic units, organized into 5 acquisition tiers:
+
+| Tier | Count | What it adds |
+|---|---|---|
+| L1 · Core | 8 | Identity, negation, desire, valence, time, place |
+| L2 · Physical | 8 | Life, mind, the physical world |
+| L3 · Grammar | 16 | Causation, sequence, degree, space, senses |
+| L4 · Wierzbicka | 32 | Completes the NSM prime set |
+| L5 · Molecules | 26 | Widespread concepts with no single-primitive equivalent |
+
+Every tap is a **CV syllable** (consonant + vowel: *sa, to, na, wu...*). The phoneme inventory is 18 consonants × 5 vowels = exactly 90 syllables — the phonological space and the semantic space are in perfect bijection. No syllable is unused; no syllable is ambiguous.
+
+The full tap inventory is defined in [`language/TAPS.md`](language/TAPS.md).
+
+---
+
+## Grammar
+
+Sago grammar follows cognitive order: *when → who → what → to what → how.*
+
+```
+pa  sa  mo  hi       →   I came here.  (BEFORE SELF MOVE HERE)
+ya  to  mo  la  mi   →   Will you leave?  (AFTER OTHER MOVE FAR ?)
+sa  ba  lo  du  ga   →   I feel overwhelmed.  (SELF FEEL LIKE WATER BIG)
+```
+
+The complete grammar (22 rules, tense/aspect, emotion system, comparatives, modality, discourse) is in [`language/GRAMMAR.md`](language/GRAMMAR.md).
+
+---
+
+## Creating New Words
+
+Sago is an open semantic system. Any concept can be expressed by composing primitives. The [`word_builder.py`](tools/word_builder.py) tool helps you find or create the canonical composition for any concept.
+
+```bash
+cd tools
+python3 word_builder.py "photosynthesis"
+# → li re lu ko  (ALIVE AIR LIGHT SOLID)
+#   a living process of air, light, and solid matter
+
+python3 word_builder.py "democracy"
+# → ka pu de ro  (MANY PEOPLE DO WORD)
+#   governance by the word of many people
+
+python3 word_builder.py "nostalgia"
+# → ba go da pa  (FEEL GOOD BECAUSE BEFORE)
+#   good feeling caused by the past
+```
+
+New words are proposed by opening a pull request that adds an entry to [`language/dictionary.json`](language/dictionary.json).
+
+---
+
+## Dictionary
+
+[`language/dictionary.json`](language/dictionary.json) contains 5,000 English words mapped to their Sago compositions, generated computationally and open for community refinement.
+
+Format:
+```json
+{
+  "freedom": {
+    "taps": ["na", "de", "na"],
+    "tap_names": ["NOT", "DO", "NOT"],
+    "type": "composition",
+    "confidence": 0.72,
+    "gloss": "NOT-DO-NOT — the absence of the prevention of action"
+  }
+}
+```
+
+---
+
+## Academic Paper
+
+["Hello World: Sago and the Construction of a Language from Universal Semantic Primitives"](language/sago_paper.md) — Ryan Funk, May 2026.
+
+---
+
+## Repository Structure
+
+```
+language/
+  TAPS.md          Canonical 90-tap definitions (the alphabet)
+  GRAMMAR.md       Complete grammar (22 rules)
+  dictionary.json  5,000-word English → Sago dictionary
+
+tools/
+  word_builder.py  Create or look up any word
+  translate.py     Bidirectional English ↔ Sago translator
+  evaluate.py      Vocabulary coverage and orthogonality analysis
+  taps.py          Shared tap definitions module (import this)
+
+notebooks/
+  semantic_coverage.ipynb    Coverage analysis across tiers
+  composition_test.ipynb     Vector and LLM composition experiments
+
+language/
+  sago_paper.md    Academic paper (submission version)
+```
+
+---
+
+## Contributing
+
+Sago needs a speaker community to stabilize its conventions. Three ways to contribute:
+
+1. **Propose a word** — open a PR adding to `dictionary.json`
+2. **Report a collision** — two compositions for the same concept, or the same composition for two concepts
+3. **Translate something** — add a back-translation test to `notebooks/`
+
+Word proposals require: the concept, proposed tap sequence, tap names, a gloss explaining the composition, and confidence (0.0–1.0).
+
+---
+
+## License
+
+Language specification (TAPS.md, GRAMMAR.md): [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/)  
+Code: MIT  
+Dictionary: CC BY 4.0
+
+---
+
+*sa go — I am well.*  
+*Ryan Funk, May 2026*
