@@ -1,18 +1,18 @@
-# PrimaTap Grammar — v1.0
+# Sago Grammar — v1.0
 
-**Companion to TAPS.md**  
+**Companion to PHONICS.md**  
 **Author:** Ryan Funk  
 **Date:** May 2026
 
-A language needs two things: a vocabulary and a grammar. TAPS.md defines the 90-chord vocabulary. This document defines the rules for combining taps into meaning.
+A language needs two things: a vocabulary and a grammar. PHONICS.md defines the 90-phonic vocabulary. This document defines the rules for combining phonics into meaning.
 
 ---
 
 ## Core Principle
 
-**Cognitive order = tap order.**
+**Cognitive order = phonic order.**
 
-PrimaTap syntax follows the natural sequence of attention — the order in which a mind processes a situation:
+Sago syntax follows the natural sequence of attention — the order in which a mind processes a situation:
 
 1. **When** — time frame (establishes context)
 2. **Who/What** — topic (what we're attending to)
@@ -20,7 +20,7 @@ PrimaTap syntax follows the natural sequence of attention — the order in which
 4. **To/for what** — patient or goal (what's affected)
 5. **How/how much** — modifiers (additional detail)
 
-This is not arbitrary English-derived word order. It mirrors the cognitive structure of attention across languages. Topic-prominent, time-first syntax appears in Japanese, Chinese, Korean, Mandarin, Turkish, and many others. Grounding in cognition rather than any one language's history makes PrimaTap learnable without native-language interference.
+This is not arbitrary English-derived word order. It mirrors the cognitive structure of attention across languages. Topic-prominent, time-first syntax appears in Japanese, Chinese, Korean, Mandarin, Turkish, and many others. Grounding in cognition rather than any one language's history makes Sago learnable without native-language interference.
 
 ---
 
@@ -51,7 +51,7 @@ sa na go             SELF NOT-GOOD                I am not well
 
 Tense markers appear at sentence start, before the topic. No marker = present.
 
-| Marker | Tap | Meaning | Example |
+| Marker | Phonic | Meaning | Example |
 |---|---|---|---|
 | (none) | — | present / timeless | `sa wu du` = I want water |
 | past | `pa` | already happened | `pa sa mo la` = I went away |
@@ -89,7 +89,7 @@ Note: when `pa` is sentence-initial it marks simple past; when it follows the to
 
 ## Rule 3 — Negation
 
-`na` (NOT) immediately precedes the element it negates. Scope is tight — it negates only the immediately following tap.
+`na` (NOT) immediately precedes the element it negates. Scope is tight — it negates only the immediately following phonic.
 
 ```
 sa na wu du          SELF [NOT-WANT] WATER        I don't want water
@@ -118,7 +118,7 @@ sa na wu du          SELF [NOT-WANT] WATER        I don't want water
 
 ### Yes/No Questions
 
-`mi` (MAYBE) sentence-final, with rising prosody in speech or a marked tap pattern on the device.
+`mi` (MAYBE) sentence-final, with rising prosody in speech or a marked phonic pattern on the device.
 
 ```
 to wu du mi          OTHER WANT WATER [?]         Do you want water?
@@ -136,9 +136,9 @@ mi                                                I'm not sure
 
 ### Content Questions
 
-WH-tap at sentence start, `mi` at end marks the question slot.
+WH-phonic at sentence start, `mi` at end marks the question slot.
 
-| Question | Tap | Full pattern | Example |
+| Question | Phonic | Full pattern | Example |
 |---|---|---|---|
 | What | `ze` (SOMETHING) | `ze [predicate] mi` | `ze to wu mi` — What do you want? |
 | Who | `zo` (SOMEONE) | `zo [predicate] mi` | `zo mo hi mi` — Who is coming? |
@@ -210,7 +210,7 @@ na li za             NOT-ALIVE EXIST              death is present / something d
 
 Quantifiers precede the noun they quantify. Numbers (CVC digits, when defined) go in the same position.
 
-| Quantifier | Tap | Example |
+| Quantifier | Phonic | Example |
 |---|---|---|
 | all | `zu` | `zu li` — all living things |
 | many | `ka` | `ka to` — many others / people |
@@ -271,7 +271,7 @@ di sa na te to na pi we
 
 Connecting clauses and sentences:
 
-| Connector | Taps | Meaning | Example |
+| Connector | Phonics | Meaning | Example |
 |---|---|---|---|
 | and | `je` | additive | `sa mo hi je to mo la` — I came and you left |
 | but | `je na` | contrastive | `sa wu du je na du za` — I want water but there's none |
@@ -315,7 +315,7 @@ le po ga va          TREE PART BIG ABOVE               the tree that is very tal
 
 How do you know what you're claiming? This optional layer is powerful for a precision language:
 
-| Source | Tap pattern | Meaning |
+| Source | Phonic pattern | Meaning |
 |---|---|---|
 | I saw it | `vi sa te` prefix | SEE-SELF-THINK = I saw and therefore believe |
 | I heard it | `ra sa te` prefix | HEAR-SELF-THINK = I heard and therefore believe |
@@ -350,7 +350,7 @@ we to sa ki za       OTHER-TOLD-SELF ANIMAL EXIST     I was told an animal is th
 
 Conventions for phatic communication and social bonding. These are fixed compositions, learnable as units:
 
-| Social function | Tap sequence | Literal gloss | Use |
+| Social function | Phonic sequence | Literal gloss | Use |
 |---|---|---|---|
 | Hello | `sa go ne hi` | SELF GOOD NOW HERE | I am well, I am present |
 | Goodbye | `sa mo la` | SELF MOVE FAR | I'm going |
@@ -376,11 +376,11 @@ Conventions for phatic communication and social bonding. These are fixed composi
 
 The dictionary revealed a critical collision: love = joy = pride all map to `ba go ma`. This must be resolved. The solution is **directedness** — emotions differ not just in valence and intensity but in *what they are about*.
 
-### Structure of emotion in PrimaTap
+### Structure of emotion in Sago
 
 `ba [valence] [intensity] [cause/direction]`
 
-| Emotion | Tap sequence | Structure | Gloss |
+| Emotion | Phonic sequence | Structure | Gloss |
 |---|---|---|---|
 | **joy** | `ba go za` | FEEL GOOD EXIST | good feeling about existence itself |
 | **love** | `ba go ma to` | FEEL GOOD MORE OTHER | intense good feeling toward another |
@@ -411,7 +411,7 @@ The dictionary revealed a critical collision: love = joy = pride all map to `ba 
 2. Intensity (more/less)
 3. Direction (toward self, other, past, future, existence, body, unknown)
 
-This is how cognitive psychologists (Ortony, Clore, Collins) define emotion. PrimaTap encodes the structure directly.
+This is how cognitive psychologists (Ortony, Clore, Collins) define emotion. Sago encodes the structure directly.
 
 ---
 
@@ -521,7 +521,7 @@ sa je to ba go si je SELF TOGETHER OTHER FEEL GOOD SAME TOGETHER   we love each 
 
 `we to [content]` — SAY OTHER [what was said] = "someone said..."
 
-Direct quote (verbatim): `we to` + original tap sequence
+Direct quote (verbatim): `we to` + original phonic sequence
 
 ```
 to we [sa mo hi]         OTHER SAY [SELF MOVE HERE]        they said: "I am coming"
@@ -721,7 +721,7 @@ ni do                     NEAR DAY                  nearly a day / almost a full
 
 ### Passive / Agentless Events
 
-PrimaTap handles this naturally: use `ha` (HAPPEN) when there is no agent, or move the patient to topic position.
+Sago handles this naturally: use `ha` (HAPPEN) when there is no agent, or move the patient to topic position.
 
 ```
 du mo be                  WATER MOVE DOWN           water moves downward = rain falls
@@ -768,7 +768,7 @@ di to na mo ya to na pi na                        If you don't move, you will ha
 
 ## Certainty and Epistemic Scale
 
-PrimaTap can encode how sure a speaker is about a claim:
+Sago can encode how sure a speaker is about a claim:
 
 | Certainty | Pattern | Example |
 |---|---|---|
@@ -841,7 +841,7 @@ Contrast with simple past (`pa`) and perfect aspect:
 
 ## Discourse Structure — Managing Conversation
 
-| Function | Tap pattern | Gloss | Meaning |
+| Function | Phonic pattern | Gloss | Meaning |
 |---|---|---|---|
 | Change topic | `nu ro` | ANOTHER WORD | "on another subject..." |
 | Return to topic | `si ro` | SAME WORD | "back to what we were saying..." |
@@ -857,9 +857,9 @@ Contrast with simple past (`pa`) and perfect aspect:
 
 ## Deixis — Pointing in Space and Time
 
-PrimaTap's spatial system with refinement:
+Sago's spatial system with refinement:
 
-| Deictic | Tap | Meaning |
+| Deictic | Phonic | Meaning |
 |---|---|---|
 | here (near speaker) | `hi` | HERE |
 | there (near listener) | `ni to` | NEAR OTHER |
@@ -880,7 +880,7 @@ PrimaTap's spatial system with refinement:
 
 ## Politeness and Hedging
 
-Direct PrimaTap is monoregister — no grammatical formality distinction. Politeness is achieved structurally:
+Direct Sago is monoregister — no grammatical formality distinction. Politeness is achieved structurally:
 
 | Function | Pattern | Gloss | Effect |
 |---|---|---|---|
@@ -909,9 +909,9 @@ Genuinely open questions requiring community convention:
 |---|---|---|
 | Long relative clauses | Open | `po` works ≤3 words; longer clauses need bracketing convention |
 | Register / formality | Open | Monoregister by design; community may develop conventions |
-| Irony / sarcasm | Open | Requires prosodic or contextual signal — cannot encode in taps alone |
+| Irony / sarcasm | Open | Requires prosodic or contextual signal — cannot encode in phonics alone |
 | Fractions and decimals | Partial | CVC digit + `po` for fractions: `po tim` = one-half (1 of 2 parts) |
-| Song / poetry / rhythm | Open | Aesthetic use of PrimaTap — undefined; possibly iconic tap patterns |
+| Song / poetry / rhythm | Open | Aesthetic use of Sago — undefined; possibly iconic phonic patterns |
 | Classifier system | Open | `pe` (KIND) partially serves this; needs more conventions for counting specific types |
 
 ---
@@ -953,7 +953,7 @@ A: sa na te  —  ya we
 
 ## Composition Reference
 
-| English concept | Tap sequence | Gloss |
+| English concept | Phonic sequence | Gloss |
 |---|---|---|
 | cold | `na fu` | NOT HEAT |
 | hot | `ve fu` | VERY HEAT |
@@ -1068,5 +1068,5 @@ A: sa na te  —  ya we
 
 ---
 
-*PrimaTap Grammar v1.1 — Ryan Funk, May 2026*  
-*Companion to TAPS.md*
+*Sago Grammar v1.1 — Ryan Funk, May 2026*  
+*Companion to PHONICS.md*

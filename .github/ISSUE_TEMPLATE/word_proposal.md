@@ -17,11 +17,11 @@ assignees: ''
 
 **Word:** 
 
-**Chord breakdown:** `lu + fa` = LIGHT + PLANT
+**Phonic breakdown:** `lu + fa` = LIGHT + PLANT
 
 <!-- Validate it: python3 tools/canonize.py --check yourword -->
 
-## Why these chords
+## Why these phonics
 
 <!-- Why is this the right composition? What makes it semantically motivated? -->
 

@@ -30,7 +30,7 @@ LANG_DIR = TOOLS_DIR.parent / "language"
 DICT_FILE = LANG_DIR / "dictionary.json"
 
 sys.path.insert(0, str(TOOLS_DIR))
-from chords import CHORDS as TAPS, BY_NAME, GRAMMAR_RULES, COMPOSITION_EXAMPLES, chord_inventory_string as tap_inventory_string
+from phonics import PHONICS, BY_NAME, GRAMMAR_RULES, COMPOSITION_EXAMPLES, phonic_inventory_string
 
 
 # ── API ───────────────────────────────────────────────────────────────────────
@@ -76,17 +76,17 @@ def save_dict(d: dict):
 
 WORD_BUILDER_SYSTEM = f"""You are an expert in Sago, a semantic primitive language built from Wierzbicka's Natural Semantic Metalanguage.
 
-TAP INVENTORY (90 CV syllables, each encodes exactly one primitive):
-{tap_inventory_string()}
+PHONIC INVENTORY (90 CV syllables, each encodes exactly one primitive):
+{phonic_inventory_string()}
 
 {GRAMMAR_RULES}
 
 {COMPOSITION_EXAMPLES}
 
 WORD CREATION RULES:
-1. Use 1–5 tap syllables to compose the concept
-2. Prefer fewer taps (more compressed = more elegant)
-3. The composition should feel semantically motivated — someone should be able to guess the meaning from the taps
+1. Use 1–5 phonic syllables to compose the concept
+2. Prefer fewer phonics (more compressed = more elegant)
+3. The composition should feel semantically motivated — someone should be able to guess the meaning from the phonics
 4. Avoid compositions that are already used for common words (check examples above)
 5. If the concept is institutional (government, money, brand names, technical jargon with no semantic equivalent) — say so explicitly
 6. type: "single" | "composition" | "institutional"
@@ -96,11 +96,11 @@ For institutional concepts, explain why they can't be primitively encoded and su
 Respond ONLY as JSON (no markdown fences):
 {{
   "word": "...",
-  "taps": ["syl1", "syl2"],
-  "tap_names": ["NAME1", "NAME2"],
+  "phonics": ["syl1", "syl2"],
+  "phonic_names": ["NAME1", "NAME2"],
   "type": "single|composition|institutional",
   "confidence": 0.0,
-  "gloss": "one-line explanation of why these taps = this concept",
+  "gloss": "one-line explanation of why these phonics = this concept",
   "note": "optional longer explanation or alternatives"
 }}"""
 
@@ -118,23 +118,23 @@ def compose_word(client, concept: str) -> dict:
     if text.startswith("```"):
         text = "\n".join(text.split("\n")[1:-1])
     result = json.loads(text)
-    # Validate taps
-    valid_syls = set(TAPS.keys())
-    result["taps"] = [t for t in result.get("taps", []) if t in valid_syls]
-    result["tap_names"] = [TAPS[t]["name"] for t in result["taps"]]
+    # Validate phonics
+    valid_syls = set(PHONICS.keys())
+    result["phonics"] = [t for t in result.get("phonics", []) if t in valid_syls]
+    result["phonic_names"] = [PHONICS[t]["name"] for t in result["phonics"]]
     return result
 
 
 def segment_word(word: str):
-    """Try to segment a flowing Sago word into its component chords (greedy, left-to-right)."""
+    """Try to segment a flowing Sago word into its component phonics (greedy, left-to-right)."""
     word = word.lower()
     result = []
     i = 0
     while i < len(word):
         matched = False
-        for length in (2,):  # all chords are exactly 2 characters (CV)
+        for length in (2,):  # all phonics are exactly 2 characters (CV)
             candidate = word[i:i+length]
-            if candidate in TAPS:
+            if candidate in PHONICS:
                 result.append(candidate)
                 i += length
                 matched = True
@@ -145,14 +145,14 @@ def segment_word(word: str):
 
 
 def validate_composition(taps_str: str) -> dict:
-    """Parse and validate chord sequences or flowing composed words."""
+    """Parse and validate phonic sequences or flowing composed words."""
     tokens = taps_str.lower().split()
     valid = []
     invalid = []
     segmented_from = []
 
     for token in tokens:
-        if token in TAPS:
+        if token in PHONICS:
             valid.append(token)
         else:
             # Try to segment it as a flowing composed word (nafu → na + fu)
@@ -165,10 +165,10 @@ def validate_composition(taps_str: str) -> dict:
 
     result = {
         "input": taps_str,
-        "valid_chords": valid,
+        "valid_phonics": valid,
         "invalid_tokens": invalid,
-        "chord_names": [TAPS[t]["name"] for t in valid],
-        "gloss": " + ".join(TAPS[t]["name"] for t in valid),
+        "phonic_names": [PHONICS[t]["name"] for t in valid],
+        "gloss": " + ".join(PHONICS[t]["name"] for t in valid),
         "is_valid": len(invalid) == 0 and len(valid) > 0,
     }
     if segmented_from:
@@ -179,8 +179,8 @@ def validate_composition(taps_str: str) -> dict:
 # ── Display ───────────────────────────────────────────────────────────────────
 
 def print_entry(word: str, entry: dict, source: str = ""):
-    taps_str = " ".join(entry.get("taps", []))
-    names_str = " · ".join(entry.get("tap_names", []))
+    phonics_str = " ".join(entry.get("phonics", []))
+    names_str = " · ".join(entry.get("phonic_names", []))
     t = entry.get("type", "?")
     conf = entry.get("confidence", 0)
     gloss = entry.get("gloss", "")
@@ -196,7 +196,7 @@ def print_entry(word: str, entry: dict, source: str = ""):
         if note:
             print(f"     {note}")
     else:
-        print(f"  {taps_str}")
+        print(f"  {phonics_str}")
         print(f"  {names_str}")
         if gloss:
             print(f'  “{gloss}”')
@@ -245,22 +245,22 @@ def cmd_validate(taps_str: str):
     result = validate_composition(taps_str)
     print(f"\n  Input:  {result['input']}")
     if result["is_valid"]:
-        print(f"  Chords: {' '.join(result['valid_chords'])}")
-        print(f"  Gloss:  {result['gloss']}")
+        print(f"  Phonics: {' '.join(result['valid_phonics'])}")
+        print(f"  Gloss:   {result['gloss']}")
         if result.get("segmented"):
             for word, parts in result["segmented"].items():
                 print(f"  Parsed: {word} → {' + '.join(parts)}")
     else:
-        if result["valid_chords"]:
-            print(f"  Valid chords:    {' '.join(result['valid_chords'])}")
+        if result["valid_phonics"]:
+            print(f"  Valid phonics:   {' '.join(result['valid_phonics'])}")
         if result["invalid_tokens"]:
             print(f"  Could not parse: {' '.join(result['invalid_tokens'])}")
-            print(f"  Hint: use space-separated chords (na fu) or a valid composed word (nafu)")
+            print(f"  Hint: use space-separated phonics (na fu) or a valid composed word (nafu)")
 
 
 def cmd_interactive(client, dictionary: dict):
     print("\nSago Word Builder — Interactive Mode")
-    print("Commands: lookup <word>, build <concept>, validate <taps>, quit\n")
+    print("Commands: lookup <word>, build <concept>, validate <phonics>, quit\n")
     while True:
         try:
             line = input("sago> ").strip()
@@ -321,7 +321,7 @@ Examples:
     )
     parser.add_argument("concept", nargs="?", help="Word or concept to build")
     parser.add_argument("--lookup", "-l", metavar="WORD", help="Look up in dictionary only (no API)")
-    parser.add_argument("--validate", "-v", metavar="TAPS", help="Validate a tap sequence")
+    parser.add_argument("--validate", "-v", metavar="PHONICS", help="Validate a phonic sequence")
     parser.add_argument("--add", "-a", action="store_true", help="Auto-add result to dictionary")
     parser.add_argument("--interactive", "-i", action="store_true", help="Interactive mode")
     parser.add_argument("--stats", "-s", action="store_true", help="Show dictionary stats")

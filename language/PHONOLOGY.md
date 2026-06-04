@@ -1,22 +1,22 @@
-# Sago Phonology — How Chords Flow
+# Sago Phonology — How Phonics Flow
 
 **Author:** Ryan Funk  
 **Date:** May 2026  
-**Companion to:** CHORDS.md, GRAMMAR.md
+**Companion to:** PHONICS.md, GRAMMAR.md
 
 ---
 
 ## The Core Insight
 
-Every Sago chord is a **CV syllable** — one consonant followed by one vowel. This single structural fact makes the entire phonological system work:
+Every Sago phonic is a **CV syllable** — one consonant followed by one vowel. This single structural fact makes the entire phonological system work:
 
-- Every chord **ends in a vowel**
-- Every chord **starts with a consonant**
-- Therefore every chord boundary is a **V + C junction**
+- Every phonic **ends in a vowel**
+- Every phonic **starts with a consonant**
+- Therefore every phonic boundary is a **V + C junction**
 
-V + C junctions are the smoothest transitions in human speech. There are no consonant clusters at chord boundaries — ever. Sago cannot produce "str-", "pl-", "-nd", or any other cluster. It flows like Japanese, Hawaiian, or Swahili: open, continuous, vowel-rich.
+V + C junctions are the smoothest transitions in human speech. There are no consonant clusters at phonic boundaries — ever. Sago cannot produce "str-", "pl-", "-nd", or any other cluster. It flows like Japanese, Hawaiian, or Swahili: open, continuous, vowel-rich.
 
-When chords combine into words, the boundary disappears:
+When phonics combine into words, the boundary disappears:
 
 ```
 na + fu  →  nafu    (cold)
@@ -27,7 +27,7 @@ li + go  →  ligo    (healthy)
 na + li  →  nali    (dead)
 ```
 
-The syllable boundary remains — *na.fu*, *fu.mo* — but there is no pause, no glottal stop, no hesitation. Adjacent chords speak as one word.
+The syllable boundary remains — *na.fu*, *fu.mo* — but there is no pause, no glottal stop, no hesitation. Adjacent phonics speak as one word.
 
 ---
 
@@ -62,7 +62,7 @@ Standard five-vowel system: the same vowels found in Spanish, Italian, Japanese,
 
 ### Concatenation
 
-Chords join directly. No epenthetic vowel, no linking consonant, no separator:
+Phonics join directly. No epenthetic vowel, no linking consonant, no separator:
 
 ```
 SELF + GOOD      =  sa + go  =  sago      (the language's greeting)
@@ -78,7 +78,7 @@ WORD + MANY      =  ro + ka  =  roka      (language)
 SAY + BEFORE     =  we + pa  =  wepa      (history, story)
 ```
 
-Three-chord words:
+Three-phonic words:
 ```
 NOT + HEAT + WATER   =  na + fu + du  =  nafudu    (ice — literally "not-heat-water")
 WATER + HEAT + AIR   =  du + fu + re  =  dufure    (steam)
@@ -105,7 +105,7 @@ ba.go.pa  3 syllables
 
 **Rule: stress falls on the first syllable of a word.**
 
-This is consistent, predictable, and easy to learn. It also front-weights meaning: the most semantically primary chord (usually the root concept) receives stress.
+This is consistent, predictable, and easy to learn. It also front-weights meaning: the most semantically primary phonic (usually the root concept) receives stress.
 
 ```
 NAfu    (cold)         — stress on na = NOT
@@ -123,7 +123,7 @@ NALIde  (prevention)   — stress on na = NOT
 
 ### Same-vowel words
 
-When adjacent chords share a vowel, the word has a pleasing resonance:
+When adjacent phonics share a vowel, the word has a pleasing resonance:
 
 ```
 go + bo  =  gobo   (GOOD + BODY = goodbody... health, fitness)
@@ -135,7 +135,7 @@ lo + ko  =  loko   (LIKE + SOLID = as solid as, firm comparison)
 
 ### Cross-vowel words
 
-The V + C junction always involves one vowel fading into the next chord's consonant. This creates natural coarticulation:
+The V + C junction always involves one vowel fading into the next phonic's consonant. This creates natural coarticulation:
 
 - Final /a/ before a labial (m, b, p, f, v, w): lips anticipate the closure → slight rounding
 - Final /i/ before a velar (k, g): back of tongue rises slightly
@@ -156,13 +156,13 @@ Avoid:       iu sequence (high-front to high-back, slightly awkward)
              ui sequence (same issue)
 ```
 
-This is a soft preference, not a rule. All 90 × 90 chord pairs are phonologically valid.
+This is a soft preference, not a rule. All 90 × 90 phonic pairs are phonologically valid.
 
 ---
 
 ## Name Brackets
 
-Proper names use the `we...we` bracket (SAY...SAY). Inside name brackets, the phonetic syllables of the name are spelled using Sago CV syllables — but they are NOT chords with meaning. They are phonetic representatives only.
+Proper names use the `we...we` bracket (SAY...SAY). Inside name brackets, the phonetic syllables of the name are spelled using Sago CV syllables — but they are NOT phonics with meaning. They are phonetic representatives only.
 
 ```
 we  Ra  ja  we    →    name: Raja
@@ -174,7 +174,7 @@ The listener knows they are in name mode from the `we` opener. Inside, syllable-
 
 ---
 
-## Number Chords
+## Number Phonics
 
 Number digits use **CVC syllables with nasal codas** — the only closed syllables in Sago. The closed final nasal makes them unmistakable: semantic words always end in a vowel; numbers always end in /m/ or /n/.
 
@@ -184,7 +184,7 @@ nun win tim ron kan fen sim bon dim pin zun gem van hin lon mem
  0    1    2    3    4    5    6    7    8    9    A    B    C    D    E    F
 ```
 
-In fluent speech, number chords connect like semantic chords — but the nasal coda at each boundary signals: "this is a number":
+In fluent speech, number phonics connect like semantic phonics — but the nasal coda at each boundary signals: "this is a number":
 
 ```
 win + ron   =  winron    =  13 (hexadecimal)
@@ -198,8 +198,8 @@ fen + dim   =  fendim    =  58
 A fluent Sago speaker produces:
 - Open syllables throughout (no word-final consonants in semantic speech)
 - No consonant clusters anywhere
-- Smooth V+C junctions at all chord boundaries
-- Initial stress on multi-chord words
+- Smooth V+C junctions at all phonic boundaries
+- Initial stress on multi-phonic words
 - A recognizable rhythmic pattern: stressed + unstressed + unstressed...
 
 This produces speech that sounds like:

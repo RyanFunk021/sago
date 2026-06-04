@@ -2,7 +2,7 @@
 """
 Build language/concepts.json — the concept-based Sago dictionary.
 
-Primary entries are Sago words (chord sequences as flowing words).
+Primary entries are Sago words (phonic sequences as flowing words).
 Not organized around English — any language speaker can use this.
 
 Run:
@@ -17,12 +17,12 @@ from pathlib import Path
 OUT = Path(__file__).parent.parent / "language" / "concepts.json"
 
 # ── Concept definitions ───────────────────────────────────────────────────────
-# Format: (sago_word, [chords], [chord_names], concept_description, domain, level)
+# Format: (sago_word, [phonics], [chord_names], concept_description, domain, level)
 # concept_description is language-neutral — describes the thing, not an English word
 
 CONCEPTS = [
 
-    # ── L1 Primitive Chords (the 8 core) ─────────────────────────────────────
+    # ── L1 Primitive Phonics (the 8 core) ─────────────────────────────────────
     ("sa",  ["sa"],  ["SELF"],   "the one who speaks; the speaker; first person",           "identity",  1),
     ("to",  ["to"],  ["OTHER"],  "any being or thing that is not the speaker",               "identity",  1),
     ("na",  ["na"],  ["NOT"],    "negation; absence; the opposite",                          "logic",     1),
@@ -32,7 +32,7 @@ CONCEPTS = [
     ("ne",  ["ne"],  ["NOW"],    "the present moment; immediacy; currently happening",       "time",      1),
     ("hi",  ["hi"],  ["HERE"],   "this place; where the speaker is; proximal location",     "space",     1),
 
-    # ── L2 Primitive Chords (physical world) ─────────────────────────────────
+    # ── L2 Primitive Phonics (physical world) ─────────────────────────────────
     ("li",  ["li"],  ["ALIVE"],  "living; animate; conscious; functioning as life does",    "life",      2),
     ("mo",  ["mo"],  ["MOVE"],   "motion; change of position or state; action",             "action",    2),
     ("te",  ["te"],  ["THINK"],  "mental activity; knowing; believing; understanding",      "mental",    2),
@@ -42,7 +42,7 @@ CONCEPTS = [
     ("ko",  ["ko"],  ["SOLID"],  "hard matter; the tangible earth; resistance to change",   "physical",  2),
     ("lu",  ["lu"],  ["LIGHT"],  "visible energy; brightness; electromagnetic radiation",   "physical",  2),
 
-    # ── L3 Primitive Chords (grammar and logic) ───────────────────────────────
+    # ── L3 Primitive Phonics (grammar and logic) ───────────────────────────────
     ("pa",  ["pa"],  ["BEFORE"], "prior in time; earlier; what happened first",             "time",      3),
     ("ya",  ["ya"],  ["AFTER"],  "subsequent in time; later; what will happen next",        "time",      3),
     ("da",  ["da"],  ["BECAUSE"],"cause; reason; the explanation for why",                  "logic",     3),
@@ -60,7 +60,7 @@ CONCEPTS = [
     ("bo",  ["bo"],  ["BODY"],   "the physical form; flesh; the biological structure",     "life",      3),
     ("pe",  ["pe"],  ["KIND"],   "a type or category; the sort of thing",                  "relation",  3),
 
-    # ── L4 Primitive Chords (completing NSM) ─────────────────────────────────
+    # ── L4 Primitive Phonics (completing NSM) ─────────────────────────────────
     ("zo",  ["zo"],  ["SOMEONE"], "an unspecified person; some individual",                "identity",  4),
     ("ze",  ["ze"],  ["SOMETHING"],"an unspecified thing; some entity",                   "object",    4),
     ("pu",  ["pu"],  ["PEOPLE"],  "humans collectively; the human group",                  "identity",  4),
@@ -94,7 +94,7 @@ CONCEPTS = [
     ("nu",  ["nu"],  ["ANOTHER"], "a different one; not this; an alternative",             "identity",  4),
     ("yo",  ["yo"],  ["THIS"],    "the proximal referent; what is indicated now",          "identity",  4),
 
-    # ── L5 Molecule Chords ────────────────────────────────────────────────────
+    # ── L5 Molecule Phonics ────────────────────────────────────────────────────
     ("le",  ["le"],  ["TREE"],    "a tall woody plant with a trunk",                        "nature",    5),
     ("ge",  ["ge"],  ["MOON"],    "the large natural satellite visible at night",           "nature",    5),
     ("fo",  ["fo"],  ["FOOT"],    "the lowest part of the leg; the base of standing",       "body",      5),
@@ -122,7 +122,7 @@ CONCEPTS = [
     ("ke",  ["ke"],  ["CLOTH"],   "woven fabric; textile material",                         "object",    5),
     ("wo",  ["wo"],  ["NOSE"],    "the olfactory organ; the organ of smell",                "body",      5),
 
-    # ── Composed words (chords joined into flowing words) ─────────────────────
+    # ── Composed words (phonics joined into flowing words) ─────────────────────
 
     # Physical world
     ("nafu",    ["na","fu"],          ["NOT","HEAT"],          "absence of heat; cold temperature",                "physical",  2),
@@ -246,10 +246,10 @@ CONCEPTS = [
 def build():
     entries = {}
     for row in CONCEPTS:
-        word, chords, chord_names, concept, domain, level = row
+        word, phonics, chord_names, concept, domain, level = row
         entries[word] = {
             "word": word,
-            "chords": chords,
+            "phonics": phonics,
             "chord_names": chord_names,
             "concept": concept,
             "domain": domain,
@@ -265,8 +265,8 @@ def build():
         ),
         "stats": {
             "total": len(entries),
-            "primitive_chords": sum(1 for e in entries.values() if len(e["chords"]) == 1),
-            "composed_words": sum(1 for e in entries.values() if len(e["chords"]) > 1),
+            "primitive_chords": sum(1 for e in entries.values() if len(e["phonics"]) == 1),
+            "composed_words": sum(1 for e in entries.values() if len(e["phonics"]) > 1),
         },
         "domains": sorted(set(e["domain"] for e in entries.values())),
         "concepts": entries,
@@ -274,7 +274,7 @@ def build():
 
     OUT.write_text(json.dumps(output, indent=2, ensure_ascii=False))
     print(f"Written {len(entries)} concepts to {OUT}")
-    print(f"  Primitive chords: {output['stats']['primitive_chords']}")
+    print(f"  Primitive phonics: {output['stats']['primitive_chords']}")
     print(f"  Composed words:   {output['stats']['composed_words']}")
     print(f"  Domains: {', '.join(output['domains'])}")
 

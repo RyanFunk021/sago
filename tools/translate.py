@@ -1,13 +1,13 @@
 #!/usr/bin/env python3
 """
-PrimaTap Bidirectional Translator + Back-Translation Test
+Sago Bidirectional Translator + Back-Translation Test
 =========================================================
-Translates English ↔ PrimaTap using Claude.
+Translates English ↔ Sago using Claude.
 Tests semantic preservation by translating 10 book paragraphs
-English → PrimaTap → English and measuring meaning loss.
+English → Sago → English and measuring meaning loss.
 
 Run:
-  python3 primatap_translate.py
+  python3 translate.py
 """
 
 import json
@@ -21,10 +21,10 @@ import anthropic
 
 warnings.filterwarnings("ignore")
 sys.path.insert(0, str(Path(__file__).parent))
-from primatap_taps import TAPS, tap_inventory_string, GRAMMAR_RULES, COMPOSITION_EXAMPLES
+from phonics import PHONICS, tap_inventory_string, GRAMMAR_RULES, COMPOSITION_EXAMPLES
 
 OUT = Path(__file__).parent
-DICT_FILE = OUT / "primatap_dictionary.json"
+DICT_FILE = OUT / "sago_dictionary.json"
 RESULTS_FILE = OUT / "translate_results.json"
 
 
@@ -46,10 +46,10 @@ def load_api_key() -> str:
 # ── System prompts ────────────────────────────────────────────────────────────
 
 def make_e2p_prompt() -> str:
-    return f"""You are a PrimaTap translator. PrimaTap is a meaning-based language with 90 semantic primitive taps.
-Your task: translate English text into PrimaTap tap sequences.
+    return f"""You are a Sago translator. Sago is a meaning-based language with 90 semantic primitive phonics.
+Your task: translate English text into Sago phonic sequences.
 
-TAP INVENTORY:
+PHONIC INVENTORY:
 {tap_inventory_string()}
 
 {GRAMMAR_RULES}
@@ -57,22 +57,22 @@ TAP INVENTORY:
 {COMPOSITION_EXAMPLES}
 
 TRANSLATION RULES:
-- Output tap SYLLABLES only (sa, to, na, du, ...) separated by spaces
+- Output phonic SYLLABLES only (sa, to, na, du, ...) separated by spaces
 - One sequence per sentence, separated by newlines
-- Capture MEANING, not surface words — PrimaTap encodes semantics, not syntax
+- Capture MEANING, not surface words — Sago encodes semantics, not syntax
 - For proper names: use  we [phonetic syllables] we  (name bracket)
 - For institutional/untranslatable concepts: use [WORD] in brackets
-- Keep it as compact as possible — fewer taps is better if meaning is preserved
-- Multiple English sentences = multiple PrimaTap lines
+- Keep it as compact as possible — fewer phonics is better if meaning is preserved
+- Multiple English sentences = multiple Sago lines
 
-Output ONLY the PrimaTap tap sequence(s). No explanation, no labels, no English."""
+Output ONLY the Sago phonic sequence(s). No explanation, no labels, no English."""
 
 
 def make_p2e_prompt() -> str:
-    return f"""You are a PrimaTap interpreter. PrimaTap is a meaning-based language with 90 semantic primitive taps.
-Your task: translate PrimaTap tap sequences back into natural English.
+    return f"""You are a Sago interpreter. Sago is a meaning-based language with 90 semantic primitive phonics.
+Your task: translate Sago phonic sequences back into natural English.
 
-TAP INVENTORY:
+PHONIC INVENTORY:
 {tap_inventory_string()}
 
 {GRAMMAR_RULES}
@@ -80,19 +80,19 @@ TAP INVENTORY:
 {COMPOSITION_EXAMPLES}
 
 TRANSLATION RULES:
-- Interpret the MEANING of each tap and their combination
+- Interpret the MEANING of each phonic and their combination
 - Produce natural, fluent English — not a word-for-word gloss
 - Reconstruct the full intended meaning, including implied context
-- If a tap sequence is ambiguous, pick the most natural reading
+- If a phonic sequence is ambiguous, pick the most natural reading
 - [WORD] in brackets = untranslatable concept, keep as-is
 - Multiple lines = multiple sentences
 
-Output ONLY the English translation. No explanation, no tap labels, no PrimaTap."""
+Output ONLY the English translation. No explanation, no phonic labels, no Sago."""
 
 
 # ── Translation functions ─────────────────────────────────────────────────────
 
-def translate_to_primatap(client: anthropic.Anthropic, text: str, system_prompt: str) -> str:
+def translate_to_sago(client: anthropic.Anthropic, text: str, system_prompt: str) -> str:
     response = client.messages.create(
         model="claude-haiku-4-5-20251001",
         max_tokens=1024,
@@ -102,12 +102,12 @@ def translate_to_primatap(client: anthropic.Anthropic, text: str, system_prompt:
     return response.content[0].text.strip()
 
 
-def translate_from_primatap(client: anthropic.Anthropic, taps: str, system_prompt: str) -> str:
+def translate_from_sago(client: anthropic.Anthropic, phonics: str, system_prompt: str) -> str:
     response = client.messages.create(
         model="claude-haiku-4-5-20251001",
         max_tokens=1024,
         system=[{"type": "text", "text": system_prompt, "cache_control": {"type": "ephemeral"}}],
-        messages=[{"role": "user", "content": taps}],
+        messages=[{"role": "user", "content": phonics}],
     )
     return response.content[0].text.strip()
 
@@ -265,14 +265,14 @@ def run_back_translation_test(client: anthropic.Anthropic):
         print("ORIGINAL:")
         print(wrap(original))
 
-        print("\nTranslating English → PrimaTap...", end=" ", flush=True)
-        primatap = translate_to_primatap(client, original, e2p_system)
+        print("\nTranslating English → Sago...", end=" ", flush=True)
+        sago = translate_to_sago(client, original, e2p_system)
         print("done")
-        print("\nPRIMATAP:")
-        print(wrap(primatap))
+        print("\nSAGO:")
+        print(wrap(sago))
 
-        print("\nTranslating PrimaTap → English...", end=" ", flush=True)
-        back_translated = translate_from_primatap(client, primatap, p2e_system)
+        print("\nTranslating Sago → English...", end=" ", flush=True)
+        back_translated = translate_from_sago(client, sago, p2e_system)
         print("done")
         print("\nBACK-TRANSLATED:")
         print(wrap(back_translated))
@@ -288,24 +288,24 @@ def run_back_translation_test(client: anthropic.Anthropic):
         else:
             print("  ✗   Significant loss")
 
-        # Count tap tokens
-        tap_tokens = len([t for t in primatap.split() if t in TAPS])
-        total_tokens = len(primatap.split())
+        # Count phonic tokens
+        tap_tokens = len([t for t in sago.split() if t in PHONICS])
+        total_tokens = len(sago.split())
         english_words = len(original.split())
         compression = tap_tokens / english_words if english_words else 0
 
-        print(f"  English words: {english_words}  |  PrimaTap tokens: {total_tokens}  |  Compression: {compression:.2f}x")
+        print(f"  English words: {english_words}  |  Sago tokens: {total_tokens}  |  Compression: {compression:.2f}x")
 
         results.append({
             "title": book["title"],
             "author": book["author"],
             "domain": book["domain"],
             "original": original,
-            "primatap": primatap,
+            "sago": sago,
             "back_translated": back_translated,
             "similarity": round(sim, 4),
             "english_words": english_words,
-            "primatap_tokens": total_tokens,
+            "sago_tokens": total_tokens,
             "compression_ratio": round(compression, 3),
         })
 
@@ -321,7 +321,7 @@ def run_back_translation_test(client: anthropic.Anthropic):
         print(
             f"{r['title']:<32} {r['domain']:<22} "
             f"{r['similarity']:>5.3f} {r['english_words']:>4} "
-            f"{r['primatap_tokens']:>4} {r['compression_ratio']:>6.2f}x  {sim_star}"
+            f"{r['sago_tokens']:>4} {r['compression_ratio']:>6.2f}x  {sim_star}"
         )
 
     avg_sim = sum(r["similarity"] for r in results) / len(results)
@@ -340,9 +340,9 @@ def run_back_translation_test(client: anthropic.Anthropic):
 
     avg_comp_pct = (1 - avg_comp) * 100
     if avg_comp < 1.0:
-        print(f"  PrimaTap averages {avg_comp:.2f}x compression ({abs(avg_comp_pct):.0f}% {'shorter' if avg_comp_pct > 0 else 'longer'})")
+        print(f"  Sago averages {avg_comp:.2f}x compression ({abs(avg_comp_pct):.0f}% {'shorter' if avg_comp_pct > 0 else 'longer'})")
     else:
-        print(f"  PrimaTap averages {avg_comp:.2f}x expansion (more verbose than source)")
+        print(f"  Sago averages {avg_comp:.2f}x expansion (more verbose than source)")
 
     print(f"\n  Overall semantic preservation: {avg_sim:.1%}")
 
@@ -359,8 +359,8 @@ def translate_interactive(client: anthropic.Anthropic):
     e2p = make_e2p_prompt()
     p2e = make_p2e_prompt()
 
-    print("\nInteractive PrimaTap Translator")
-    print("Commands: 'e' = English→PrimaTap, 'p' = PrimaTap→English, 'q' = quit\n")
+    print("\nInteractive Sago Translator")
+    print("Commands: 'e' = English→Sago, 'p' = Sago→English, 'q' = quit\n")
 
     while True:
         direction = input("Direction [e/p/q]: ").strip().lower()
@@ -369,17 +369,17 @@ def translate_interactive(client: anthropic.Anthropic):
         elif direction == "e":
             text = input("English: ").strip()
             if text:
-                result = translate_to_primatap(client, text, e2p)
-                print(f"PrimaTap: {result}\n")
+                result = translate_to_sago(client, text, e2p)
+                print(f"Sago: {result}\n")
         elif direction == "p":
-            taps = input("PrimaTap: ").strip()
-            if taps:
-                result = translate_from_primatap(client, taps, p2e)
+            phonics = input("Sago: ").strip()
+            if phonics:
+                result = translate_from_sago(client, phonics, p2e)
                 print(f"English: {result}\n")
 
 
 def main():
-    print("PrimaTap Bidirectional Translator")
+    print("Sago Bidirectional Translator")
     print("=" * 50)
 
     api_key = load_api_key()

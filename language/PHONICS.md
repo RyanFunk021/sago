@@ -1,11 +1,11 @@
-# Sago Canonical Chord Definitions — v1.0
+# Sago Canonical Phonic Definitions — v1.0
 
-**This is the basis document for the full tap system.**
+**This is the basis document for the full phonic system.**
 All implementations reference this version.
 
 **Author:** Ryan Funk  
 **Date:** May 2026  
-**Total taps:** 90 (64 primes + 26 molecules)  
+**Total phonics:** 90 (64 primes + 26 molecules)  
 **Embedding basis:** `sentence-transformers/all-MiniLM-L6-v2`  
 **Validation:** geometric verification 14/15 (93%), LLM composition 11/20 (55%)
 
@@ -19,13 +19,13 @@ All implementations reference this version.
 | L2 · Physical | 8 | 16 | Life, action, mind, the four elements |
 | L3 · Grammar | 16 | 32 | Time sequence, causation, degree, space, senses, speech |
 | L4 · Wierzbicka | 32 | 64 | Completes the NSM 65-prime set |
-| L5 · Molecules | 26 | 90 | Widespread composites with no single-chord equivalent in L1–L4 |
+| L5 · Molecules | 26 | 90 | Widespread composites with no single-phonic equivalent in L1–L4 |
 
 **Special modes:**
-- Name mode: `we` opens · `we` closes · interior taps spell a name phonetically
-- Number mode: CVC syllables — phonologically distinct from all 90 semantic CV taps
+- Name mode: `we` opens · `we` closes · interior phonics spell a name phonetically
+- Number mode: CVC syllables — phonologically distinct from all 90 semantic CV phonics
 
-**Why CVC for numbers:** All 90 CV syllables (18 consonants × 5 vowels) are exhausted by the semantic system. Number digits must use a different phonological class. CVC (closed) syllables end in a consonant; every semantic CV tap ends in a vowel. A listener always knows: open syllable = meaning, closed syllable = digit. No bracket needed.
+**Why CVC for numbers:** All 90 CV syllables (18 consonants × 5 vowels) are exhausted by the semantic system. Number digits must use a different phonological class. CVC (closed) syllables end in a consonant; every semantic CV phonic ends in a vowel. A listener always knows: open syllable = meaning, closed syllable = digit. No bracket needed.
 
 **Number digit assignments (base-16):**
 
@@ -49,7 +49,7 @@ All implementations reference this version.
 - 3.14 → `ron · win kan` (decimal point = `·` spoken as a pause)
 - Large numbers use place groups: `win nun nun` = 256, `win nun nun nun` = 4096
 
-**For haptic delivery:** Number mode is signaled by a distinct tap rhythm (double-beat), not phonology. The CVC distinction is for the spoken/voice channel only.
+**For haptic delivery:** Number mode is signaled by a distinct phonic rhythm (double-beat), not phonology. The CVC distinction is for the spoken/voice channel only.
 
 ---
 
@@ -194,7 +194,7 @@ Ranked by novelty (most novel first).
 
 ## Composition Examples
 
-| Tap sequence | Primitives | Meaning |
+| Phonic sequence | Primitives | Meaning |
 |---|---|---|
 | sa wu du | SELF WANT WATER | thirsty |
 | na fu | NOT HEAT | cold |
@@ -212,7 +212,7 @@ Ranked by novelty (most novel first).
 
 ## What Is Not In This System
 
-These require companion mechanisms, not more taps:
+These require companion mechanisms, not more phonics:
 
 | Category | Examples | Solution |
 |---|---|---|
@@ -226,7 +226,7 @@ These require companion mechanisms, not more taps:
 
 ## Molecules Excluded as Redundant
 
-These 19 molecules were tested but are already geometrically covered by L1–L4 primes (similarity ≥ 0.50). They do not need their own taps.
+These 19 molecules were tested but are already geometrically covered by L1–L4 primes (similarity ≥ 0.50). They do not need their own phonics.
 
 sound (0.500), smell (0.506), fish (0.509), name (0.517), child (0.523),
 between (0.523), house (0.531), heavy (0.533), sun (0.540), pain (0.551),
@@ -241,12 +241,12 @@ Note: head (0.499) excluded — composable as `bo va` (BODY ABOVE).
 
 | Test | Result |
 |---|---|
-| Mean pairwise similarity (L4, 64 taps) | 0.328 (lower = more orthogonal) |
-| Single-tap vocabulary coverage (L5, 90 chords, threshold 0.45) | ~56% of top-5000 English words |
-| Pair-composition coverage (L3, 32 taps) | 56.6% — matches L5 singles |
+| Mean pairwise similarity (L4, 64 phonics) | 0.328 (lower = more orthogonal) |
+| Single-phonic vocabulary coverage (L5, 90 phonics, threshold 0.45) | ~56% of top-5000 English words |
+| Pair-composition coverage (L3, 32 phonics) | 56.6% — matches L5 singles |
 | Vector verification (concept near its primitives) | 14/15 (93%) |
 | LLM composition hit rate | 11/20 (55%) |
 
 ---
 
-*Sago Canonical Chords v1.0 — Ryan Funk, May 2026*
+*Sago Canonical Phonics v1.0 — Ryan Funk, May 2026*

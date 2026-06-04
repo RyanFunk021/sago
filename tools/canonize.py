@@ -32,40 +32,40 @@ CONCEPTS_FILE = LANG / "concepts.json"
 INDEX_FILE = DOCS / "index.html"
 
 sys.path.insert(0, str(TOOLS))
-from chords import CHORDS
+from phonics import PHONICS
 
 
 # ── Validation ────────────────────────────────────────────────────────────────
 
 def segment(word: str):
-    """Split a flowing Sago word into its component chords."""
+    """Split a flowing Sago word into its component phonics."""
     word = word.lower().strip()
-    chords = []
+    phonics = []
     i = 0
     while i < len(word):
         chunk = word[i:i+2]
-        if chunk in CHORDS:
-            chords.append(chunk)
+        if chunk in PHONICS:
+            phonics.append(chunk)
             i += 2
         else:
             return None
-    return chords if chords else None
+    return phonics if phonics else None
 
 
 def validate_word(word: str):
-    """Returns (ok, message, chord_list)."""
+    """Returns (ok, message, phonic_list)."""
     word = word.lower().strip()
     if not word:
         return False, "Empty word.", []
     if not re.match(r'^[a-z]+$', word):
         return False, "Sago words contain only lowercase a-z letters.", []
     if len(word) % 2 != 0:
-        return False, f"'{word}' has {len(word)} letters — Sago words must have an even number (all chords are 2 letters).", []
-    chords = segment(word)
-    if chords is None:
-        return False, f"Could not parse '{word}' into valid chords. Check each 2-letter pair.", []
-    chord_names = [CHORDS[c]["name"] for c in chords]
-    return True, f"Valid: {' + '.join(chords)} = {' · '.join(chord_names)}", chords
+        return False, f"'{word}' has {len(word)} letters — Sago words must have an even number (all phonics are 2 letters).", []
+    phonics = segment(word)
+    if phonics is None:
+        return False, f"Could not parse '{word}' into valid phonics. Check each 2-letter pair.", []
+    phonic_names = [PHONICS[c]["name"] for c in phonics]
+    return True, f"Valid: {' + '.join(phonics)} = {' · '.join(phonic_names)}", phonics
 
 
 def check_conflicts(word: str, concepts: dict) -> list[str]:
@@ -99,12 +99,12 @@ def rebuild_site(concepts: dict):
 
     html = INDEX_FILE.read_text()
     # Build the compact JS object — only composed words for the browser
-    # (primitive chords are already in the CHORDS constant)
+    # (primitive phonics are already in the PHONICS constant)
     composed = {
         word: {
             "word": entry["word"],
-            "chords": entry["chords"],
-            "chord_names": entry["chord_names"],
+            "phonics": entry["phonics"],
+            "phonic_names": entry["phonic_names"],
             "concept": entry["concept"],
             "domain": entry["domain"],
             "level": entry["level"],
@@ -142,10 +142,10 @@ DOMAINS = [
 
 
 def print_entry(word: str, entry: dict):
-    chords_str = " · ".join(entry["chords"])
-    names_str = " + ".join(entry["chord_names"])
+    phonics_str = " · ".join(entry["phonics"])
+    names_str = " + ".join(entry["phonic_names"])
     print(f"\n  {entry['word']}")
-    print(f"  {chords_str}  ({names_str})")
+    print(f"  {phonics_str}  ({names_str})")
     print(f"  {entry['concept']}")
     print(f"  domain: {entry['domain']}   level: {entry['level']}")
 
@@ -153,7 +153,7 @@ def print_entry(word: str, entry: dict):
 # ── Commands ──────────────────────────────────────────────────────────────────
 
 def cmd_check(word: str):
-    ok, msg, chords = validate_word(word)
+    ok, msg, phonics = validate_word(word)
     print(f"\n  Checking: {word}")
     if ok:
         print(f"  ✓  {msg}")
@@ -185,8 +185,8 @@ def cmd_list(domain_filter: str = None):
         entries = by_domain[dom]
         print(f"\n  {dom.upper()} ({len(entries)})")
         for e in sorted(entries, key=lambda x: x["word"]):
-            chords = " · ".join(e["chords"])
-            print(f"    {e['word']:<16} {chords:<20} {e['concept'][:45]}")
+            phonics = " · ".join(e["phonics"])
+            print(f"    {e['word']:<16} {phonics:<20} {e['concept'][:45]}")
             total += 1
     print(f"\n  Total: {total} concepts")
 
@@ -200,7 +200,7 @@ def cmd_add_interactive():
         print("  Cancelled.")
         return
 
-    ok, msg, chords = validate_word(word)
+    ok, msg, phonics = validate_word(word)
     if not ok:
         print(f"  ✗  {msg}")
         return
@@ -216,9 +216,9 @@ def cmd_add_interactive():
             print("  Cancelled.")
             return
 
-    chord_names = [CHORDS[c]["name"] for c in chords]
-    gloss = " + ".join(chord_names)
-    print(f"\n  Chords: {' · '.join(chords)} = {gloss}")
+    phonic_names = [PHONICS[c]["name"] for c in phonics]
+    gloss = " + ".join(phonic_names)
+    print(f"\n  Phonics: {' · '.join(phonics)} = {gloss}")
 
     concept = input("  Concept (language-neutral description): ").strip()
     if not concept:
@@ -236,8 +236,8 @@ def cmd_add_interactive():
 
     entry = {
         "word": word,
-        "chords": chords,
-        "chord_names": chord_names,
+        "phonics": phonics,
+        "phonic_names": phonic_names,
         "concept": concept,
         "domain": domain,
         "level": level,
@@ -252,8 +252,8 @@ def cmd_add_interactive():
 
     data["concepts"][word] = entry
     data["stats"]["total"] = len(data["concepts"])
-    data["stats"]["primitive_chords"] = sum(1 for e in data["concepts"].values() if len(e["chords"]) == 1)
-    data["stats"]["composed_words"] = sum(1 for e in data["concepts"].values() if len(e["chords"]) > 1)
+    data["stats"]["primitive_phonics"] = sum(1 for e in data["concepts"].values() if len(e["phonics"]) == 1)
+    data["stats"]["composed_words"] = sum(1 for e in data["concepts"].values() if len(e["phonics"]) > 1)
     if domain not in data.get("domains", []):
         data.setdefault("domains", []).append(domain)
         data["domains"].sort()
@@ -271,7 +271,7 @@ def cmd_add_interactive():
 
 def cmd_add_direct(word: str, data: dict) -> dict:
     """Add a word non-interactively (for scripting)."""
-    ok, msg, chords = validate_word(word)
+    ok, msg, phonics = validate_word(word)
     if not ok:
         print(f"  ✗  {msg}")
         sys.exit(1)
@@ -283,7 +283,7 @@ def cmd_add_direct(word: str, data: dict) -> dict:
             print(f"  ⚠  {c}")
         sys.exit(1)
 
-    chord_names = [CHORDS[c]["name"] for c in chords]
+    phonic_names = [PHONICS[c]["name"] for c in phonics]
     concept = input(f"  Concept for '{word}': ").strip()
     domain = input(f"  Domain: ").strip()
     level_input = input(f"  Level [1-5]: ").strip()
@@ -291,8 +291,8 @@ def cmd_add_direct(word: str, data: dict) -> dict:
 
     entry = {
         "word": word,
-        "chords": chords,
-        "chord_names": chord_names,
+        "phonics": phonics,
+        "phonic_names": phonic_names,
         "concept": concept,
         "domain": domain,
         "level": level,
@@ -347,7 +347,7 @@ def main():
     elif len(args) == 1 and not args[0].startswith('--'):
         # Direct word — interactive from there
         word = args[0].lower().strip()
-        ok, msg, chords = validate_word(word)
+        ok, msg, phonics = validate_word(word)
         if not ok:
             print(f"\n  ✗  {msg}")
             sys.exit(1)

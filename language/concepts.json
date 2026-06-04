@@ -3,7 +3,7 @@
   "description": "Language-neutral concept dictionary for Sago. Primary entries are Sago words, not English translations. Any language speaker can use this by searching domain and concept.",
   "stats": {
     "total": 186,
-    "primitive_chords": 90,
+    "primitive_phonics": 90,
     "composed_words": 96
   },
   "domains": [
@@ -33,10 +33,10 @@
   "concepts": {
     "sa": {
       "word": "sa",
-      "chords": [
+      "phonics": [
         "sa"
       ],
-      "chord_names": [
+      "phonic_names": [
         "SELF"
       ],
       "concept": "the one who speaks; the speaker; first person",
@@ -45,10 +45,10 @@
     },
     "to": {
       "word": "to",
-      "chords": [
+      "phonics": [
         "to"
       ],
-      "chord_names": [
+      "phonic_names": [
         "OTHER"
       ],
       "concept": "any being or thing that is not the speaker",
@@ -57,10 +57,10 @@
     },
     "na": {
       "word": "na",
-      "chords": [
+      "phonics": [
         "na"
       ],
-      "chord_names": [
+      "phonic_names": [
         "NOT"
       ],
       "concept": "negation; absence; the opposite",
@@ -69,10 +69,10 @@
     },
     "wu": {
       "word": "wu",
-      "chords": [
+      "phonics": [
         "wu"
       ],
-      "chord_names": [
+      "phonic_names": [
         "WANT"
       ],
       "concept": "desire; need; intention; motivation toward something",
@@ -81,10 +81,10 @@
     },
     "go": {
       "word": "go",
-      "chords": [
+      "phonics": [
         "go"
       ],
-      "chord_names": [
+      "phonic_names": [
         "GOOD"
       ],
       "concept": "positive; correct; beneficial; safe; well",
@@ -93,10 +93,10 @@
     },
     "bi": {
       "word": "bi",
-      "chords": [
+      "phonics": [
         "bi"
       ],
-      "chord_names": [
+      "phonic_names": [
         "BAD"
       ],
       "concept": "negative; harmful; wrong; dangerous; broken",
@@ -105,10 +105,10 @@
     },
     "ne": {
       "word": "ne",
-      "chords": [
+      "phonics": [
         "ne"
       ],
-      "chord_names": [
+      "phonic_names": [
         "NOW"
       ],
       "concept": "the present moment; immediacy; currently happening",
@@ -117,10 +117,10 @@
     },
     "hi": {
       "word": "hi",
-      "chords": [
+      "phonics": [
         "hi"
       ],
-      "chord_names": [
+      "phonic_names": [
         "HERE"
       ],
       "concept": "this place; where the speaker is; proximal location",
@@ -129,10 +129,10 @@
     },
     "li": {
       "word": "li",
-      "chords": [
+      "phonics": [
         "li"
       ],
-      "chord_names": [
+      "phonic_names": [
         "ALIVE"
       ],
       "concept": "living; animate; conscious; functioning as life does",
@@ -141,10 +141,10 @@
     },
     "mo": {
       "word": "mo",
-      "chords": [
+      "phonics": [
         "mo"
       ],
-      "chord_names": [
+      "phonic_names": [
         "MOVE"
       ],
       "concept": "motion; change of position or state; action",
@@ -153,10 +153,10 @@
     },
     "te": {
       "word": "te",
-      "chords": [
+      "phonics": [
         "te"
       ],
-      "chord_names": [
+      "phonic_names": [
         "THINK"
       ],
       "concept": "mental activity; knowing; believing; understanding",
@@ -165,10 +165,10 @@
     },
     "du": {
       "word": "du",
-      "chords": [
+      "phonics": [
         "du"
       ],
-      "chord_names": [
+      "phonic_names": [
         "WATER"
       ],
       "concept": "liquid substance; fluid; water-like material",
@@ -177,10 +177,10 @@
     },
     "fu": {
       "word": "fu",
-      "chords": [
+      "phonics": [
         "fu"
       ],
-      "chord_names": [
+      "phonic_names": [
         "HEAT"
       ],
       "concept": "thermal energy; warmth; temperature above neutral",
@@ -189,10 +189,10 @@
     },
     "re": {
       "word": "re",
-      "chords": [
+      "phonics": [
         "re"
       ],
-      "chord_names": [
+      "phonic_names": [
         "AIR"
       ],
       "concept": "gaseous matter; breath; atmosphere; the open sky",
@@ -201,10 +201,10 @@
     },
     "ko": {
       "word": "ko",
-      "chords": [
+      "phonics": [
         "ko"
       ],
-      "chord_names": [
+      "phonic_names": [
         "SOLID"
       ],
       "concept": "hard matter; the tangible earth; resistance to change",
@@ -213,10 +213,10 @@
     },
     "lu": {
       "word": "lu",
-      "chords": [
+      "phonics": [
         "lu"
       ],
-      "chord_names": [
+      "phonic_names": [
         "LIGHT"
       ],
       "concept": "visible energy; brightness; electromagnetic radiation",
@@ -225,10 +225,10 @@
     },
     "pa": {
       "word": "pa",
-      "chords": [
+      "phonics": [
         "pa"
       ],
-      "chord_names": [
+      "phonic_names": [
         "BEFORE"
       ],
       "concept": "prior in time; earlier; what happened first",
@@ -237,10 +237,10 @@
     },
     "ya": {
       "word": "ya",
-      "chords": [
+      "phonics": [
         "ya"
       ],
-      "chord_names": [
+      "phonic_names": [
         "AFTER"
       ],
       "concept": "subsequent in time; later; what will happen next",
@@ -249,10 +249,10 @@
     },
     "da": {
       "word": "da",
-      "chords": [
+      "phonics": [
         "da"
       ],
-      "chord_names": [
+      "phonic_names": [
         "BECAUSE"
       ],
       "concept": "cause; reason; the explanation for why",
@@ -261,10 +261,10 @@
     },
     "di": {
       "word": "di",
-      "chords": [
+      "phonics": [
         "di"
       ],
-      "chord_names": [
+      "phonic_names": [
         "IF"
       ],
       "concept": "conditional; hypothetical; the case where",
@@ -273,10 +273,10 @@
     },
     "pi": {
       "word": "pi",
-      "chords": [
+      "phonics": [
         "pi"
       ],
-      "chord_names": [
+      "phonic_names": [
         "CAN"
       ],
       "concept": "ability; possibility; what is permitted or feasible",
@@ -285,10 +285,10 @@
     },
     "ma": {
       "word": "ma",
-      "chords": [
+      "phonics": [
         "ma"
       ],
-      "chord_names": [
+      "phonic_names": [
         "MORE"
       ],
       "concept": "greater degree; increase; comparative augmentation",
@@ -297,10 +297,10 @@
     },
     "si": {
       "word": "si",
-      "chords": [
+      "phonics": [
         "si"
       ],
-      "chord_names": [
+      "phonic_names": [
         "SAME"
       ],
       "concept": "identical; equal; the equivalent of",
@@ -309,10 +309,10 @@
     },
     "la": {
       "word": "la",
-      "chords": [
+      "phonics": [
         "la"
       ],
-      "chord_names": [
+      "phonic_names": [
         "FAR"
       ],
       "concept": "distant; away; remote from here",
@@ -321,10 +321,10 @@
     },
     "va": {
       "word": "va",
-      "chords": [
+      "phonics": [
         "va"
       ],
-      "chord_names": [
+      "phonic_names": [
         "ABOVE"
       ],
       "concept": "higher than; over; elevated relative to",
@@ -333,10 +333,10 @@
     },
     "ja": {
       "word": "ja",
-      "chords": [
+      "phonics": [
         "ja"
       ],
-      "chord_names": [
+      "phonic_names": [
         "INSIDE"
       ],
       "concept": "contained within; interior; enclosed by",
@@ -345,10 +345,10 @@
     },
     "ba": {
       "word": "ba",
-      "chords": [
+      "phonics": [
         "ba"
       ],
-      "chord_names": [
+      "phonic_names": [
         "FEEL"
       ],
       "concept": "emotional or physical sensation; affective state",
@@ -357,10 +357,10 @@
     },
     "ra": {
       "word": "ra",
-      "chords": [
+      "phonics": [
         "ra"
       ],
-      "chord_names": [
+      "phonic_names": [
         "HEAR"
       ],
       "concept": "auditory perception; receiving sound",
@@ -369,10 +369,10 @@
     },
     "we": {
       "word": "we",
-      "chords": [
+      "phonics": [
         "we"
       ],
-      "chord_names": [
+      "phonic_names": [
         "SAY"
       ],
       "concept": "verbal expression; communication; speaking",
@@ -381,10 +381,10 @@
     },
     "ka": {
       "word": "ka",
-      "chords": [
+      "phonics": [
         "ka"
       ],
-      "chord_names": [
+      "phonic_names": [
         "MANY"
       ],
       "concept": "plural; numerous; more than a few",
@@ -393,10 +393,10 @@
     },
     "bo": {
       "word": "bo",
-      "chords": [
+      "phonics": [
         "bo"
       ],
-      "chord_names": [
+      "phonic_names": [
         "BODY"
       ],
       "concept": "the physical form; flesh; the biological structure",
@@ -405,10 +405,10 @@
     },
     "pe": {
       "word": "pe",
-      "chords": [
+      "phonics": [
         "pe"
       ],
-      "chord_names": [
+      "phonic_names": [
         "KIND"
       ],
       "concept": "a type or category; the sort of thing",
@@ -417,10 +417,10 @@
     },
     "zo": {
       "word": "zo",
-      "chords": [
+      "phonics": [
         "zo"
       ],
-      "chord_names": [
+      "phonic_names": [
         "SOMEONE"
       ],
       "concept": "an unspecified person; some individual",
@@ -429,10 +429,10 @@
     },
     "ze": {
       "word": "ze",
-      "chords": [
+      "phonics": [
         "ze"
       ],
-      "chord_names": [
+      "phonic_names": [
         "SOMETHING"
       ],
       "concept": "an unspecified thing; some entity",
@@ -441,10 +441,10 @@
     },
     "pu": {
       "word": "pu",
-      "chords": [
+      "phonics": [
         "pu"
       ],
-      "chord_names": [
+      "phonic_names": [
         "PEOPLE"
       ],
       "concept": "humans collectively; the human group",
@@ -453,10 +453,10 @@
     },
     "ta": {
       "word": "ta",
-      "chords": [
+      "phonics": [
         "ta"
       ],
-      "chord_names": [
+      "phonic_names": [
         "ONE"
       ],
       "concept": "a single instance; unit; the number one",
@@ -465,10 +465,10 @@
     },
     "ti": {
       "word": "ti",
-      "chords": [
+      "phonics": [
         "ti"
       ],
-      "chord_names": [
+      "phonic_names": [
         "TWO"
       ],
       "concept": "a pair; two instances",
@@ -477,10 +477,10 @@
     },
     "so": {
       "word": "so",
-      "chords": [
+      "phonics": [
         "so"
       ],
-      "chord_names": [
+      "phonic_names": [
         "SOME"
       ],
       "concept": "an indefinite portion; a number greater than one but not all",
@@ -489,10 +489,10 @@
     },
     "zu": {
       "word": "zu",
-      "chords": [
+      "phonics": [
         "zu"
       ],
-      "chord_names": [
+      "phonic_names": [
         "ALL"
       ],
       "concept": "every instance; the entire set; universal",
@@ -501,10 +501,10 @@
     },
     "fi": {
       "word": "fi",
-      "chords": [
+      "phonics": [
         "fi"
       ],
-      "chord_names": [
+      "phonic_names": [
         "FEW"
       ],
       "concept": "a small number; not many",
@@ -513,10 +513,10 @@
     },
     "ga": {
       "word": "ga",
-      "chords": [
+      "phonics": [
         "ga"
       ],
-      "chord_names": [
+      "phonic_names": [
         "BIG"
       ],
       "concept": "large in scale, size, or degree",
@@ -525,10 +525,10 @@
     },
     "gi": {
       "word": "gi",
-      "chords": [
+      "phonics": [
         "gi"
       ],
-      "chord_names": [
+      "phonic_names": [
         "SMALL"
       ],
       "concept": "small in scale, size, or degree",
@@ -537,10 +537,10 @@
     },
     "no": {
       "word": "no",
-      "chords": [
+      "phonics": [
         "no"
       ],
-      "chord_names": [
+      "phonic_names": [
         "KNOW"
       ],
       "concept": "certain knowledge; established fact; what is verified",
@@ -549,10 +549,10 @@
     },
     "vi": {
       "word": "vi",
-      "chords": [
+      "phonics": [
         "vi"
       ],
-      "chord_names": [
+      "phonic_names": [
         "SEE"
       ],
       "concept": "visual perception; the sense of sight",
@@ -561,10 +561,10 @@
     },
     "tu": {
       "word": "tu",
-      "chords": [
+      "phonics": [
         "tu"
       ],
-      "chord_names": [
+      "phonic_names": [
         "TOUCH"
       ],
       "concept": "physical contact; tactile perception",
@@ -573,10 +573,10 @@
     },
     "de": {
       "word": "de",
-      "chords": [
+      "phonics": [
         "de"
       ],
-      "chord_names": [
+      "phonic_names": [
         "DO"
       ],
       "concept": "intentional action; deliberate doing",
@@ -585,10 +585,10 @@
     },
     "ha": {
       "word": "ha",
-      "chords": [
+      "phonics": [
         "ha"
       ],
-      "chord_names": [
+      "phonic_names": [
         "HAPPEN"
       ],
       "concept": "an event without an agent; occurring without intent",
@@ -597,10 +597,10 @@
     },
     "ho": {
       "word": "ho",
-      "chords": [
+      "phonics": [
         "ho"
       ],
-      "chord_names": [
+      "phonic_names": [
         "HAVE"
       ],
       "concept": "possession; containing; belonging to",
@@ -609,10 +609,10 @@
     },
     "za": {
       "word": "za",
-      "chords": [
+      "phonics": [
         "za"
       ],
-      "chord_names": [
+      "phonic_names": [
         "EXIST"
       ],
       "concept": "presence; being there; there is",
@@ -621,10 +621,10 @@
     },
     "gu": {
       "word": "gu",
-      "chords": [
+      "phonics": [
         "gu"
       ],
-      "chord_names": [
+      "phonic_names": [
         "DIE"
       ],
       "concept": "ceasing to live; the end of life",
@@ -633,10 +633,10 @@
     },
     "su": {
       "word": "su",
-      "chords": [
+      "phonics": [
         "su"
       ],
-      "chord_names": [
+      "phonic_names": [
         "TRUE"
       ],
       "concept": "factual; real; actual; what is the case",
@@ -645,10 +645,10 @@
     },
     "ro": {
       "word": "ro",
-      "chords": [
+      "phonics": [
         "ro"
       ],
-      "chord_names": [
+      "phonic_names": [
         "WORD"
       ],
       "concept": "a linguistic unit; a name; the vehicle of language",
@@ -657,10 +657,10 @@
     },
     "mi": {
       "word": "mi",
-      "chords": [
+      "phonics": [
         "mi"
       ],
-      "chord_names": [
+      "phonic_names": [
         "MAYBE"
       ],
       "concept": "uncertain; possible; perhaps",
@@ -669,10 +669,10 @@
     },
     "lo": {
       "word": "lo",
-      "chords": [
+      "phonics": [
         "lo"
       ],
-      "chord_names": [
+      "phonic_names": [
         "LIKE"
       ],
       "concept": "similar to; in the manner of; as if",
@@ -681,10 +681,10 @@
     },
     "ve": {
       "word": "ve",
-      "chords": [
+      "phonics": [
         "ve"
       ],
-      "chord_names": [
+      "phonic_names": [
         "VERY"
       ],
       "concept": "intensifier; to a great degree; strongly",
@@ -693,10 +693,10 @@
     },
     "ni": {
       "word": "ni",
-      "chords": [
+      "phonics": [
         "ni"
       ],
-      "chord_names": [
+      "phonic_names": [
         "NEAR"
       ],
       "concept": "close to; proximate; almost touching",
@@ -705,10 +705,10 @@
     },
     "be": {
       "word": "be",
-      "chords": [
+      "phonics": [
         "be"
       ],
-      "chord_names": [
+      "phonic_names": [
         "BELOW"
       ],
       "concept": "lower than; under; beneath",
@@ -717,10 +717,10 @@
     },
     "ri": {
       "word": "ri",
-      "chords": [
+      "phonics": [
         "ri"
       ],
-      "chord_names": [
+      "phonic_names": [
         "SIDE"
       ],
       "concept": "lateral; beside; adjacent",
@@ -729,10 +729,10 @@
     },
     "wi": {
       "word": "wi",
-      "chords": [
+      "phonics": [
         "wi"
       ],
-      "chord_names": [
+      "phonic_names": [
         "WHEN"
       ],
       "concept": "at which time; the temporal question",
@@ -741,10 +741,10 @@
     },
     "wa": {
       "word": "wa",
-      "chords": [
+      "phonics": [
         "wa"
       ],
-      "chord_names": [
+      "phonic_names": [
         "WHERE"
       ],
       "concept": "at which place; the spatial question",
@@ -753,10 +753,10 @@
     },
     "mu": {
       "word": "mu",
-      "chords": [
+      "phonics": [
         "mu"
       ],
-      "chord_names": [
+      "phonic_names": [
         "MOMENT"
       ],
       "concept": "a brief instant; a point in time",
@@ -765,10 +765,10 @@
     },
     "po": {
       "word": "po",
-      "chords": [
+      "phonics": [
         "po"
       ],
-      "chord_names": [
+      "phonic_names": [
         "PART"
       ],
       "concept": "a component; a piece of a whole",
@@ -777,10 +777,10 @@
     },
     "nu": {
       "word": "nu",
-      "chords": [
+      "phonics": [
         "nu"
       ],
-      "chord_names": [
+      "phonic_names": [
         "ANOTHER"
       ],
       "concept": "a different one; not this; an alternative",
@@ -789,10 +789,10 @@
     },
     "yo": {
       "word": "yo",
-      "chords": [
+      "phonics": [
         "yo"
       ],
-      "chord_names": [
+      "phonic_names": [
         "THIS"
       ],
       "concept": "the proximal referent; what is indicated now",
@@ -801,10 +801,10 @@
     },
     "le": {
       "word": "le",
-      "chords": [
+      "phonics": [
         "le"
       ],
-      "chord_names": [
+      "phonic_names": [
         "TREE"
       ],
       "concept": "a tall woody plant with a trunk",
@@ -813,10 +813,10 @@
     },
     "ge": {
       "word": "ge",
-      "chords": [
+      "phonics": [
         "ge"
       ],
-      "chord_names": [
+      "phonic_names": [
         "MOON"
       ],
       "concept": "the large natural satellite visible at night",
@@ -825,10 +825,10 @@
     },
     "fo": {
       "word": "fo",
-      "chords": [
+      "phonics": [
         "fo"
       ],
-      "chord_names": [
+      "phonic_names": [
         "FOOT"
       ],
       "concept": "the lowest part of the leg; the base of standing",
@@ -837,10 +837,10 @@
     },
     "bu": {
       "word": "bu",
-      "chords": [
+      "phonics": [
         "bu"
       ],
-      "chord_names": [
+      "phonic_names": [
         "BIRD"
       ],
       "concept": "a feathered flying vertebrate",
@@ -849,10 +849,10 @@
     },
     "ru": {
       "word": "ru",
-      "chords": [
+      "phonics": [
         "ru"
       ],
-      "chord_names": [
+      "phonic_names": [
         "ROAD"
       ],
       "concept": "a path made for travel; a route through space",
@@ -861,10 +861,10 @@
     },
     "se": {
       "word": "se",
-      "chords": [
+      "phonics": [
         "se"
       ],
-      "chord_names": [
+      "phonic_names": [
         "STAR"
       ],
       "concept": "a distant sun; a point of light in the night sky",
@@ -873,10 +873,10 @@
     },
     "do": {
       "word": "do",
-      "chords": [
+      "phonics": [
         "do"
       ],
-      "chord_names": [
+      "phonic_names": [
         "DAY"
       ],
       "concept": "the period of solar light; one rotation of the earth",
@@ -885,10 +885,10 @@
     },
     "fa": {
       "word": "fa",
-      "chords": [
+      "phonics": [
         "fa"
       ],
-      "chord_names": [
+      "phonic_names": [
         "PLANT"
       ],
       "concept": "a rooted living thing; vegetation; flora",
@@ -897,10 +897,10 @@
     },
     "me": {
       "word": "me",
-      "chords": [
+      "phonics": [
         "me"
       ],
-      "chord_names": [
+      "phonic_names": [
         "MAN"
       ],
       "concept": "an adult male human",
@@ -909,10 +909,10 @@
     },
     "ku": {
       "word": "ku",
-      "chords": [
+      "phonics": [
         "ku"
       ],
-      "chord_names": [
+      "phonic_names": [
         "MOTHER"
       ],
       "concept": "the female parent; the one who gave birth",
@@ -921,10 +921,10 @@
     },
     "je": {
       "word": "je",
-      "chords": [
+      "phonics": [
         "je"
       ],
-      "chord_names": [
+      "phonic_names": [
         "TOGETHER"
       ],
       "concept": "in mutual company; jointly; with each other",
@@ -933,10 +933,10 @@
     },
     "ki": {
       "word": "ki",
-      "chords": [
+      "phonics": [
         "ki"
       ],
-      "chord_names": [
+      "phonic_names": [
         "ANIMAL"
       ],
       "concept": "a non-plant living creature; fauna",
@@ -945,10 +945,10 @@
     },
     "hu": {
       "word": "hu",
-      "chords": [
+      "phonics": [
         "hu"
       ],
-      "chord_names": [
+      "phonic_names": [
         "FATHER"
       ],
       "concept": "the male parent; the one who contributed genetically",
@@ -957,10 +957,10 @@
     },
     "ye": {
       "word": "ye",
-      "chords": [
+      "phonics": [
         "ye"
       ],
-      "chord_names": [
+      "phonic_names": [
         "EYE"
       ],
       "concept": "the visual organ; the organ of sight",
@@ -969,10 +969,10 @@
     },
     "he": {
       "word": "he",
-      "chords": [
+      "phonics": [
         "he"
       ],
-      "chord_names": [
+      "phonic_names": [
         "EARTH"
       ],
       "concept": "the ground; soil; this planet",
@@ -981,10 +981,10 @@
     },
     "ji": {
       "word": "ji",
-      "chords": [
+      "phonics": [
         "ji"
       ],
-      "chord_names": [
+      "phonic_names": [
         "HARD"
       ],
       "concept": "resistant to deformation; rigid; solid surface",
@@ -993,10 +993,10 @@
     },
     "vo": {
       "word": "vo",
-      "chords": [
+      "phonics": [
         "vo"
       ],
-      "chord_names": [
+      "phonic_names": [
         "SHARP"
       ],
       "concept": "having a fine point or cutting edge",
@@ -1005,10 +1005,10 @@
     },
     "vu": {
       "word": "vu",
-      "chords": [
+      "phonics": [
         "vu"
       ],
-      "chord_names": [
+      "phonic_names": [
         "MOUTH"
       ],
       "concept": "the oral opening; the organ of speech",
@@ -1017,10 +1017,10 @@
     },
     "jo": {
       "word": "jo",
-      "chords": [
+      "phonics": [
         "jo"
       ],
-      "chord_names": [
+      "phonic_names": [
         "EAR"
       ],
       "concept": "the auditory organ; the organ of hearing",
@@ -1029,10 +1029,10 @@
     },
     "ju": {
       "word": "ju",
-      "chords": [
+      "phonics": [
         "ju"
       ],
-      "chord_names": [
+      "phonic_names": [
         "ROUND"
       ],
       "concept": "circular or spherical in form",
@@ -1041,10 +1041,10 @@
     },
     "fe": {
       "word": "fe",
-      "chords": [
+      "phonics": [
         "fe"
       ],
-      "chord_names": [
+      "phonic_names": [
         "TASTE"
       ],
       "concept": "gustatory sense; the flavor quality of things",
@@ -1053,10 +1053,10 @@
     },
     "yi": {
       "word": "yi",
-      "chords": [
+      "phonics": [
         "yi"
       ],
-      "chord_names": [
+      "phonic_names": [
         "BACK"
       ],
       "concept": "the posterior surface; the rear side",
@@ -1065,10 +1065,10 @@
     },
     "yu": {
       "word": "yu",
-      "chords": [
+      "phonics": [
         "yu"
       ],
-      "chord_names": [
+      "phonic_names": [
         "NIGHT"
       ],
       "concept": "the period of darkness; solar absence",
@@ -1077,10 +1077,10 @@
     },
     "zi": {
       "word": "zi",
-      "chords": [
+      "phonics": [
         "zi"
       ],
-      "chord_names": [
+      "phonic_names": [
         "GROUND"
       ],
       "concept": "the surface underfoot; the floor",
@@ -1089,10 +1089,10 @@
     },
     "ke": {
       "word": "ke",
-      "chords": [
+      "phonics": [
         "ke"
       ],
-      "chord_names": [
+      "phonic_names": [
         "CLOTH"
       ],
       "concept": "woven fabric; textile material",
@@ -1101,10 +1101,10 @@
     },
     "wo": {
       "word": "wo",
-      "chords": [
+      "phonics": [
         "wo"
       ],
-      "chord_names": [
+      "phonic_names": [
         "NOSE"
       ],
       "concept": "the olfactory organ; the organ of smell",
@@ -1113,11 +1113,11 @@
     },
     "nafu": {
       "word": "nafu",
-      "chords": [
+      "phonics": [
         "na",
         "fu"
       ],
-      "chord_names": [
+      "phonic_names": [
         "NOT",
         "HEAT"
       ],
@@ -1127,11 +1127,11 @@
     },
     "fumo": {
       "word": "fumo",
-      "chords": [
+      "phonics": [
         "fu",
         "mo"
       ],
-      "chord_names": [
+      "phonic_names": [
         "HEAT",
         "MOVE"
       ],
@@ -1141,11 +1141,11 @@
     },
     "dure": {
       "word": "dure",
-      "chords": [
+      "phonics": [
         "du",
         "re"
       ],
-      "chord_names": [
+      "phonic_names": [
         "WATER",
         "AIR"
       ],
@@ -1155,12 +1155,12 @@
     },
     "dufure": {
       "word": "dufure",
-      "chords": [
+      "phonics": [
         "du",
         "fu",
         "re"
       ],
-      "chord_names": [
+      "phonic_names": [
         "WATER",
         "HEAT",
         "AIR"
@@ -1171,12 +1171,12 @@
     },
     "dunаfu": {
       "word": "dunаfu",
-      "chords": [
+      "phonics": [
         "du",
         "na",
         "fu"
       ],
-      "chord_names": [
+      "phonic_names": [
         "WATER",
         "NOT",
         "HEAT"
@@ -1187,11 +1187,11 @@
     },
     "dumo": {
       "word": "dumo",
-      "chords": [
+      "phonics": [
         "du",
         "mo"
       ],
-      "chord_names": [
+      "phonic_names": [
         "WATER",
         "MOVE"
       ],
@@ -1201,11 +1201,11 @@
     },
     "remo": {
       "word": "remo",
-      "chords": [
+      "phonics": [
         "re",
         "mo"
       ],
-      "chord_names": [
+      "phonic_names": [
         "AIR",
         "MOVE"
       ],
@@ -1215,11 +1215,11 @@
     },
     "duga": {
       "word": "duga",
-      "chords": [
+      "phonics": [
         "du",
         "ga"
       ],
-      "chord_names": [
+      "phonic_names": [
         "WATER",
         "BIG"
       ],
@@ -1229,11 +1229,11 @@
     },
     "lure": {
       "word": "lure",
-      "chords": [
+      "phonics": [
         "lu",
         "re"
       ],
-      "chord_names": [
+      "phonic_names": [
         "LIGHT",
         "AIR"
       ],
@@ -1243,11 +1243,11 @@
     },
     "nalu": {
       "word": "nalu",
-      "chords": [
+      "phonics": [
         "na",
         "lu"
       ],
-      "chord_names": [
+      "phonic_names": [
         "NOT",
         "LIGHT"
       ],
@@ -1257,11 +1257,11 @@
     },
     "komo": {
       "word": "komo",
-      "chords": [
+      "phonics": [
         "ko",
         "mo"
       ],
-      "chord_names": [
+      "phonic_names": [
         "SOLID",
         "MOVE"
       ],
@@ -1271,11 +1271,11 @@
     },
     "kova": {
       "word": "kova",
-      "chords": [
+      "phonics": [
         "ko",
         "va"
       ],
-      "chord_names": [
+      "phonic_names": [
         "SOLID",
         "ABOVE"
       ],
@@ -1285,11 +1285,11 @@
     },
     "nali": {
       "word": "nali",
-      "chords": [
+      "phonics": [
         "na",
         "li"
       ],
-      "chord_names": [
+      "phonic_names": [
         "NOT",
         "ALIVE"
       ],
@@ -1299,11 +1299,11 @@
     },
     "ligo": {
       "word": "ligo",
-      "chords": [
+      "phonics": [
         "li",
         "go"
       ],
-      "chord_names": [
+      "phonic_names": [
         "ALIVE",
         "GOOD"
       ],
@@ -1313,11 +1313,11 @@
     },
     "libi": {
       "word": "libi",
-      "chords": [
+      "phonics": [
         "li",
         "bi"
       ],
-      "chord_names": [
+      "phonic_names": [
         "ALIVE",
         "BAD"
       ],
@@ -1327,11 +1327,11 @@
     },
     "lina": {
       "word": "lina",
-      "chords": [
+      "phonics": [
         "li",
         "na"
       ],
-      "chord_names": [
+      "phonic_names": [
         "ALIVE",
         "NOT"
       ],
@@ -1341,11 +1341,11 @@
     },
     "lima": {
       "word": "lima",
-      "chords": [
+      "phonics": [
         "li",
         "ma"
       ],
-      "chord_names": [
+      "phonic_names": [
         "ALIVE",
         "MORE"
       ],
@@ -1355,12 +1355,12 @@
     },
     "linаte": {
       "word": "linаte",
-      "chords": [
+      "phonics": [
         "li",
         "na",
         "te"
       ],
-      "chord_names": [
+      "phonic_names": [
         "ALIVE",
         "NOT",
         "THINK"
@@ -1371,11 +1371,11 @@
     },
     "liре": {
       "word": "liре",
-      "chords": [
+      "phonics": [
         "li",
         "re"
       ],
-      "chord_names": [
+      "phonic_names": [
         "ALIVE",
         "AIR"
       ],
@@ -1385,11 +1385,11 @@
     },
     "lidu": {
       "word": "lidu",
-      "chords": [
+      "phonics": [
         "li",
         "du"
       ],
-      "chord_names": [
+      "phonic_names": [
         "ALIVE",
         "WATER"
       ],
@@ -1399,11 +1399,11 @@
     },
     "liko": {
       "word": "liko",
-      "chords": [
+      "phonics": [
         "li",
         "ko"
       ],
-      "chord_names": [
+      "phonic_names": [
         "ALIVE",
         "SOLID"
       ],
@@ -1413,11 +1413,11 @@
     },
     "bago": {
       "word": "bago",
-      "chords": [
+      "phonics": [
         "ba",
         "go"
       ],
-      "chord_names": [
+      "phonic_names": [
         "FEEL",
         "GOOD"
       ],
@@ -1427,11 +1427,11 @@
     },
     "babi": {
       "word": "babi",
-      "chords": [
+      "phonics": [
         "ba",
         "bi"
       ],
-      "chord_names": [
+      "phonic_names": [
         "FEEL",
         "BAD"
       ],
@@ -1441,12 +1441,12 @@
     },
     "bagoza": {
       "word": "bagoza",
-      "chords": [
+      "phonics": [
         "ba",
         "go",
         "za"
       ],
-      "chord_names": [
+      "phonic_names": [
         "FEEL",
         "GOOD",
         "EXIST"
@@ -1457,13 +1457,13 @@
     },
     "bagoto": {
       "word": "bagoto",
-      "chords": [
+      "phonics": [
         "ba",
         "go",
         "ma",
         "to"
       ],
-      "chord_names": [
+      "phonic_names": [
         "FEEL",
         "GOOD",
         "MORE",
@@ -1475,13 +1475,13 @@
     },
     "bagosa": {
       "word": "bagosa",
-      "chords": [
+      "phonics": [
         "ba",
         "go",
         "da",
         "sa"
       ],
-      "chord_names": [
+      "phonic_names": [
         "FEEL",
         "GOOD",
         "BECAUSE",
@@ -1493,13 +1493,13 @@
     },
     "bagodato": {
       "word": "bagodato",
-      "chords": [
+      "phonics": [
         "ba",
         "go",
         "da",
         "to"
       ],
-      "chord_names": [
+      "phonic_names": [
         "FEEL",
         "GOOD",
         "BECAUSE",
@@ -1511,13 +1511,13 @@
     },
     "bagola": {
       "word": "bagola",
-      "chords": [
+      "phonics": [
         "ba",
         "go",
         "ma",
         "la"
       ],
-      "chord_names": [
+      "phonic_names": [
         "FEEL",
         "GOOD",
         "MORE",
@@ -1529,13 +1529,13 @@
     },
     "bagodapa": {
       "word": "bagodapa",
-      "chords": [
+      "phonics": [
         "ba",
         "go",
         "da",
         "pa"
       ],
-      "chord_names": [
+      "phonic_names": [
         "FEEL",
         "GOOD",
         "BECAUSE",
@@ -1547,7 +1547,7 @@
     },
     "babito": {
       "word": "babito",
-      "chords": [
+      "phonics": [
         "ba",
         "bi",
         "da",
@@ -1555,7 +1555,7 @@
         "to",
         "hi"
       ],
-      "chord_names": [
+      "phonic_names": [
         "FEEL",
         "BAD",
         "BECAUSE",
@@ -1569,13 +1569,13 @@
     },
     "wunato": {
       "word": "wunato",
-      "chords": [
+      "phonics": [
         "wu",
         "na",
         "to",
         "za"
       ],
-      "chord_names": [
+      "phonic_names": [
         "WANT",
         "NOT",
         "OTHER",
@@ -1587,14 +1587,14 @@
     },
     "babiyaze": {
       "word": "babiyaze",
-      "chords": [
+      "phonics": [
         "ba",
         "bi",
         "da",
         "ya",
         "ze"
       ],
-      "chord_names": [
+      "phonic_names": [
         "FEEL",
         "BAD",
         "BECAUSE",
@@ -1607,14 +1607,14 @@
     },
     "babinaza": {
       "word": "babinaza",
-      "chords": [
+      "phonics": [
         "ba",
         "bi",
         "da",
         "na",
         "za"
       ],
-      "chord_names": [
+      "phonic_names": [
         "FEEL",
         "BAD",
         "BECAUSE",
@@ -1627,7 +1627,7 @@
     },
     "babisade": {
       "word": "babisade",
-      "chords": [
+      "phonics": [
         "ba",
         "bi",
         "da",
@@ -1635,7 +1635,7 @@
         "de",
         "bi"
       ],
-      "chord_names": [
+      "phonic_names": [
         "FEEL",
         "BAD",
         "BECAUSE",
@@ -1649,13 +1649,13 @@
     },
     "dejeba": {
       "word": "dejeba",
-      "chords": [
+      "phonics": [
         "de",
         "je",
         "ba",
         "bi"
       ],
-      "chord_names": [
+      "phonic_names": [
         "DO",
         "TOGETHER",
         "FEEL",
@@ -1667,12 +1667,12 @@
     },
     "wuyago": {
       "word": "wuyago",
-      "chords": [
+      "phonics": [
         "wu",
         "ya",
         "go"
       ],
-      "chord_names": [
+      "phonic_names": [
         "WANT",
         "AFTER",
         "GOOD"
@@ -1683,13 +1683,13 @@
     },
     "nawuyago": {
       "word": "nawuyago",
-      "chords": [
+      "phonics": [
         "na",
         "wu",
         "ya",
         "go"
       ],
-      "chord_names": [
+      "phonic_names": [
         "NOT",
         "WANT",
         "AFTER",
@@ -1701,11 +1701,11 @@
     },
     "tesu": {
       "word": "tesu",
-      "chords": [
+      "phonics": [
         "te",
         "su"
       ],
-      "chord_names": [
+      "phonic_names": [
         "THINK",
         "TRUE"
       ],
@@ -1715,13 +1715,13 @@
     },
     "tesunavi": {
       "word": "tesunavi",
-      "chords": [
+      "phonics": [
         "te",
         "su",
         "na",
         "vi"
       ],
-      "chord_names": [
+      "phonic_names": [
         "THINK",
         "TRUE",
         "NOT",
@@ -1733,11 +1733,11 @@
     },
     "nano": {
       "word": "nano",
-      "chords": [
+      "phonics": [
         "na",
         "no"
       ],
-      "chord_names": [
+      "phonic_names": [
         "NOT",
         "KNOW"
       ],
@@ -1747,11 +1747,11 @@
     },
     "tere": {
       "word": "tere",
-      "chords": [
+      "phonics": [
         "te",
         "re"
       ],
-      "chord_names": [
+      "phonic_names": [
         "THINK",
         "AIR"
       ],
@@ -1761,12 +1761,12 @@
     },
     "temigo": {
       "word": "temigo",
-      "chords": [
+      "phonics": [
         "te",
         "mi",
         "go"
       ],
-      "chord_names": [
+      "phonic_names": [
         "THINK",
         "MAYBE",
         "GOOD"
@@ -1777,12 +1777,12 @@
     },
     "temago": {
       "word": "temago",
-      "chords": [
+      "phonics": [
         "te",
         "ma",
         "go"
       ],
-      "chord_names": [
+      "phonic_names": [
         "THINK",
         "MORE",
         "GOOD"
@@ -1793,11 +1793,11 @@
     },
     "teya": {
       "word": "teya",
-      "chords": [
+      "phonics": [
         "te",
         "ya"
       ],
-      "chord_names": [
+      "phonic_names": [
         "THINK",
         "AFTER"
       ],
@@ -1807,12 +1807,12 @@
     },
     "teyago": {
       "word": "teyago",
-      "chords": [
+      "phonics": [
         "te",
         "pa",
         "ya"
       ],
-      "chord_names": [
+      "phonic_names": [
         "THINK",
         "BEFORE",
         "AFTER"
@@ -1823,12 +1823,12 @@
     },
     "natеpa": {
       "word": "natеpa",
-      "chords": [
+      "phonics": [
         "na",
         "te",
         "pa"
       ],
-      "chord_names": [
+      "phonic_names": [
         "NOT",
         "THINK",
         "BEFORE"
@@ -1839,11 +1839,11 @@
     },
     "wena": {
       "word": "wena",
-      "chords": [
+      "phonics": [
         "we",
         "na"
       ],
-      "chord_names": [
+      "phonic_names": [
         "SAY",
         "NOT"
       ],
@@ -1853,11 +1853,11 @@
     },
     "wepa": {
       "word": "wepa",
-      "chords": [
+      "phonics": [
         "we",
         "pa"
       ],
-      "chord_names": [
+      "phonic_names": [
         "SAY",
         "BEFORE"
       ],
@@ -1867,12 +1867,12 @@
     },
     "wepaka": {
       "word": "wepaka",
-      "chords": [
+      "phonics": [
         "we",
         "pa",
         "ka"
       ],
-      "chord_names": [
+      "phonic_names": [
         "SAY",
         "BEFORE",
         "MANY"
@@ -1883,11 +1883,11 @@
     },
     "suwе": {
       "word": "suwе",
-      "chords": [
+      "phonics": [
         "su",
         "we"
       ],
-      "chord_names": [
+      "phonic_names": [
         "TRUE",
         "SAY"
       ],
@@ -1897,12 +1897,12 @@
     },
     "nawеsu": {
       "word": "nawеsu",
-      "chords": [
+      "phonics": [
         "na",
         "we",
         "su"
       ],
-      "chord_names": [
+      "phonic_names": [
         "NOT",
         "SAY",
         "TRUE"
@@ -1913,12 +1913,12 @@
     },
     "weyade": {
       "word": "weyade",
-      "chords": [
+      "phonics": [
         "we",
         "ya",
         "de"
       ],
-      "chord_names": [
+      "phonic_names": [
         "SAY",
         "AFTER",
         "DO"
@@ -1929,11 +1929,11 @@
     },
     "roka": {
       "word": "roka",
-      "chords": [
+      "phonics": [
         "ro",
         "ka"
       ],
-      "chord_names": [
+      "phonic_names": [
         "WORD",
         "MANY"
       ],
@@ -1943,13 +1943,13 @@
     },
     "kаpuwеro": {
       "word": "kаpuwеro",
-      "chords": [
+      "phonics": [
         "ka",
         "pu",
         "we",
         "ro"
       ],
-      "chord_names": [
+      "phonic_names": [
         "MANY",
         "PEOPLE",
         "SAY",
@@ -1961,12 +1961,12 @@
     },
     "jeliti": {
       "word": "jeliti",
-      "chords": [
+      "phonics": [
         "je",
         "li",
         "ti"
       ],
-      "chord_names": [
+      "phonic_names": [
         "TOGETHER",
         "ALIVE",
         "TWO"
@@ -1977,12 +1977,12 @@
     },
     "kаpuhi": {
       "word": "kаpuhi",
-      "chords": [
+      "phonics": [
         "ka",
         "pu",
         "hi"
       ],
-      "chord_names": [
+      "phonic_names": [
         "MANY",
         "PEOPLE",
         "HERE"
@@ -1993,12 +1993,12 @@
     },
     "kahili": {
       "word": "kahili",
-      "chords": [
+      "phonics": [
         "hi",
         "je",
         "li"
       ],
-      "chord_names": [
+      "phonic_names": [
         "HERE",
         "TOGETHER",
         "ALIVE"
@@ -2009,14 +2009,14 @@
     },
     "kаpubabide": {
       "word": "kаpubabide",
-      "chords": [
+      "phonics": [
         "ka",
         "pu",
         "ba",
         "bi",
         "de"
       ],
-      "chord_names": [
+      "phonic_names": [
         "MANY",
         "PEOPLE",
         "FEEL",
@@ -2029,14 +2029,14 @@
     },
     "kаpubagoje": {
       "word": "kаpubagoje",
-      "chords": [
+      "phonics": [
         "ka",
         "pu",
         "ba",
         "go",
         "je"
       ],
-      "chord_names": [
+      "phonic_names": [
         "MANY",
         "PEOPLE",
         "FEEL",
@@ -2049,12 +2049,12 @@
     },
     "надena": {
       "word": "надena",
-      "chords": [
+      "phonics": [
         "na",
         "de",
         "na"
       ],
-      "chord_names": [
+      "phonic_names": [
         "NOT",
         "DO",
         "NOT"
@@ -2065,13 +2065,13 @@
     },
     "degokаpu": {
       "word": "degokаpu",
-      "chords": [
+      "phonics": [
         "de",
         "go",
         "ka",
         "pu"
       ],
-      "chord_names": [
+      "phonic_names": [
         "DO",
         "GOOD",
         "MANY",
@@ -2083,11 +2083,11 @@
     },
     "kаle": {
       "word": "kаle",
-      "chords": [
+      "phonics": [
         "ka",
         "le"
       ],
-      "chord_names": [
+      "phonic_names": [
         "MANY",
         "TREE"
       ],
@@ -2097,12 +2097,12 @@
     },
     "dumoru": {
       "word": "dumoru",
-      "chords": [
+      "phonics": [
         "du",
         "mo",
         "ru"
       ],
-      "chord_names": [
+      "phonic_names": [
         "WATER",
         "MOVE",
         "ROAD"
@@ -2113,12 +2113,12 @@
     },
     "dumobe": {
       "word": "dumobe",
-      "chords": [
+      "phonics": [
         "du",
         "mo",
         "be"
       ],
-      "chord_names": [
+      "phonic_names": [
         "WATER",
         "MOVE",
         "DOWN"
@@ -2129,11 +2129,11 @@
     },
     "kaki": {
       "word": "kaki",
-      "chords": [
+      "phonics": [
         "ka",
         "ki"
       ],
-      "chord_names": [
+      "phonic_names": [
         "MANY",
         "ANIMAL"
       ],
@@ -2143,11 +2143,11 @@
     },
     "kabu": {
       "word": "kabu",
-      "chords": [
+      "phonics": [
         "ka",
         "bu"
       ],
-      "chord_names": [
+      "phonic_names": [
         "MANY",
         "BIRD"
       ],
@@ -2157,11 +2157,11 @@
     },
     "luga": {
       "word": "luga",
-      "chords": [
+      "phonics": [
         "lu",
         "ga"
       ],
-      "chord_names": [
+      "phonic_names": [
         "LIGHT",
         "BIG"
       ],
@@ -2171,12 +2171,12 @@
     },
     "lugodo": {
       "word": "lugodo",
-      "chords": [
+      "phonics": [
         "lu",
         "ga",
         "do"
       ],
-      "chord_names": [
+      "phonic_names": [
         "LIGHT",
         "BIG",
         "DAY"
@@ -2187,11 +2187,11 @@
     },
     "geyu": {
       "word": "geyu",
-      "chords": [
+      "phonics": [
         "ge",
         "yu"
       ],
-      "chord_names": [
+      "phonic_names": [
         "MOON",
         "NIGHT"
       ],
@@ -2201,11 +2201,11 @@
     },
     "hebе": {
       "word": "hebе",
-      "chords": [
+      "phonics": [
         "he",
         "be"
       ],
-      "chord_names": [
+      "phonic_names": [
         "EARTH",
         "BELOW"
       ],
@@ -2215,11 +2215,11 @@
     },
     "mofo": {
       "word": "mofo",
-      "chords": [
+      "phonics": [
         "mo",
         "fo"
       ],
-      "chord_names": [
+      "phonic_names": [
         "MOVE",
         "FOOT"
       ],
@@ -2229,12 +2229,12 @@
     },
     "movefo": {
       "word": "movefo",
-      "chords": [
+      "phonics": [
         "mo",
         "ve",
         "fo"
       ],
-      "chord_names": [
+      "phonic_names": [
         "MOVE",
         "VERY",
         "FOOT"
@@ -2245,12 +2245,12 @@
     },
     "moreva": {
       "word": "moreva",
-      "chords": [
+      "phonics": [
         "mo",
         "re",
         "va"
       ],
-      "chord_names": [
+      "phonic_names": [
         "MOVE",
         "AIR",
         "ABOVE"
@@ -2261,11 +2261,11 @@
     },
     "modu": {
       "word": "modu",
-      "chords": [
+      "phonics": [
         "mo",
         "du"
       ],
-      "chord_names": [
+      "phonic_names": [
         "MOVE",
         "WATER"
       ],
@@ -2275,12 +2275,12 @@
     },
     "lijazedu": {
       "word": "lijazedu",
-      "chords": [
+      "phonics": [
         "li",
         "ja",
         "du"
       ],
-      "chord_names": [
+      "phonic_names": [
         "ALIVE",
         "INSIDE",
         "WATER"
@@ -2291,12 +2291,12 @@
     },
     "lijazе": {
       "word": "lijazе",
-      "chords": [
+      "phonics": [
         "li",
         "ja",
         "ze"
       ],
-      "chord_names": [
+      "phonic_names": [
         "ALIVE",
         "INSIDE",
         "SOMETHING"
@@ -2307,12 +2307,12 @@
     },
     "dekago": {
       "word": "dekago",
-      "chords": [
+      "phonics": [
         "de",
         "ka",
         "go"
       ],
-      "chord_names": [
+      "phonic_names": [
         "DO",
         "MANY",
         "GOOD"
@@ -2323,12 +2323,12 @@
     },
     "wuto": {
       "word": "wuto",
-      "chords": [
+      "phonics": [
         "wu",
         "to",
         "de"
       ],
-      "chord_names": [
+      "phonic_names": [
         "WANT",
         "OTHER",
         "DO"
@@ -2339,11 +2339,11 @@
     },
     "nepa": {
       "word": "nepa",
-      "chords": [
+      "phonics": [
         "ne",
         "pa"
       ],
-      "chord_names": [
+      "phonic_names": [
         "NOW",
         "BEFORE"
       ],
@@ -2353,11 +2353,11 @@
     },
     "neya": {
       "word": "neya",
-      "chords": [
+      "phonics": [
         "ne",
         "ya"
       ],
-      "chord_names": [
+      "phonic_names": [
         "NOW",
         "AFTER"
       ],
@@ -2367,11 +2367,11 @@
     },
     "pala": {
       "word": "pala",
-      "chords": [
+      "phonics": [
         "pa",
         "la"
       ],
-      "chord_names": [
+      "phonic_names": [
         "BEFORE",
         "FAR"
       ],
@@ -2381,11 +2381,11 @@
     },
     "yala": {
       "word": "yala",
-      "chords": [
+      "phonics": [
         "ya",
         "la"
       ],
-      "chord_names": [
+      "phonic_names": [
         "AFTER",
         "FAR"
       ],
@@ -2395,11 +2395,11 @@
     },
     "pado": {
       "word": "pado",
-      "chords": [
+      "phonics": [
         "pa",
         "do"
       ],
-      "chord_names": [
+      "phonic_names": [
         "BEFORE",
         "DAY"
       ],
@@ -2409,11 +2409,11 @@
     },
     "yado": {
       "word": "yado",
-      "chords": [
+      "phonics": [
         "ya",
         "do"
       ],
-      "chord_names": [
+      "phonic_names": [
         "AFTER",
         "DAY"
       ],
@@ -2423,11 +2423,11 @@
     },
     "doyu": {
       "word": "doyu",
-      "chords": [
+      "phonics": [
         "do",
         "yu"
       ],
-      "chord_names": [
+      "phonic_names": [
         "DAY",
         "NIGHT"
       ],
@@ -2437,11 +2437,11 @@
     },
     "gamu": {
       "word": "gamu",
-      "chords": [
+      "phonics": [
         "ga",
         "mu"
       ],
-      "chord_names": [
+      "phonic_names": [
         "BIG",
         "MOMENT"
       ],
@@ -2451,11 +2451,11 @@
     },
     "gimu": {
       "word": "gimu",
-      "chords": [
+      "phonics": [
         "gi",
         "mu"
       ],
-      "chord_names": [
+      "phonic_names": [
         "SMALL",
         "MOMENT"
       ],
@@ -2465,11 +2465,11 @@
     },
     "tepayu": {
       "word": "tepayu",
-      "chords": [
+      "phonics": [
         "te",
         "pa"
       ],
-      "chord_names": [
+      "phonic_names": [
         "THINK",
         "BEFORE"
       ],
@@ -2479,11 +2479,11 @@
     },
     "teyu": {
       "word": "teyu",
-      "chords": [
+      "phonics": [
         "te",
         "yu"
       ],
-      "chord_names": [
+      "phonic_names": [
         "THINK",
         "NIGHT"
       ],
@@ -2493,11 +2493,11 @@
     },
     "vigo": {
       "word": "vigo",
-      "chords": [
+      "phonics": [
         "vi",
         "go"
       ],
-      "chord_names": [
+      "phonic_names": [
         "SEE",
         "GOOD"
       ],
@@ -2507,11 +2507,11 @@
     },
     "lugu": {
       "word": "lugu",
-      "chords": [
+      "phonics": [
         "lu",
         "go"
       ],
-      "chord_names": [
+      "phonic_names": [
         "LIGHT",
         "GOOD"
       ],
@@ -2521,11 +2521,11 @@
     },
     "gobo": {
       "word": "gobo",
-      "chords": [
+      "phonics": [
         "go",
         "bo"
       ],
-      "chord_names": [
+      "phonic_names": [
         "GOOD",
         "BODY"
       ],
@@ -2535,11 +2535,11 @@
     },
     "kota": {
       "word": "kota",
-      "chords": [
+      "phonics": [
         "ko",
         "ta"
       ],
-      "chord_names": [
+      "phonic_names": [
         "SOLID",
         "ONE"
       ],
@@ -2549,11 +2549,11 @@
     },
     "judu": {
       "word": "judu",
-      "chords": [
+      "phonics": [
         "ju",
         "du"
       ],
-      "chord_names": [
+      "phonic_names": [
         "ROUND",
         "WATER"
       ],
@@ -2563,11 +2563,11 @@
     },
     "juko": {
       "word": "juko",
-      "chords": [
+      "phonics": [
         "ju",
         "ko"
       ],
-      "chord_names": [
+      "phonic_names": [
         "ROUND",
         "SOLID"
       ],
@@ -2577,11 +2577,11 @@
     },
     "voko": {
       "word": "voko",
-      "chords": [
+      "phonics": [
         "vo",
         "ko"
       ],
-      "chord_names": [
+      "phonic_names": [
         "SHARP",
         "SOLID"
       ],

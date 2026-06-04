@@ -1,9 +1,9 @@
 """
-PrimaTap shared tap definitions — canonical source of truth.
-Mirrors desktop/TAPS.md. Import this module in all PrimaTap scripts.
+Sago shared phonic definitions — canonical source of truth.
+Mirrors desktop/PHONICS.md. Import this module in all Sago scripts.
 """
 
-TAPS = {
+PHONICS = {
     # L1 · Core 8
     "sa": {"name": "SELF",    "level": 1, "meaning": "I, me, the speaker"},
     "to": {"name": "OTHER",   "level": 1, "meaning": "you, they, any non-self"},
@@ -106,17 +106,17 @@ TAPS = {
 }
 
 # Reverse lookups
-BY_NAME = {v["name"]: syl for syl, v in TAPS.items()}
-BY_LEVEL = {lvl: [syl for syl, v in TAPS.items() if v["level"] == lvl] for lvl in range(1, 6)}
+BY_NAME = {v["name"]: syl for syl, v in PHONICS.items()}
+BY_LEVEL = {lvl: [syl for syl, v in PHONICS.items() if v["level"] == lvl] for lvl in range(1, 6)}
 
 
 def tap_inventory_string() -> str:
-    """Format all 90 taps as a compact string for LLM system prompts."""
+    """Format all 90 phonics as a compact string for LLM system prompts."""
     level_labels = {1: "L1·Core", 2: "L2·Physical", 3: "L3·Grammar",
                     4: "L4·Wierzbicka", 5: "L5·Molecules"}
     lines = []
     current_level = 0
-    for syl, info in TAPS.items():
+    for syl, info in PHONICS.items():
         if info["level"] != current_level:
             current_level = info["level"]
             lines.append(f"\n{level_labels[current_level]}:")
@@ -125,7 +125,7 @@ def tap_inventory_string() -> str:
 
 
 GRAMMAR_RULES = """
-GRAMMAR RULES (PrimaTap v1.1):
+GRAMMAR RULES (Sago v1.1):
 
 1. SENTENCE ORDER: [TIME] TOPIC PREDICATE [PATIENT] [MODIFIERS]
    sa wu du = SELF WANT WATER = "I want water"
@@ -148,8 +148,8 @@ GRAMMAR RULES (PrimaTap v1.1):
 
 5. QUESTIONS:
    Yes/No: mi at sentence end — to wu du mi = "Do you want water?"
-   Content: WH-tap at start — ze to wu mi = "What do you want?"
-   WH-taps: ze=what, zo=who, wa=where, wi=when, da mi=why, lo=how
+   Content: WH-phonic at start — ze to wu mi = "What do you want?"
+   WH-phonics: ze=what, zo=who, wa=where, wi=when, da mi=why, lo=how
 
 6. MODIFICATION: modifier follows head (post-nominal)
    du fu = WATER HEAT = "hot water"
@@ -229,7 +229,7 @@ SOCIAL PHRASES (fixed):
 
 
 COMPOSITION_EXAMPLES = """
-COMPOSITION EXAMPLES (English → PrimaTap):
+COMPOSITION EXAMPLES (English → Sago):
   cold = na fu (NOT HEAT)
   hot = ve fu (VERY HEAT)
   dead = na li (NOT ALIVE)

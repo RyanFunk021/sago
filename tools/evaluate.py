@@ -1,12 +1,12 @@
 #!/usr/bin/env python3
 """
-PrimaTap Language System Evaluation
+Sago Language System Evaluation
 ====================================
-Tests the 5-level semantic tap system (8 → 16 → 32 → 64 → 64+molecules)
+Tests the 5-level semantic phonic system (8 → 16 → 32 → 64 → 64+molecules)
 against common English vocabulary using NLP word vectors.
 
 Analyses:
-  1. Orthogonality  — are taps genuinely spread across semantic space?
+  1. Orthogonality  — are phonics genuinely spread across semantic space?
   2. Coverage       — what % of common words does each level cover?
   3. Composition    — does pair-averaging improve coverage? by how much?
   4. Gap analysis   — which common words are hardest to cover, and why?
@@ -14,8 +14,8 @@ Analyses:
   6. Composition test — does TAP_A + TAP_B land near the expected concept?
 
 Run:
-  cd primatap/notebooks
-  python3 primatap_evaluate.py
+  cd sago/notebooks
+  python3 evaluate.py
 
 Outputs:
   eval_pca_levels.png
@@ -44,10 +44,10 @@ warnings.filterwarnings('ignore')
 OUT = Path(__file__).parent
 
 # ══════════════════════════════════════════════════════════════════════════════
-# TAP VOCABULARY  — 5 levels, cumulative
+# PHONIC VOCABULARY  — 5 levels, cumulative
 # ══════════════════════════════════════════════════════════════════════════════
 
-# Each level name → the NEW taps added at that level (not cumulative)
+# Each level name → the NEW phonics added at that level (not cumulative)
 LEVELS = {
 
     'L1 · Core 8': [
@@ -165,14 +165,14 @@ def mean_pairwise_sim(emb: np.ndarray) -> float:
 
 def single_coverage(tap_emb: np.ndarray, word_emb: np.ndarray,
                     threshold: float = 0.45) -> float:
-    """% of words with at least one tap within cosine threshold."""
+    """% of words with at least one phonic within cosine threshold."""
     best = (word_emb @ tap_emb.T).max(axis=1)
     return float((best >= threshold).mean() * 100)
 
 
 def pair_coverage(tap_emb: np.ndarray, word_emb: np.ndarray,
                   threshold: float = 0.45) -> float:
-    """% of words covered by best single tap OR pair-average."""
+    """% of words covered by best single phonic OR pair-average."""
     n = len(tap_emb)
     # All pair averages — shape (n_pairs, dim)
     idx_pairs = list(combinations(range(n), 2))
@@ -189,7 +189,7 @@ def pair_coverage(tap_emb: np.ndarray, word_emb: np.ndarray,
 
 def find_gaps(tap_emb: np.ndarray, word_list: list[str],
               word_emb: np.ndarray, n: int = 40) -> list[tuple[str, float]]:
-    """Words furthest from any tap — semantic gaps."""
+    """Words furthest from any phonic — semantic gaps."""
     best = (word_emb @ tap_emb.T).max(axis=1)
     worst_idx = np.argsort(best)[:n]
     return [(word_list[i], float(best[i])) for i in worst_idx]
@@ -286,7 +286,7 @@ def plot_pca_levels(model: SentenceTransformer):
         ax.annotate(word, coords[i], fontsize=6, color='#bbb',
                     textcoords='offset points', xytext=(4, 3))
 
-    ax.set_title('PrimaTap — All Levels in Semantic Space (PCA of 384-dim)',
+    ax.set_title('Sago — All Levels in Semantic Space (PCA of 384-dim)',
                  color='white', fontsize=13, pad=10)
     ax.set_xlabel(f'PC1 ({pca.explained_variance_ratio_[0]*100:.1f}% variance)',
                   color='#aaa')
@@ -308,18 +308,18 @@ def plot_coverage_curves(model: SentenceTransformer,
     fig, ax = plt.subplots(figsize=(12, 7), facecolor=DARK_BG)
     style_ax(ax)
 
-    for (name, taps), color in zip(CUMULATIVE.items(), LEVEL_COLORS):
-        tap_emb = encode(model, taps)
+    for (name, phonics), color in zip(CUMULATIVE.items(), LEVEL_COLORS):
+        tap_emb = encode(model, phonics)
         covs = [single_coverage(tap_emb, word_emb, t) for t in thresholds]
         ax.plot(thresholds, covs, color=color, linewidth=2.5,
-                label=f'{name}  ({len(taps)} taps)',
+                label=f'{name}  ({len(phonics)} phonics)',
                 marker='o', markersize=4)
 
     ax.axvline(0.45, color='#666', linestyle='--', linewidth=1,
                label='default threshold (0.45)')
     ax.set_xlabel('Cosine similarity threshold', color='#aaa', fontsize=11)
     ax.set_ylabel('Top-5000 English words covered (%)', color='#aaa', fontsize=11)
-    ax.set_title('Vocabulary Coverage by Level — Single Tap Nearest Neighbour',
+    ax.set_title('Vocabulary Coverage by Level — Single Phonic Nearest Neighbour',
                  color='white', fontsize=12, pad=10)
     ax.set_ylim(0, 100)
     ax.legend(facecolor=DARK_AX, edgecolor=DARK_GRID, labelcolor='white', fontsize=8)
@@ -434,7 +434,7 @@ def plot_composition_results(results: list[dict]):
 
 def main():
     print('\n' + '═' * 60)
-    print('  PrimaTap Evaluation Engine')
+    print('  Sago Evaluation Engine')
     print('═' * 60 + '\n')
 
     model = load_model()
@@ -447,8 +447,8 @@ def main():
     word_emb = encode(model, word_list)
 
     # Pre-encode all levels
-    level_embs = {name: encode(model, taps)
-                  for name, taps in CUMULATIVE.items()}
+    level_embs = {name: encode(model, phonics)
+                  for name, phonics in CUMULATIVE.items()}
 
     results = {}
 
@@ -462,13 +462,13 @@ def main():
     results['orthogonality'] = ortho
     print()
 
-    # ── 2. Single-tap coverage ─────────────────────────────────────────────
+    # ── 2. Single-phonic coverage ─────────────────────────────────────────────
     print('── 2. Coverage at threshold 0.45 ' + '─' * 26)
     cov_single = {}
     for name, emb in level_embs.items():
         cov = single_coverage(emb, word_emb)
         cov_single[name] = round(cov, 2)
-        print(f'  {name:<30}  {cov:5.1f}%  ({len(CUMULATIVE[name])} taps)')
+        print(f'  {name:<30}  {cov:5.1f}%  ({len(CUMULATIVE[name])} phonics)')
     results['coverage_single'] = cov_single
     print()
 
@@ -488,7 +488,7 @@ def main():
     print()
 
     # ── 4. Gap analysis at L4 ──────────────────────────────────────────────
-    print('── 4. Top-40 vocabulary gaps at L4 (64 taps) ' + '─' * 13)
+    print('── 4. Top-40 vocabulary gaps at L4 (64 phonics) ' + '─' * 13)
     l4_emb   = level_embs['L4 · Wierzbicka 64']
     l5_emb   = level_embs['L5 · Molecules ~50']
     gaps_l4  = find_gaps(l4_emb, word_list, word_emb, n=40)
@@ -543,8 +543,8 @@ def main():
 
     # ── 7. Summary ─────────────────────────────────────────────────────────
     print('── Summary ' + '─' * 47)
-    print(f'  L1 orthogonality (8 taps):        {ortho[LEVEL_NAMES[0]]:.3f}')
-    print(f'  L4 orthogonality (64 taps):       {ortho[LEVEL_NAMES[3]]:.3f}')
+    print(f'  L1 orthogonality (8 phonics):        {ortho[LEVEL_NAMES[0]]:.3f}')
+    print(f'  L4 orthogonality (64 phonics):       {ortho[LEVEL_NAMES[3]]:.3f}')
     print(f'  Coverage gain L1→L5:              '
           f'{cov_single[LEVEL_NAMES[0]]:.1f}% → '
           f'{cov_single[LEVEL_NAMES[4]]:.1f}%')
@@ -572,12 +572,12 @@ def main():
 
     l1_emb = level_embs['L1 · Core 8']
     plot_heatmap(l1_emb, CUMULATIVE['L1 · Core 8'],
-                 'L1 — Core 8 Taps', 'eval_heatmap_l1.png')
+                 'L1 — Core 8 Phonics', 'eval_heatmap_l1.png')
 
     l2_words = CUMULATIVE['L2 · Physical 16']
     l2_emb   = level_embs['L2 · Physical 16']
     plot_heatmap(l2_emb, l2_words,
-                 'L2 — 16 Taps', 'eval_heatmap_l2.png')
+                 'L2 — 16 Phonics', 'eval_heatmap_l2.png')
 
     print('\n' + '═' * 60)
     print('  Done.')

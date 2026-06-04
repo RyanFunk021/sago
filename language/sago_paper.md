@@ -10,7 +10,7 @@ funk.ryan@gmail.com
 
 ## Abstract
 
-We present Sago, a constructed language built entirely from the semantic primes identified by Wierzbicka's Natural Semantic Metalanguage (NSM) research program. Where NSM treats primes as a *metalanguage* for semantic analysis, Sago promotes them to an *object language* — a complete system for human communication grounded in meaning rather than phonemes. The vocabulary comprises 90 semantic units: approximately 59 taps corresponding directly to NSM's 65 primes, 5 physically-grounded additions in L2 not present in the strict prime list, and 26 geometrically novel semantic molecules. A defining constraint of the design is phonological completeness: the full inventory of consonant-vowel (CV) syllables producible under an 18-consonant, 5-vowel phoneme set yields exactly 90 forms, providing a one-to-one mapping between phonological space and semantic content with no residual ambiguity. We document the grammar in full and evaluate the system computationally using sentence-transformer embeddings (all-MiniLM-L6-v2) and large-language-model semantic judgment. Vocabulary evaluation shows that 90 single taps cover 54.7% of the top-5,000 English words by frequency, rising to 56.6% with two-tap compositions using only 32 taps — a finding consistent with Zipf's law predictions about the expressive efficiency of a small primitive set. A 5,000-word English-to-Sago dictionary reveals that 70.8% of common English words are compositionally expressible, 20.0% are institutional (requiring proper-noun treatment or dictionary lookup), and 9.2% are single-tap primitives. Back-translation experiments using Claude-as-judge yield 3.69/5 (74%) meaning preservation for direct communication and 1.00/5 for literary texts — a result we argue is correct and expected: literary content depends on metaphor, irony, and cultural register that are explicitly outside the scope of semantic primitive encoding. The grammar reveals unexpected compositional insights: *freedom* encodes as NOT·DO·NOT (the absence of the prevention of action), *faith* as THINK·TRUE·NOT·SEE (believing truly without seeing), and *courage* as DO·TOGETHER·FEEL·BAD (acting while afraid). These emergent structures suggest that the NSM prime set has semantic depth beyond its metalinguistic purpose.
+We present Sago, a constructed language built entirely from the semantic primes identified by Wierzbicka's Natural Semantic Metalanguage (NSM) research program. Where NSM treats primes as a *metalanguage* for semantic analysis, Sago promotes them to an *object language* — a complete system for human communication grounded in meaning rather than phonemes. The vocabulary comprises 90 semantic units: approximately 59 phonics corresponding directly to NSM's 65 primes, 5 physically-grounded additions in L2 not present in the strict prime list, and 26 geometrically novel semantic molecules. A defining constraint of the design is phonological completeness: the full inventory of consonant-vowel (CV) syllables producible under an 18-consonant, 5-vowel phoneme set yields exactly 90 forms, providing a one-to-one mapping between phonological space and semantic content with no residual ambiguity. We document the grammar in full and evaluate the system computationally using sentence-transformer embeddings (all-MiniLM-L6-v2) and large-language-model semantic judgment. Vocabulary evaluation shows that 90 single phonics cover 54.7% of the top-5,000 English words by frequency, rising to 56.6% with two-phonic compositions using only 32 phonics — a finding consistent with Zipf's law predictions about the expressive efficiency of a small primitive set. A 5,000-word English-to-Sago dictionary reveals that 70.8% of common English words are compositionally expressible, 20.0% are institutional (requiring proper-noun treatment or dictionary lookup), and 9.2% are single-phonic primitives. Back-translation experiments using Claude-as-judge yield 3.69/5 (74%) meaning preservation for direct communication and 1.00/5 for literary texts — a result we argue is correct and expected: literary content depends on metaphor, irony, and cultural register that are explicitly outside the scope of semantic primitive encoding. The grammar reveals unexpected compositional insights: *freedom* encodes as NOT·DO·NOT (the absence of the prevention of action), *faith* as THINK·TRUE·NOT·SEE (believing truly without seeing), and *courage* as DO·TOGETHER·FEEL·BAD (acting while afraid). These emergent structures suggest that the NSM prime set has semantic depth beyond its metalinguistic purpose.
 
 **Keywords:** semantic primitives, Natural Semantic Metalanguage, constructed language, universal semantics, semantic composition, back-translation evaluation
 
@@ -48,47 +48,47 @@ The strongest empirical challenge to NSM universality comes from Everett's (2005
 
 Prior constructed language projects have not been grounded in empirical semantic universals. Esperanto regularizes European morphosyntax but inherits European vocabulary with all its cultural specificity (Sapir, 1931). Lojban (Cowan, 1997) pursues logical unambiguity through predicate calculus but makes no claim about semantic universality. Toki Pona (Lang, 2014) uses approximately 120 words derived from natural language roots, sacrificing universality for simplicity. None of these systems grounds vocabulary selection in cross-linguistic empirical research.
 
-Sago's distinguishing feature is that every content tap corresponds to a semantic prime or molecule with documented cross-linguistic validity — not a word borrowed from a natural language, and not a concept stipulated by a designer.
+Sago's distinguishing feature is that every content phonic corresponds to a semantic prime or molecule with documented cross-linguistic validity — not a word borrowed from a natural language, and not a concept stipulated by a designer.
 
 ---
 
 ## 3. Vocabulary System Design
 
-### 3.1 The 90-Tap Inventory
+### 3.1 The 90-Phonic Inventory
 
-Sago organizes 90 semantic units into five acquisition tiers. The tiered structure allows productive use from the first eight taps while ensuring full semantic range requires the complete inventory.
+Sago organizes 90 semantic units into five acquisition tiers. The tiered structure allows productive use from the first eight phonics while ensuring full semantic range requires the complete inventory.
 
-**L1 · Core 8** (learnable in days): SELF, OTHER, NOT, WANT, GOOD, BAD, NOW, HERE. These eight taps cover identity, negation, desire, valence, time, and location — the minimum viable set for expressing needs, states, and basic social communication.
+**L1 · Core 8** (learnable in days): SELF, OTHER, NOT, WANT, GOOD, BAD, NOW, HERE. These eight phonics cover identity, negation, desire, valence, time, and location — the minimum viable set for expressing needs, states, and basic social communication.
 
 **L2 · Physical 16**: ALIVE, MOVE, THINK, WATER, HEAT, AIR, SOLID, LIGHT. Adds the physical world and mental states to L1.
 
-**A note on NSM alignment:** L1, L3, and L4 map directly to Wierzbicka's 65 primes, with two terminological adjustments. First, NSM distinguishes I (speaker) and YOU (addressee) as separate primes; Sago collapses these into SELF (speaker) and OTHER (all non-speakers), a deliberate simplification that trades second/third-person precision for a cleaner pronoun system. Second, NSM's three temporal duration primes — A LONG TIME, A SHORT TIME, and FOR SOME TIME — are handled compositionally: BIG·MOMENT, SMALL·MOMENT, and MORE·MOMENT respectively, rather than assigned dedicated taps.
+**A note on NSM alignment:** L1, L3, and L4 map directly to Wierzbicka's 65 primes, with two terminological adjustments. First, NSM distinguishes I (speaker) and YOU (addressee) as separate primes; Sago collapses these into SELF (speaker) and OTHER (all non-speakers), a deliberate simplification that trades second/third-person precision for a cleaner pronoun system. Second, NSM's three temporal duration primes — A LONG TIME, A SHORT TIME, and FOR SOME TIME — are handled compositionally: BIG·MOMENT, SMALL·MOMENT, and MORE·MOMENT respectively, rather than assigned dedicated phonics.
 
-L2 is the one tier that extends beyond the strict NSM prime list. WATER appears in NSM as a *semantic molecule* (Goddard, 2011), not a prime; HEAT, AIR, SOLID, and LIGHT do not appear in NSM at all. These five taps were added as physically-grounded prerequisites for any communicative system operating in the natural world. They are pre-theoretically necessary — a language that cannot distinguish water from air from heat cannot describe even the most basic environment — and their inclusion is a deliberate design extension, not a claim of NSM primeness. The honest accounting: approximately 59 of Sago's 64 L1–L4 taps correspond directly to NSM primes; 5 are practical additions; and the 26 L5 molecules follow Goddard's (2011) molecule framework.
+L2 is the one tier that extends beyond the strict NSM prime list. WATER appears in NSM as a *semantic molecule* (Goddard, 2011), not a prime; HEAT, AIR, SOLID, and LIGHT do not appear in NSM at all. These five phonics were added as physically-grounded prerequisites for any communicative system operating in the natural world. They are pre-theoretically necessary — a language that cannot distinguish water from air from heat cannot describe even the most basic environment — and their inclusion is a deliberate design extension, not a claim of NSM primeness. The honest accounting: approximately 59 of Sago's 64 L1–L4 phonics correspond directly to NSM primes; 5 are practical additions; and the 26 L5 molecules follow Goddard's (2011) molecule framework.
 
-**L3 · Grammar 32**: BEFORE, AFTER, BECAUSE, IF, CAN, MORE, SAME, FAR, ABOVE, INSIDE, FEEL, HEAR, SAY, MANY, BODY, KIND. These taps are primarily grammatical — they provide the logical and syntactic connectives needed for complex expression.
+**L3 · Grammar 32**: BEFORE, AFTER, BECAUSE, IF, CAN, MORE, SAME, FAR, ABOVE, INSIDE, FEEL, HEAR, SAY, MANY, BODY, KIND. These phonics are primarily grammatical — they provide the logical and syntactic connectives needed for complex expression.
 
 **L4 · Wierzbicka 64**: 32 additional NSM primes, substantially completing the empirically validated prime set. Includes SOMEONE, SOMETHING, PEOPLE, ONE, TWO, SOME, ALL, FEW, BIG, SMALL, KNOW, SEE, TOUCH, DO, HAPPEN, HAVE, EXIST, DIE, TRUE, WORD, MAYBE, LIKE, VERY, NEAR, BELOW, SIDE, WHEN, WHERE, MOMENT, PART, ANOTHER, THIS.
 
-**L5 · Molecules 90**: 26 semantic molecules selected for geometric novelty. Each L5 tap was required to have cosine similarity < 0.50 to all existing L1–L4 taps as measured in the all-MiniLM-L6-v2 embedding space (384 dimensions), confirming that the molecule encodes genuinely new semantic territory. The 26 molecules are: TREE, MOON, FOOT, BIRD, ROAD, STAR, DAY, PLANT, MAN, MOTHER, TOGETHER, ANIMAL, FATHER, EYE, EARTH, HARD, SHARP, MOUTH, EAR, ROUND, TASTE, BACK, NIGHT, GROUND, CLOTH, NOSE.
+**L5 · Molecules 90**: 26 semantic molecules selected for geometric novelty. Each L5 phonic was required to have cosine similarity < 0.50 to all existing L1–L4 phonics as measured in the all-MiniLM-L6-v2 embedding space (384 dimensions), confirming that the molecule encodes genuinely new semantic territory. The 26 molecules are: TREE, MOON, FOOT, BIRD, ROAD, STAR, DAY, PLANT, MAN, MOTHER, TOGETHER, ANIMAL, FATHER, EYE, EARTH, HARD, SHARP, MOUTH, EAR, ROUND, TASTE, BACK, NIGHT, GROUND, CLOTH, NOSE.
 
 Of the 46 molecules tested, 19 were excluded because they fell within the semantic neighborhood of existing primes (similarity ≥ 0.50). These included SOUND, SMELL, FISH, HAND, CHILD, BETWEEN, HOUSE, HEAVY, SUN, WOMAN, AGAIN, FOOD, SKY, FACE, COLOR, FIRE, LONG, and HAND — all geometrically redundant given the prime set.
 
 ### 3.2 Phonological Completeness
 
-Every Sago semantic tap is a CV (consonant-vowel) syllable. The phoneme inventory consists of 18 consonants — /p, t, k, b, d, g, m, n, f, s, h, v, z, l, r, w, j, y/ — and 5 vowels — /a, e, i, o, u/. The product is 18 × 5 = 90 CV syllables: exactly the number of semantic taps.
+Every Sago semantic phonic is a CV (consonant-vowel) syllable. The phoneme inventory consists of 18 consonants — /p, t, k, b, d, g, m, n, f, s, h, v, z, l, r, w, j, y/ — and 5 vowels — /a, e, i, o, u/. The product is 18 × 5 = 90 CV syllables: exactly the number of semantic phonics.
 
-This phonological completeness is a structural constraint, not a coincidence of design. It means that the semantic system and the phonological system are in perfect bijection: every CV syllable in this phoneme space encodes exactly one semantic primitive, and no CV syllable is available for any other purpose. The property provides an unambiguous parsing guarantee: any CV syllable encountered in Sago speech is a semantic tap.
+This phonological completeness is a structural constraint, not a coincidence of design. It means that the semantic system and the phonological system are in perfect bijection: every CV syllable in this phoneme space encodes exactly one semantic primitive, and no CV syllable is available for any other purpose. The property provides an unambiguous parsing guarantee: any CV syllable encountered in Sago speech is a semantic phonic.
 
 ### 3.3 Tiered Acquisition
 
-The five-tier structure aligns Sago acquisition with patterns observed in natural language development (Pinker, 1994). L1's eight taps provide a productive communication system from the first hours of instruction — a learner can express needs, negation, and basic social states immediately. Each tier adds expressiveness, and the meaning of previously learned taps remains stable as new taps are introduced. This property — *tier monotonicity* — ensures that communication between learners at different acquisition stages is productive, because lower-level taps are a subset of higher-level vocabularies.
+The five-tier structure aligns Sago acquisition with patterns observed in natural language development (Pinker, 1994). L1's eight phonics provide a productive communication system from the first hours of instruction — a learner can express needs, negation, and basic social states immediately. Each tier adds expressiveness, and the meaning of previously learned phonics remains stable as new phonics are introduced. This property — *tier monotonicity* — ensures that communication between learners at different acquisition stages is productive, because lower-level phonics are a subset of higher-level vocabularies.
 
 ---
 
 ## 4. Grammar
 
-Sago grammar is defined by 22 rules organized around a core principle: *cognitive order equals tap order*. Tap sequences follow the natural sequence of conceptual attention — time frame, then topic, then action, then patient, then modifiers. This ordering mirrors topic-prominent typology documented across Japanese, Mandarin, Korean, Turkish, and related languages (Li & Thompson, 1976), and is grounded in cognitive-linguistic research on the relationship between conceptual structure and linguistic form (Langacker, 1987; Talmy, 2000).
+Sago grammar is defined by 22 rules organized around a core principle: *cognitive order equals phonic order*. Phonic sequences follow the natural sequence of conceptual attention — time frame, then topic, then action, then patient, then modifiers. This ordering mirrors topic-prominent typology documented across Japanese, Mandarin, Korean, Turkish, and related languages (Li & Thompson, 1976), and is grounded in cognitive-linguistic research on the relationship between conceptual structure and linguistic form (Langacker, 1987; Talmy, 2000).
 
 ### 4.1 Core Syntax
 
@@ -96,7 +96,7 @@ The canonical sentence structure is: `[TIME] TOPIC PREDICATE [PATIENT] [MODIFIER
 
 Sago eliminates the copula entirely. Topic-attribute juxtaposition is sufficient: `sa go` (SELF GOOD) = "I am well." This is typologically motivated — copula-drop is grammatical in Russian present tense, Arabic present tense, and numerous other languages (Stassen, 1997).
 
-Tense is expressed sentence-initially using dedicated taps: `pa` (BEFORE) for past, `ya` (AFTER) for future, `mu` (MOMENT) for narrative instants. The aspect system distinguishes progressive (`ne` before predicate), habitual (`ma` after predicate), perfect (topic-initial `pa`), and ingressive (`ya` after predicate).
+Tense is expressed sentence-initially using dedicated phonics: `pa` (BEFORE) for past, `ya` (AFTER) for future, `mu` (MOMENT) for narrative instants. The aspect system distinguishes progressive (`ne` before predicate), habitual (`ma` after predicate), perfect (topic-initial `pa`), and ingressive (`ya` after predicate).
 
 ### 4.2 Negation
 
@@ -136,7 +136,7 @@ All evaluations use the `sentence-transformers/all-MiniLM-L6-v2` model (Reimers 
 
 ### 5.2 Semantic Orthogonality
 
-A well-designed semantic vocabulary should maximize coverage while minimizing redundancy. We measured mean pairwise cosine similarity across tap subsets as an orthogonality proxy (lower = more orthogonal = better):
+A well-designed semantic vocabulary should maximize coverage while minimizing redundancy. We measured mean pairwise cosine similarity across phonic subsets as an orthogonality proxy (lower = more orthogonal = better):
 
 | Tier | Mean pairwise cosine similarity |
 |---|---|
@@ -146,13 +146,13 @@ A well-designed semantic vocabulary should maximize coverage while minimizing re
 | L4 · Wierzbicka 64 | 0.328 |
 | L5 · Molecules 90 | 0.314 |
 
-Orthogonality is stable across tiers (0.31–0.40), indicating that the progressive addition of taps does not substantially increase semantic redundancy. The slight drop from L1 to L2 reflects the L1 taps' intentional semantic breadth — eight taps must cover the broadest possible territory.
+Orthogonality is stable across tiers (0.31–0.40), indicating that the progressive addition of phonics does not substantially increase semantic redundancy. The slight drop from L1 to L2 reflects the L1 phonics' intentional semantic breadth — eight phonics must cover the broadest possible territory.
 
 ### 5.3 Vocabulary Coverage
 
-Single-tap coverage — the fraction of top-5,000 English words within cosine similarity threshold 0.45 of at least one tap — follows a smooth curve across tiers:
+Single-phonic coverage — the fraction of top-5,000 English words within cosine similarity threshold 0.45 of at least one phonic — follows a smooth curve across tiers:
 
-| Tier | Single-tap coverage |
+| Tier | Single-phonic coverage |
 |---|---|
 | L1 · Core 8 | 8.4% |
 | L2 · Physical 16 | 16.6% |
@@ -160,23 +160,23 @@ Single-tap coverage — the fraction of top-5,000 English words within cosine si
 | L4 · Wierzbicka 64 | 39.7% |
 | L5 · Molecules 90 | 54.7% |
 
-Pair composition — combining any two L3 taps — reaches 56.6% coverage using only 32 taps, essentially matching the full 90-tap single-tap coverage. This finding is consistent with theoretical predictions from combinatorial semantics: a well-chosen small vocabulary combined compositionally can match the coverage of a larger vocabulary used atomically.
+Pair composition — combining any two L3 phonics — reaches 56.6% coverage using only 32 phonics, essentially matching the full 90-phonic single-phonic coverage. This finding is consistent with theoretical predictions from combinatorial semantics: a well-chosen small vocabulary combined compositionally can match the coverage of a larger vocabulary used atomically.
 
-The gap words — high-frequency English words not covered by 90 single taps or two-tap pairs — are predominantly institutional: *salary, fiscal, bureau, database, algorithm, parliament, mortgage*. These are not primitive semantic failures; they are concepts defined within specific institutional, legal, and technical frameworks that presuppose shared cultural context. Sago treats them as proper nouns, analogous to how any language treats technical jargon.
+The gap words — high-frequency English words not covered by 90 single phonics or two-phonic pairs — are predominantly institutional: *salary, fiscal, bureau, database, algorithm, parliament, mortgage*. These are not primitive semantic failures; they are concepts defined within specific institutional, legal, and technical frameworks that presuppose shared cultural context. Sago treats them as proper nouns, analogous to how any language treats technical jargon.
 
 ### 5.4 Dictionary Study
 
-A 5,000-word English-to-Sago dictionary was constructed using Claude Haiku with the full tap inventory and grammar rules in the system prompt. For each word, the model assigned one of three types and a confidence score:
+A 5,000-word English-to-Sago dictionary was constructed using Claude Haiku with the full phonic inventory and grammar rules in the system prompt. For each word, the model assigned one of three types and a confidence score:
 
 | Type | Count | Percentage | Mean confidence |
 |---|---|---|---|
-| Composition (2–5 taps) | 3,541 | 70.8% | 0.77 |
+| Composition (2–5 phonics) | 3,541 | 70.8% | 0.77 |
 | Institutional | 1,000 | 20.0% | — |
-| Single-tap | 459 | 9.2% | 0.89 |
+| Single-phonic | 459 | 9.2% | 0.89 |
 
 The institutional category correctly identifies articles (*the*, *a*, *an*), copulas (*is*, *be*, *are*), and culturally specific concepts (*democracy*, *salary*, *automobile*, *music*). These are not Sago failures — they are concepts whose meaning is constituted by cultural institutions rather than universal semantic structure.
 
-The most frequently used taps in compositions are DO (666 appearances), MANY (583), MOVE (496), BEFORE (407), GOOD (399), MORE (389), and NOT (368). This distribution is semantically informative: action, plurality, motion, temporal sequence, and evaluative polarity are the most combinatorially productive primitives.
+The most frequently used phonics in compositions are DO (666 appearances), MANY (583), MOVE (496), BEFORE (407), GOOD (399), MORE (389), and NOT (368). This distribution is semantically informative: action, plurality, motion, temporal sequence, and evaluative polarity are the most combinatorially productive primitives.
 
 ### 5.5 Emergent Semantic Compositions
 
@@ -198,7 +198,7 @@ These emergent compositions are not proofs of the system's validity, but they ar
 
 ### 5.6 Back-Translation Study
 
-To evaluate communicative function, we conducted back-translation experiments: English text was translated to Sago by Claude (with the full tap inventory and grammar rules in the system prompt), then the Sago output was translated back to English by a second Claude call with no access to the original. We measured meaning preservation using two methods.
+To evaluate communicative function, we conducted back-translation experiments: English text was translated to Sago by Claude (with the full phonic inventory and grammar rules in the system prompt), then the Sago output was translated back to English by a second Claude call with no access to the original. We measured meaning preservation using two methods.
 
 **Method 1: Cosine similarity** between sentence-transformer embeddings of original and back-translated text. This method has a known systematic bias: it measures vocabulary distribution similarity, not meaning equivalence. Sago's concept decomposition produces back-translations with different vocabulary from the original even when meaning is fully preserved ("I feel bad because of myself" for "I am sorry"). Cosine similarity penalizes these correct translations.
 
@@ -264,7 +264,7 @@ The 20% institutional gap is structurally informative: it consists precisely of 
 
 ### 6.4 Phonological Completeness as a Design Principle
 
-The bijection between phonological and semantic space (90 CV syllables = 90 semantic taps) is, to our knowledge, unique among constructed languages. It provides the system with an elegant completeness property: the phonological system is full — there are no unused syllables — and the semantic system is exhaustive of the phonological space. Any new primitive would require a new phoneme or phoneme combination.
+The bijection between phonological and semantic space (90 CV syllables = 90 semantic phonics) is, to our knowledge, unique among constructed languages. It provides the system with an elegant completeness property: the phonological system is full — there are no unused syllables — and the semantic system is exhaustive of the phonological space. Any new primitive would require a new phoneme or phoneme combination.
 
 This completeness creates a useful pressure: expanding the semantic vocabulary would require either adding phonemes (increasing phonological complexity) or adopting a different syllable structure (CVC, CCV, etc.). The pressure encourages conservative vocabulary design and forces the question of whether a proposed addition is genuinely irreducible or decomposable from existing primes.
 
@@ -272,13 +272,13 @@ This completeness creates a useful pressure: expanding the semantic vocabulary w
 
 ## 7. Future Work
 
-**Empirical acquisition studies.** The tiered acquisition model predicts that L1 (8 taps) is learnable in days, with full L5 acquisition over months. These predictions are theoretically motivated but not empirically tested. Controlled acquisition studies — particularly with children and with deaf-blind users via haptic interfaces — would provide the strongest evidence for or against the design.
+**Empirical acquisition studies.** The tiered acquisition model predicts that L1 (8 phonics) is learnable in days, with full L5 acquisition over months. These predictions are theoretically motivated but not empirically tested. Controlled acquisition studies — particularly with children and with deaf-blind users via haptic interfaces — would provide the strongest evidence for or against the design.
 
-**Cross-linguistic convention studies.** Do speakers of Japanese, Arabic, and Swahili converge on the same compositional conventions when given the tap inventory? If the primitives are universal, the compositions should be too. If they diverge systematically, this would be evidence that cultural framing operates below the level of primitives.
+**Cross-linguistic convention studies.** Do speakers of Japanese, Arabic, and Swahili converge on the same compositional conventions when given the phonic inventory? If the primitives are universal, the compositions should be too. If they diverge systematically, this would be evidence that cultural framing operates below the level of primitives.
 
 **The primitive-native advantage hypothesis.** Children raised bilingually in Sago and a natural language may develop enhanced compositional reasoning — the ability to analyze novel concepts by decomposing them into primitives. This hypothesis is empirically testable and educationally significant, though it requires longitudinal study.
 
-**Haptic interface development.** Sago was originally motivated by assistive communication for deaf-blind users. The haptic interface — 4-motor wearable encoding tap patterns — remains a design specification, not a built system. Building and testing the interface with deaf-blind participants is a natural next step.
+**Haptic interface development.** Sago was originally motivated by assistive communication for deaf-blind users. The haptic interface — 4-motor wearable encoding phonic patterns — remains a design specification, not a built system. Building and testing the interface with deaf-blind participants is a natural next step.
 
 **The convention dictionary as linguistic corpus.** The 5,000-word dictionary generated computationally in this study could be refined through community use. The distribution of conventional compositions across speakers would itself be a valuable linguistic dataset — a measure of how consistently the primitive set grounds compositional semantics across different native language backgrounds.
 
@@ -288,7 +288,7 @@ This completeness creates a useful pressure: expanding the semantic vocabulary w
 
 ## 8. Conclusion
 
-Sago demonstrates that Wierzbicka's Natural Semantic Metalanguage prime set is practically sufficient for constructing a complete communication system. The design achieves phonological completeness (90 CV syllables for 90 semantic taps), tiered acquisition aligned with natural language development, a complete grammar covering 22 rule categories, and 70.8% compositional coverage of common English vocabulary.
+Sago demonstrates that Wierzbicka's Natural Semantic Metalanguage prime set is practically sufficient for constructing a complete communication system. The design achieves phonological completeness (90 CV syllables for 90 semantic phonics), tiered acquisition aligned with natural language development, a complete grammar covering 22 rule categories, and 70.8% compositional coverage of common English vocabulary.
 
 Back-translation evaluation establishes a clear performance profile: 74% meaning preservation for direct communication (43% perfect) and effectively zero preservation for literary content — a result that is both expected and informative. The metric comparison reveals that cosine similarity systematically underestimates primitive-decomposed translations and recommends LLM-based semantic judgment as a more valid evaluation method for semantic languages.
 
