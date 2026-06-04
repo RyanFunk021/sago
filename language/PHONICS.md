@@ -27,27 +27,29 @@ All implementations reference this version.
 
 **Why CVC for numbers:** All 90 CV syllables (18 consonants × 5 vowels) are exhausted by the semantic system. Number digits must use a different phonological class. CVC (closed) syllables end in a consonant; every semantic CV phonic ends in a vowel. A listener always knows: open syllable = meaning, closed syllable = digit. No bracket needed.
 
-**Number digit assignments (base-16):**
+**Number digit assignments (base-10):**
 
-| Value | Digit | Pronunciation | | Value | Digit | Pronunciation |
-|---|---|---|---|---|---|---|
-| 0 | `nun` | like "noun" | | 8 | `dim` | short i |
-| 1 | `win` | like "win" | | 9 | `pin` | like "pin" |
-| 2 | `tim` | like "Tim" | | A | `zun` | z+oo+n |
-| 3 | `ron` | like "Ron" | | B | `gem` | like "gem" |
-| 4 | `kan` | k+ah+n | | C | `van` | like "van" |
-| 5 | `fen` | f+eh+n | | D | `hin` | h+ih+n |
-| 6 | `sim` | like "sim" | | E | `lon` | like "lon" |
-| 7 | `bon` | like "bon" | | F | `mem` | like "mem" |
+| Value | Digit | Pronunciation |
+|---|---|---|
+| 0 | `nun` | like "noun" |
+| 1 | `win` | like "win" |
+| 2 | `tim` | like "Tim" |
+| 3 | `ron` | like "Ron" |
+| 4 | `kan` | k+ah+n |
+| 5 | `fen` | f+eh+n |
+| 6 | `sim` | like "sim" |
+| 7 | `bon` | like "bon" |
+| 8 | `dim` | short i |
+| 9 | `pin` | like "pin" |
 
 **Nasal-coda rule:** All digits end in a nasal (n or m) — the most universally distinct syllable-final sounds. This maximizes cross-linguistic distinguishability even at speed.
 
 **Number examples:**
 - 7 → `bon`
-- 16 → `win nun` (1·0 in base-16 = 16₁₀)
-- 255 → `mem mem` (FF₁₆)
+- 16 → `win sim` (one-six)
+- 255 → `tim fen fen` (two-five-five)
 - 3.14 → `ron · win kan` (decimal point = `·` spoken as a pause)
-- Large numbers use place groups: `win nun nun` = 256, `win nun nun nun` = 4096
+- Large numbers use place groups: `win nun nun` = 100, `win nun nun nun` = 1000
 
 **For haptic delivery:** Number mode is signaled by a distinct phonic rhythm (double-beat), not phonology. The CVC distinction is for the spoken/voice channel only.
 
@@ -219,7 +221,7 @@ These require companion mechanisms, not more phonics:
 | Institutional vocabulary | salary, fiscal, database, bureau | Dictionary lookup (Claude API) |
 | Proper nouns | Paris, Beethoven, Ryan | Name bracket `we...we` |
 | Species names | house sparrow vs. starling | Compositional description + context |
-| Numbers | 12,030,455,021 | CVC nasal-coda digits (base-16): `nun win tim ron...` — see number system above |
+| Numbers | 12,030,455,021 | CVC nasal-coda digits (base-10): `win tim nun ron nun...` — see number system above |
 | Technical terms | algorithm, mitochondria | Dictionary + composition |
 
 ---

@@ -179,15 +179,15 @@ The listener knows they are in name mode from the `we` opener. Inside, syllable-
 Number digits use **CVC syllables with nasal codas** — the only closed syllables in Sago. The closed final nasal makes them unmistakable: semantic words always end in a vowel; numbers always end in /m/ or /n/.
 
 ```
-Digits (base-16):
-nun win tim ron kan fen sim bon dim pin zun gem van hin lon mem
- 0    1    2    3    4    5    6    7    8    9    A    B    C    D    E    F
+Digits (base-10):
+nun win tim ron kan fen sim bon dim pin
+ 0    1    2    3    4    5    6    7    8    9
 ```
 
 In fluent speech, number phonics connect like semantic phonics — but the nasal coda at each boundary signals: "this is a number":
 
 ```
-win + ron   =  winron    =  13 (hexadecimal)
+win + sim   =  winsim    =  16
 fen + dim   =  fendim    =  58
 ```
 
