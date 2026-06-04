@@ -1,0 +1,1417 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<title>Learn Sago</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --primary: #4f46e5;
+  --primary-dark: #3730a3;
+  --primary-light: #ede9fe;
+  --teal: #0d9488;
+  --teal-light: #ccfbf1;
+  --gold: #d97706;
+  --gold-light: #fef3c7;
+  --coral: #e11d48;
+  --coral-light: #ffe4e6;
+  --correct: #16a34a;
+  --correct-light: #dcfce7;
+  --wrong: #dc2626;
+  --wrong-light: #fee2e2;
+  --ink: #1e1b4b;
+  --mid: #6b7280;
+  --soft: #9ca3af;
+  --rule: #e5e7eb;
+  --bg: #f9fafb;
+  --card: #ffffff;
+  --max-w: 480px;
+  --radius: 16px;
+  --radius-sm: 10px;
+}
+
+html, body { height: 100%; background: var(--bg); font-family: 'Inter', sans-serif; }
+body { display: flex; flex-direction: column; align-items: center; min-height: 100vh; }
+#root { width: 100%; max-width: var(--max-w); flex: 1; display: flex; flex-direction: column; position: relative; }
+
+/* ── Shared ─────────────────────────────────────────── */
+.btn {
+  display: inline-flex; align-items: center; justify-content: center;
+  padding: 14px 24px; border: none; border-radius: var(--radius-sm);
+  font-family: inherit; font-size: 1rem; font-weight: 700;
+  cursor: pointer; transition: all 0.12s; text-decoration: none;
+  -webkit-tap-highlight-color: transparent;
+}
+.btn:active { transform: scale(0.97); }
+.btn-primary { background: var(--primary); color: #fff; width: 100%; }
+.btn-primary:hover { background: var(--primary-dark); }
+.btn-secondary { background: var(--primary-light); color: var(--primary); width: 100%; }
+.btn-correct { background: var(--correct); color: #fff; width: 100%; }
+.btn-wrong { background: var(--wrong); color: #fff; width: 100%; }
+.btn-disabled { background: var(--rule); color: var(--soft); pointer-events: none; width: 100%; cursor: default; }
+
+.phonic-pill {
+  font-family: 'JetBrains Mono', monospace; font-weight: 700;
+  background: var(--primary-light); color: var(--primary);
+  padding: 2px 8px; border-radius: 6px; font-size: 0.9em;
+}
+
+/* ── Screen: Home ───────────────────────────────────── */
+.screen-home {
+  flex: 1; display: flex; flex-direction: column;
+  align-items: center; justify-content: center;
+  padding: 2rem 1.5rem; gap: 1.5rem; text-align: center;
+}
+.home-logo {
+  font-family: 'JetBrains Mono', monospace; font-size: 4rem; font-weight: 700;
+  color: var(--primary); letter-spacing: -0.04em; line-height: 1;
+}
+.home-sub {
+  font-size: 0.95rem; color: var(--mid); max-width: 280px; line-height: 1.6;
+}
+.home-greeting {
+  background: var(--ink); color: #fff; border-radius: 12px;
+  padding: 0.7rem 1.2rem; font-family: 'JetBrains Mono', monospace;
+  font-size: 0.85rem; line-height: 1.6;
+}
+.home-greeting .g-sago { color: #a5b4fc; }
+.home-greeting .g-gloss { color: #9ca3af; font-size: 0.75rem; }
+.home-stats { display: flex; gap: 1.5rem; }
+.home-stat { text-align: center; }
+.home-stat-num { font-size: 1.5rem; font-weight: 700; color: var(--primary); display: block; }
+.home-stat-lbl { font-size: 0.7rem; color: var(--soft); text-transform: uppercase; letter-spacing: 0.06em; }
+
+/* ── Screen: Map ────────────────────────────────────── */
+.screen-map { flex: 1; display: flex; flex-direction: column; overflow-y: auto; }
+.map-header {
+  position: sticky; top: 0; background: var(--card); z-index: 10;
+  padding: 1rem 1.25rem; border-bottom: 1px solid var(--rule);
+  display: flex; align-items: center; justify-content: space-between;
+}
+.map-header h1 { font-size: 1.1rem; font-weight: 700; color: var(--ink); }
+.map-hud { display: flex; gap: 1rem; align-items: center; }
+.hud-item {
+  display: flex; align-items: center; gap: 0.3rem;
+  font-size: 0.85rem; font-weight: 700; color: var(--ink);
+}
+.hud-icon { font-size: 1rem; }
+.map-body { flex: 1; padding: 1.5rem 2rem 4rem; }
+.unit-banner {
+  text-align: center; margin-bottom: 1.5rem;
+  padding: 0.5rem 1rem; border-radius: 20px;
+  font-size: 0.7rem; font-weight: 700; letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+.unit-1-banner { background: #ede9fe; color: var(--primary); }
+.unit-2-banner { background: var(--teal-light); color: var(--teal); }
+.unit-3-banner { background: var(--gold-light); color: var(--gold); }
+.unit-4-banner { background: var(--coral-light); color: var(--coral); }
+
+.map-path { display: flex; flex-direction: column; align-items: center; gap: 0; position: relative; }
+.map-path::before {
+  content: ''; position: absolute; left: 50%; transform: translateX(-50%);
+  top: 30px; bottom: 30px; width: 3px; background: var(--rule); z-index: 0;
+}
+.map-node-wrap {
+  position: relative; z-index: 1; width: 100%;
+  display: flex; margin-bottom: 1.25rem;
+}
+.map-node-wrap:nth-child(odd) { justify-content: flex-end; padding-right: 2rem; }
+.map-node-wrap:nth-child(even) { justify-content: flex-start; padding-left: 2rem; }
+
+.map-node {
+  display: flex; flex-direction: column; align-items: center;
+  gap: 0.35rem; width: 76px; cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+}
+.map-node.locked { cursor: default; opacity: 0.5; }
+.map-circle {
+  width: 60px; height: 60px; border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 1.4rem; font-weight: 700; border: 3px solid transparent;
+  transition: transform 0.15s;
+}
+.map-node:not(.locked):active .map-circle { transform: scale(0.93); }
+.map-node.complete .map-circle { background: var(--correct); border-color: #15803d; color: #fff; font-size: 1.2rem; }
+.map-node.available .map-circle {
+  background: var(--primary); border-color: var(--primary-dark); color: #fff;
+  box-shadow: 0 0 0 6px var(--primary-light);
+  animation: pulse-ring 2s ease-in-out infinite;
+}
+.map-node.locked .map-circle { background: var(--rule); border-color: #d1d5db; color: var(--soft); }
+.map-node-title { font-size: 0.65rem; font-weight: 600; text-align: center; color: var(--mid); line-height: 1.3; }
+
+@keyframes pulse-ring {
+  0%, 100% { box-shadow: 0 0 0 6px #c7d2fe; }
+  50% { box-shadow: 0 0 0 10px #e0e7ff; }
+}
+
+/* ── Screen: Lesson ─────────────────────────────────── */
+.screen-lesson {
+  flex: 1; display: flex; flex-direction: column;
+  background: var(--bg); position: relative; overflow: hidden;
+}
+.lesson-header {
+  padding: 0.75rem 1rem; display: flex; align-items: center; gap: 0.75rem;
+  background: var(--bg);
+}
+.btn-quit {
+  width: 36px; height: 36px; border: none; background: none; cursor: pointer;
+  font-size: 1.2rem; color: var(--mid); border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  -webkit-tap-highlight-color: transparent; flex-shrink: 0;
+}
+.btn-quit:hover { background: var(--rule); }
+.progress-track { flex: 1; height: 8px; background: var(--rule); border-radius: 99px; overflow: hidden; }
+.progress-fill { height: 100%; border-radius: 99px; background: var(--primary); transition: width 0.4s ease; }
+.hearts-row { display: flex; gap: 2px; flex-shrink: 0; }
+.heart { font-size: 1.1rem; transition: opacity 0.2s; }
+.heart.lost { opacity: 0.2; }
+
+.lesson-body {
+  flex: 1; display: flex; flex-direction: column;
+  padding: 1rem 1.25rem; overflow-y: auto;
+  gap: 1rem;
+}
+.exercise-prompt {
+  font-size: 0.8rem; font-weight: 600; text-transform: uppercase;
+  letter-spacing: 0.08em; color: var(--mid); margin-bottom: 0.25rem;
+}
+.lesson-footer {
+  padding: 1rem 1.25rem 1.5rem; background: var(--bg);
+  border-top: 1px solid var(--rule);
+}
+
+/* ── Exercise: Intro ────────────────────────────────── */
+.intro-card {
+  background: var(--card); border-radius: var(--radius);
+  padding: 2rem 1.5rem; display: flex; flex-direction: column;
+  align-items: center; gap: 1rem; text-align: center;
+  box-shadow: 0 1px 8px rgba(0,0,0,0.06); flex: 1;
+}
+.intro-level { font-size: 0.65rem; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; }
+.intro-syl {
+  font-family: 'JetBrains Mono', monospace; font-size: 4.5rem;
+  font-weight: 700; color: var(--primary); line-height: 1;
+}
+.intro-name {
+  font-size: 1.1rem; font-weight: 700; color: var(--ink);
+  text-transform: uppercase; letter-spacing: 0.08em;
+}
+.intro-concept { font-size: 0.9rem; color: var(--mid); max-width: 280px; line-height: 1.6; }
+.intro-examples {
+  width: 100%; border-top: 1px solid var(--rule); padding-top: 1rem;
+  display: flex; flex-direction: column; gap: 0.4rem;
+}
+.intro-ex {
+  font-family: 'JetBrains Mono', monospace; font-size: 0.85rem;
+  color: var(--primary); text-align: left;
+}
+.intro-ex span { font-family: 'Inter', sans-serif; color: var(--soft); font-size: 0.78rem; margin-left: 0.5rem; }
+.intro-level-badge {
+  padding: 0.2rem 0.6rem; border-radius: 20px; font-size: 0.65rem;
+  font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase;
+}
+.lvl-1 .intro-level-badge, .lvl-1 .intro-syl { color: var(--primary); }
+.lvl-1 .intro-level-badge { background: var(--primary-light); }
+.lvl-2 .intro-level-badge { background: var(--teal-light); color: var(--teal); }
+.lvl-2 .intro-syl { color: var(--teal); }
+.lvl-3 .intro-level-badge { background: var(--gold-light); color: var(--gold); }
+.lvl-3 .intro-syl { color: var(--gold); }
+
+/* ── Exercise: Multiple Choice ──────────────────────── */
+.mc-stimulus {
+  background: var(--card); border-radius: var(--radius);
+  padding: 1.5rem; text-align: center;
+  box-shadow: 0 1px 8px rgba(0,0,0,0.06);
+}
+.mc-stimulus .big-syl {
+  font-family: 'JetBrains Mono', monospace; font-size: 3.5rem;
+  font-weight: 700; color: var(--primary); display: block; line-height: 1;
+}
+.mc-stimulus .big-name {
+  font-size: 1.5rem; font-weight: 700; color: var(--ink);
+  text-transform: uppercase; letter-spacing: 0.08em; display: block;
+}
+.mc-stimulus .big-sub { font-size: 0.85rem; color: var(--mid); display: block; margin-top: 0.25rem; }
+.mc-grid {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 0.65rem;
+}
+.mc-option {
+  background: var(--card); border: 2.5px solid var(--rule); border-radius: var(--radius-sm);
+  padding: 1rem 0.75rem; cursor: pointer; transition: all 0.12s;
+  text-align: center; -webkit-tap-highlight-color: transparent;
+}
+.mc-option:hover { border-color: var(--primary); background: var(--primary-light); }
+.mc-option.selected { border-color: var(--primary); background: var(--primary-light); }
+.mc-option.correct { border-color: var(--correct); background: var(--correct-light); }
+.mc-option.wrong { border-color: var(--wrong); background: var(--wrong-light); }
+.mc-syl { font-family: 'JetBrains Mono', monospace; font-size: 1.4rem; font-weight: 700; color: var(--ink); display: block; }
+.mc-name { font-size: 0.85rem; font-weight: 700; color: var(--ink); text-transform: uppercase; letter-spacing: 0.06em; display: block; }
+.mc-meaning { font-size: 0.72rem; color: var(--mid); display: block; margin-top: 0.2rem; line-height: 1.3; }
+
+/* ── Exercise: Word Bank ────────────────────────────── */
+.wb-prompt {
+  font-size: 1.15rem; font-weight: 700; color: var(--ink);
+  text-align: center; padding: 0.5rem 0;
+}
+.wb-answer-zone {
+  min-height: 60px; background: var(--card); border-radius: var(--radius-sm);
+  border: 2.5px dashed var(--rule); padding: 0.75rem; display: flex;
+  flex-wrap: wrap; gap: 0.5rem; align-content: flex-start;
+  transition: border-color 0.2s;
+}
+.wb-answer-zone.has-tokens { border-style: solid; border-color: var(--primary); }
+.wb-answer-zone.correct { border-color: var(--correct); background: var(--correct-light); }
+.wb-answer-zone.wrong { border-color: var(--wrong); background: var(--wrong-light); }
+.wb-token {
+  font-family: 'JetBrains Mono', monospace; font-size: 1rem; font-weight: 700;
+  padding: 0.4rem 0.85rem; border-radius: 8px; cursor: pointer;
+  transition: all 0.12s; -webkit-tap-highlight-color: transparent;
+  display: flex; align-items: center; gap: 0.35rem; user-select: none;
+}
+.wb-token-answer {
+  background: var(--primary); color: #fff;
+}
+.wb-token-answer:active { transform: scale(0.95); }
+.wb-token-bank {
+  background: var(--card); color: var(--ink);
+  border: 2px solid var(--rule);
+}
+.wb-token-bank:not(.used):hover { border-color: var(--primary); color: var(--primary); }
+.wb-token-bank.used { opacity: 0.35; pointer-events: none; }
+.wb-bank-zone {
+  display: flex; flex-wrap: wrap; gap: 0.5rem;
+  padding: 0.5rem 0; min-height: 50px;
+}
+.wb-name-hint {
+  font-size: 0.65rem; color: rgba(255,255,255,0.7); font-family: 'Inter', sans-serif;
+  font-weight: 400; letter-spacing: 0.04em;
+}
+
+/* ── Exercise: Matching ─────────────────────────────── */
+.match-prompt { font-size: 0.85rem; color: var(--mid); text-align: center; }
+.matching-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 0.5rem; }
+.match-item {
+  background: var(--card); border: 2.5px solid var(--rule);
+  border-radius: var(--radius-sm); padding: 0.85rem 0.6rem;
+  cursor: pointer; transition: all 0.15s; text-align: center;
+  -webkit-tap-highlight-color: transparent; font-family: inherit;
+  display: block; width: 100%;
+}
+.match-item:hover:not(.matched):not(.shaking) { border-color: var(--primary); background: var(--primary-light); }
+.match-item.selected { border-color: var(--primary); background: var(--primary-light); }
+.match-item.matched { border-color: var(--correct); background: var(--correct-light); opacity: 0.6; pointer-events: none; }
+.match-item.shaking { animation: shake 0.4s ease; border-color: var(--wrong); background: var(--wrong-light); }
+.match-syl { font-family: 'JetBrains Mono', monospace; font-size: 1.3rem; font-weight: 700; color: var(--ink); }
+.match-name { font-size: 0.8rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; color: var(--ink); }
+
+/* ── Exercise: Phrase MC ────────────────────────────── */
+.phrase-display {
+  background: var(--card); border-radius: var(--radius);
+  padding: 1.5rem; text-align: center;
+  box-shadow: 0 1px 8px rgba(0,0,0,0.06);
+}
+.phrase-sago {
+  font-family: 'JetBrains Mono', monospace; font-size: 1.5rem;
+  font-weight: 700; color: var(--primary); letter-spacing: 0.04em;
+  display: block; line-height: 1.4;
+}
+.phrase-gloss {
+  font-size: 0.78rem; color: var(--soft); margin-top: 0.4rem;
+  text-transform: uppercase; letter-spacing: 0.08em; display: block;
+}
+.phrase-options { display: flex; flex-direction: column; gap: 0.5rem; }
+.phrase-option {
+  background: var(--card); border: 2.5px solid var(--rule);
+  border-radius: var(--radius-sm); padding: 0.9rem 1rem;
+  cursor: pointer; transition: all 0.12s; text-align: left;
+  font-size: 0.9rem; color: var(--ink); font-family: inherit;
+  font-weight: 500; -webkit-tap-highlight-color: transparent;
+  display: block; width: 100%;
+}
+.phrase-option:hover { border-color: var(--primary); background: var(--primary-light); }
+.phrase-option.selected { border-color: var(--primary); background: var(--primary-light); }
+.phrase-option.correct { border-color: var(--correct); background: var(--correct-light); color: var(--correct); }
+.phrase-option.wrong { border-color: var(--wrong); background: var(--wrong-light); color: var(--wrong); }
+
+/* ── Feedback Panel ─────────────────────────────────── */
+.feedback-panel {
+  position: fixed; bottom: 0; left: 0; right: 0; z-index: 100;
+  max-width: var(--max-w); margin: 0 auto;
+  padding: 1.25rem 1.25rem 1.75rem;
+  border-radius: var(--radius) var(--radius) 0 0;
+  display: none; flex-direction: column; gap: 0.75rem;
+}
+.feedback-panel.visible { display: flex; animation: slide-up 0.2s ease; }
+.feedback-panel.is-correct { background: var(--correct-light); border-top: 3px solid var(--correct); }
+.feedback-panel.is-wrong { background: var(--wrong-light); border-top: 3px solid var(--wrong); }
+.feedback-icon { font-size: 1.4rem; }
+.feedback-label {
+  font-size: 1rem; font-weight: 700;
+}
+.feedback-panel.is-correct .feedback-label { color: var(--correct); }
+.feedback-panel.is-wrong .feedback-label { color: var(--wrong); }
+.feedback-answer { font-size: 0.85rem; color: var(--mid); font-family: 'JetBrains Mono', monospace; }
+
+/* ── Screen: Complete ───────────────────────────────── */
+.screen-complete {
+  flex: 1; display: flex; flex-direction: column;
+  align-items: center; justify-content: center;
+  padding: 2rem 1.5rem; gap: 1.5rem; text-align: center;
+  position: relative; overflow: hidden;
+}
+.complete-icon { font-size: 4rem; animation: bounce 0.6s ease; }
+.complete-title { font-size: 1.6rem; font-weight: 700; color: var(--ink); }
+.complete-stars { display: flex; gap: 0.5rem; justify-content: center; font-size: 2rem; }
+.complete-xp {
+  background: var(--primary-light); color: var(--primary);
+  padding: 0.75rem 1.5rem; border-radius: 99px;
+  font-size: 1.1rem; font-weight: 700;
+}
+.complete-stats {
+  display: grid; grid-template-columns: repeat(3, 1fr);
+  gap: 1rem; width: 100%; max-width: 320px;
+}
+.c-stat { text-align: center; }
+.c-stat-num { font-size: 1.4rem; font-weight: 700; color: var(--ink); display: block; }
+.c-stat-lbl { font-size: 0.68rem; color: var(--soft); text-transform: uppercase; letter-spacing: 0.06em; }
+.complete-btns { display: flex; flex-direction: column; gap: 0.65rem; width: 100%; }
+
+/* Confetti */
+.confetti-piece {
+  position: fixed; width: 10px; height: 10px; opacity: 1;
+  animation: confetti-fall 2.5s ease-out forwards;
+}
+@keyframes confetti-fall {
+  0% { transform: translateY(-10px) rotate(0deg); opacity: 1; }
+  100% { transform: translateY(calc(100vh + 20px)) rotate(720deg); opacity: 0; }
+}
+
+/* ── Animations ─────────────────────────────────────── */
+@keyframes shake {
+  0%, 100% { transform: translateX(0); }
+  15% { transform: translateX(-6px); }
+  45% { transform: translateX(6px); }
+  75% { transform: translateX(-4px); }
+}
+@keyframes slide-up {
+  from { transform: translateY(100%); }
+  to { transform: translateY(0); }
+}
+@keyframes bounce {
+  0%, 100% { transform: translateY(0); }
+  40% { transform: translateY(-20px); }
+  70% { transform: translateY(-10px); }
+}
+@keyframes pop { 0% { transform: scale(0.8); opacity: 0; } 100% { transform: scale(1); opacity: 1; } }
+
+.screen-enter { animation: pop 0.25s ease; }
+</style>
+</head>
+<body>
+<div id="root"></div>
+<script>
+'use strict';
+
+/* ══════════════════════════════════════════════════════
+   DATA
+══════════════════════════════════════════════════════ */
+
+const PHONICS = {
+  sa:{name:'SELF',concept:'the one who speaks; the speaker',level:1},
+  to:{name:'OTHER',concept:'any being or thing that is not the speaker',level:1},
+  na:{name:'NOT',concept:'negation; absence; the opposite',level:1},
+  wu:{name:'WANT',concept:'desire; need; intention',level:1},
+  go:{name:'GOOD',concept:'positive; correct; beneficial; safe',level:1},
+  bi:{name:'BAD',concept:'negative; harmful; wrong',level:1},
+  ne:{name:'NOW',concept:'the present moment; currently',level:1},
+  hi:{name:'HERE',concept:'this place; where the speaker is',level:1},
+  li:{name:'ALIVE',concept:'living; animate; conscious',level:2},
+  mo:{name:'MOVE',concept:'motion; change of position or state',level:2},
+  te:{name:'THINK',concept:'mental activity; knowing; believing',level:2},
+  du:{name:'WATER',concept:'liquid substance; fluid',level:2},
+  fu:{name:'HEAT',concept:'thermal energy; warmth',level:2},
+  re:{name:'AIR',concept:'gas; breath; atmosphere; sky',level:2},
+  ko:{name:'SOLID',concept:'hard matter; earth; resistant',level:2},
+  lu:{name:'LIGHT',concept:'visible energy; brightness; color',level:2},
+  pa:{name:'BEFORE',concept:'prior in time; past; earlier',level:3},
+  ya:{name:'AFTER',concept:'subsequent in time; future; later',level:3},
+  da:{name:'BECAUSE',concept:'cause; reason; the explanation for why',level:3},
+  di:{name:'IF',concept:'conditional; hypothetical',level:3},
+  pi:{name:'CAN',concept:'ability; possibility; what is feasible',level:3},
+  ma:{name:'MORE',concept:'greater degree; increase; intensifier',level:3},
+  si:{name:'SAME',concept:'identical; equal; equivalent',level:3},
+  la:{name:'FAR',concept:'distant; away; remote from here',level:3},
+  va:{name:'ABOVE',concept:'higher than; over; elevated',level:3},
+  ja:{name:'INSIDE',concept:'contained within; interior',level:3},
+  ba:{name:'FEEL',concept:'emotional or physical sensation',level:3},
+  ra:{name:'HEAR',concept:'auditory perception; receiving sound',level:3},
+  we:{name:'SAY',concept:'verbal expression; communication',level:3},
+  ka:{name:'MANY',concept:'plural; numerous; more than few',level:3},
+  bo:{name:'BODY',concept:'the physical form; flesh',level:3},
+  pe:{name:'KIND',concept:'a type or category; the sort of thing',level:3},
+  zo:{name:'SOMEONE',concept:'an unspecified person',level:4},
+  ze:{name:'SOMETHING',concept:'an unspecified thing',level:4},
+  pu:{name:'PEOPLE',concept:'humans collectively',level:4},
+  ta:{name:'ONE',concept:'a single instance; the number one',level:4},
+  ti:{name:'TWO',concept:'a pair; two instances',level:4},
+  so:{name:'SOME',concept:'an indefinite portion; not all',level:4},
+  zu:{name:'ALL',concept:'every instance; universal',level:4},
+  fi:{name:'FEW',concept:'a small number; not many',level:4},
+  ga:{name:'BIG',concept:'large in scale or degree',level:4},
+  gi:{name:'SMALL',concept:'small in scale or degree',level:4},
+  no:{name:'KNOW',concept:'certain knowledge; established fact',level:4},
+  vi:{name:'SEE',concept:'visual perception; sight',level:4},
+  tu:{name:'TOUCH',concept:'physical contact; tactile sense',level:4},
+  de:{name:'DO',concept:'intentional action; deliberate doing',level:4},
+  ha:{name:'HAPPEN',concept:'event without agent; to occur',level:4},
+  ho:{name:'HAVE',concept:'possession; containing; belonging',level:4},
+  za:{name:'EXIST',concept:'presence; there is; being here',level:4},
+  gu:{name:'DIE',concept:'ceasing to live; end of life',level:4},
+  su:{name:'TRUE',concept:'factual; real; actual; what is the case',level:4},
+  ro:{name:'WORD',concept:'a linguistic unit; a name',level:4},
+  mi:{name:'MAYBE',concept:'uncertain; possible; perhaps',level:4},
+  lo:{name:'LIKE',concept:'similar to; in the manner of',level:4},
+  ve:{name:'VERY',concept:'intensifier; to a great degree',level:4},
+  ni:{name:'NEAR',concept:'close to; proximate',level:4},
+  be:{name:'BELOW',concept:'lower than; under; beneath',level:4},
+  ri:{name:'SIDE',concept:'lateral; beside; adjacent',level:4},
+  wi:{name:'WHEN',concept:'at which time; temporal question',level:4},
+  wa:{name:'WHERE',concept:'at which place; spatial question',level:4},
+  mu:{name:'MOMENT',concept:'an instant; a point in time',level:4},
+  po:{name:'PART',concept:'a component; piece of a whole',level:4},
+  nu:{name:'ANOTHER',concept:'a different one; an alternative',level:4},
+  yo:{name:'THIS',concept:'the proximal referent; indicated now',level:4},
+  le:{name:'TREE',concept:'a tall woody plant with a trunk',level:5},
+  ge:{name:'MOON',concept:"Earth's satellite; night light",level:5},
+  fo:{name:'FOOT',concept:'lowest part of leg; base of standing',level:5},
+  bu:{name:'BIRD',concept:'a feathered flying vertebrate',level:5},
+  ru:{name:'ROAD',concept:'a path for travel; a route',level:5},
+  se:{name:'STAR',concept:'a distant sun; point of night light',level:5},
+  do:{name:'DAY',concept:'the period of sunlight; solar cycle',level:5},
+  fa:{name:'PLANT',concept:'a rooted living thing; vegetation',level:5},
+  me:{name:'MAN',concept:'an adult male human',level:5},
+  ku:{name:'MOTHER',concept:'the female parent',level:5},
+  je:{name:'TOGETHER',concept:'in mutual company; jointly',level:5},
+  ki:{name:'ANIMAL',concept:'a non-plant living creature',level:5},
+  hu:{name:'FATHER',concept:'the male parent',level:5},
+  ye:{name:'EYE',concept:'the visual organ',level:5},
+  he:{name:'EARTH',concept:'soil; ground material; this planet',level:5},
+  ji:{name:'HARD',concept:'resistant to deformation; rigid',level:5},
+  vo:{name:'SHARP',concept:'having a fine point or edge',level:5},
+  vu:{name:'MOUTH',concept:'the oral opening; organ of speech',level:5},
+  jo:{name:'EAR',concept:'the auditory organ',level:5},
+  ju:{name:'ROUND',concept:'circular or spherical in form',level:5},
+  fe:{name:'TASTE',concept:'gustatory sense; flavor quality',level:5},
+  yi:{name:'BACK',concept:'the posterior surface; rear side',level:5},
+  yu:{name:'NIGHT',concept:'the period of darkness',level:5},
+  zi:{name:'GROUND',concept:'the surface underfoot; the floor',level:5},
+  ke:{name:'CLOTH',concept:'woven fabric; textile material',level:5},
+  wo:{name:'NOSE',concept:'the olfactory organ',level:5},
+};
+
+/* ── Shorthand step builders ── */
+const I  = syl          => ({t:'intro', syl});
+const MM = (syl, pool)  => ({t:'mc-m',  syl, pool});
+const MP = (syl, pool)  => ({t:'mc-p',  syl, pool});
+const WB = (en, ans, pool) => ({t:'wb', en, ans, pool});
+const MT = syls         => ({t:'match', syls});
+const PM = (sago, en, choices) => ({t:'phrase-m', sago, en, choices});
+
+const UNITS = [
+  {
+    id:'u1', title:'The Core Self', color:'unit-1-banner',
+    lessons: [
+      {
+        id:'u1l1', title:'Self & Other', icon:'👤',
+        steps:[
+          I('sa'),
+          I('to'),
+          MM('sa', ['sa','to','na','wu']),
+          MM('to', ['sa','to','na','wu']),
+          MP('sa', ['sa','to','na','wu']),
+          MT(['sa','to','go','bi']),
+          WB('I (just myself)', ['sa'], ['sa','to','na','wu','go']),
+          PM('to go', 'You are good', ['You are good','I am good','You are bad','You want good']),
+        ]
+      },
+      {
+        id:'u1l2', title:'Good, Bad & Not', icon:'⚖️',
+        steps:[
+          I('go'),
+          I('bi'),
+          MM('go', ['sa','to','go','bi']),
+          MM('bi', ['sa','to','go','bi']),
+          I('na'),
+          MM('na', ['na','wu','go','bi']),
+          MT(['sa','go','na','bi']),
+          WB('Not good', ['na','go'], ['sa','na','go','bi','to','wu']),
+          PM('sa go', 'I am good', ['I am good','I am bad','You are good','I am not good']),
+        ]
+      },
+      {
+        id:'u1l3', title:'Want, Now & Here', icon:'🎯',
+        steps:[
+          I('wu'),
+          I('ne'),
+          I('hi'),
+          MM('wu', ['wu','ne','hi','sa']),
+          MM('ne', ['wu','ne','hi','go']),
+          MM('hi', ['wu','ne','hi','bi']),
+          MT(['wu','ne','hi','na']),
+          WB("I don't want", ['sa','na','wu'], ['sa','to','na','wu','go','bi']),
+          PM('sa go ne hi', 'Hello / I am well here', ['Hello / I am well here','Goodbye I am leaving','You are good now','I want to be here now']),
+          WB('I am here now', ['sa','ne','hi'], ['sa','to','ne','hi','go','wu']),
+        ]
+      },
+    ]
+  },
+  {
+    id:'u2', title:'The Living World', color:'unit-2-banner',
+    lessons: [
+      {
+        id:'u2l1', title:'Life & Action', icon:'🌱',
+        steps:[
+          I('li'),
+          I('mo'),
+          MM('li', ['li','mo','te','du','sa','go']),
+          MM('mo', ['li','mo','te','du','na','bi']),
+          I('te'),
+          MM('te', ['li','mo','te','sa','wu','go']),
+          MT(['li','mo','te','wu']),
+          WB('I am alive', ['sa','li'], ['sa','to','li','mo','go','bi']),
+          PM('sa mo hi', 'I am coming', ['I am coming','I am leaving','You are here','I want to move']),
+          WB('I am moving here', ['sa','mo','hi'], ['sa','to','mo','hi','la','go']),
+        ]
+      },
+      {
+        id:'u2l2', title:'The Elements', icon:'🌊',
+        steps:[
+          I('du'),
+          I('fu'),
+          MM('du', ['du','fu','re','ko','lu','mo']),
+          MM('fu', ['du','fu','re','ko','lu','li']),
+          I('re'),
+          I('ko'),
+          I('lu'),
+          MM('re', ['du','fu','re','ko','lu','sa']),
+          MT(['du','fu','re','ko']),
+          MP('fu', ['du','fu','re','ko','lu']),
+          PM('sa wu du', 'I want water', ['I want water','You want water','I want air','I am thirsty now']),
+        ]
+      },
+      {
+        id:'u2l3', title:'Words That Flow', icon:'💫',
+        steps:[
+          PM('na fu', 'Cold (NOT HEAT)', ['Cold (NOT HEAT)','Hot water','Not fire','No light']),
+          PM('fu mo', 'Fire (HEAT MOVE)', ['Fire (HEAT MOVE)','Moving heat','Hot water','Light moves']),
+          PM('du re', 'Cloud / mist (WATER AIR)', ['Cloud / mist (WATER AIR)','Heavy water','Air and fire','Rain falling']),
+          WB('Fire — heat that moves', ['fu','mo'], ['fu','re','ko','lu','mo','du','na']),
+          WB('Cold — not heat', ['na','fu'], ['fu','re','na','lu','mo','du','ko']),
+          PM('li go', 'Healthy (ALIVE GOOD)', ['Healthy (ALIVE GOOD)','Good life','Living well','Alive again']),
+          PM('li bi', 'Sick (ALIVE BAD)', ['Sick (ALIVE BAD)','Dead','Moving badly','Alive but bad']),
+          PM('na li', 'Dead (NOT ALIVE)', ['Dead (NOT ALIVE)','Not living well','Barely alive','Alive not good']),
+          WB('Darkness (not light)', ['na','lu'], ['na','lu','fu','re','ko','mo','du']),
+        ]
+      },
+    ]
+  },
+  {
+    id:'u3', title:'Grammar & Time', color:'unit-3-banner',
+    lessons: [
+      {
+        id:'u3l1', title:'Before & After', icon:'⏳',
+        steps:[
+          I('pa'),
+          I('ya'),
+          MM('pa', ['pa','ya','da','di','sa','go']),
+          MM('ya', ['pa','ya','da','di','na','wu']),
+          PM('pa sa mo la', 'I went away (past)', ['I went away (past)','I will leave','You left','I go far']),
+          PM('ya to mo hi', 'You will come (future)', ['You will come (future)','You came here','I will come','You moved away']),
+          WB('I came (past: moved here)', ['pa','sa','mo','hi'], ['pa','ya','sa','to','mo','hi','la','go']),
+          MP('pa', ['pa','ya','da','di']),
+          MP('ya', ['pa','ya','ma','si']),
+        ]
+      },
+      {
+        id:'u3l2', title:'Because & More', icon:'🔗',
+        steps:[
+          I('da'),
+          MM('da', ['da','di','pa','ya','sa','go']),
+          I('ma'),
+          MM('ma', ['da','di','ma','si','na','wu']),
+          PM('sa mo da sa wu du', 'I move because I want water', ['I move because I want water','I want to move with water','Because I move I want','Water makes me move']),
+          PM('ba go ma', 'More good feeling / very joyful', ['More good feeling / very joyful','Not good at all','Good feeling ends','I feel much bad']),
+          WB('Because of this', ['da','yo'], ['da','di','ma','si','pa','ya','yo','ne']),
+          MT(['da','di','pa','ya']),
+          PM('di to mo hi ya sa go', 'If you come I will be happy', ['If you come I will be happy','Because you come I feel good','When you come feel good','You will come and feel good']),
+        ]
+      },
+      {
+        id:'u3l3', title:'Space & Feeling', icon:'🧭',
+        steps:[
+          I('la'),
+          I('va'),
+          I('ja'),
+          MM('la', ['la','va','ja','hi','ni','be']),
+          MM('va', ['la','va','ja','hi','ni','be']),
+          I('ba'),
+          MM('ba', ['ba','ra','we','ka','la','va']),
+          PM('mo la', 'Go away / leave', ['Go away / leave','Come here','Move above','Far movement']),
+          PM('mo re va', 'Fly (MOVE AIR ABOVE)', ['Fly (MOVE AIR ABOVE)','Breathe deeply','Air moves up','Light above']),
+          WB('I feel good', ['sa','ba','go'], ['sa','to','ba','go','bi','ma','na']),
+          WB('I feel bad / sad', ['sa','ba','bi'], ['sa','to','ba','go','bi','ma','na']),
+        ]
+      },
+    ]
+  },
+  {
+    id:'u4', title:'Phrases & Meaning', color:'unit-4-banner',
+    lessons: [
+      {
+        id:'u4l1', title:'Emotions', icon:'❤️',
+        steps:[
+          PM('ba go', 'Joy / feeling good', ['Joy / feeling good','Good thinking','Very good','Feeling bad']),
+          PM('sa ba go ma to', 'I love you (feel good intensely toward other)', ['I love you (feel good intensely toward other)','I feel good','You feel more','I feel very good for myself']),
+          PM('sa wu ya go', 'I hope (want future good)', ['I hope (want future good)','I will want good','I wanted good before','I had good feelings']),
+          WB('I love you', ['sa','ba','go','ma','to'], ['sa','to','ba','go','bi','ma','na','wu']),
+          PM('sa ba bi da ya ze', 'I am afraid (feel bad because of future unknown)', ['I am afraid (feel bad because of future unknown)','I feel bad about now','I feel bad because of you','I am sick']),
+          WB('Thank you (I feel good because of you)', ['sa','go','da','to'], ['sa','to','go','bi','da','ba','ne','hi']),
+          PM('sa go da to', 'Thank you (I feel good because of you)', ['Thank you (I feel good because of you)','I am good because I am here','You are good for me','I feel good now']),
+        ]
+      },
+      {
+        id:'u4l2', title:'Communication', icon:'💬',
+        steps:[
+          I('we'),
+          MM('we', ['ba','ra','we','ka','bo','pe']),
+          I('no'),
+          MM('no', ['no','vi','de','ho','za','su']),
+          PM('we pa', 'Story (SAY BEFORE)', ['Story (SAY BEFORE)','Speak later','Say first','Before speaking']),
+          PM('sa na te', 'I don\'t understand', ['I don\'t understand','I won\'t think','I am not alive','You don\'t think']),
+          WB('I say (I speak)', ['sa','we'], ['sa','to','we','ra','ka','bo','go','bi']),
+          PM('ya we', 'Say again / please repeat', ['Say again / please repeat','You spoke already','Say something future','Speak before']),
+          WB('I know this', ['sa','no','yo'], ['sa','to','no','vi','yo','ze','go','bi']),
+        ]
+      },
+      {
+        id:'u4l3', title:'Deep Meanings', icon:'✨',
+        steps:[
+          PM('na de na', 'Freedom (NOT DO NOT — the absence of prevention)', ['Freedom (NOT DO NOT — the absence of prevention)','Nothing done','Not doing anything','Cannot act']),
+          PM('te su na vi', 'Faith (THINK TRUE NOT SEE — believing without seeing)', ['Faith (THINK TRUE NOT SEE — believing without seeing)','Cannot see truth','See the true','Think and look carefully']),
+          PM('de je ba bi', 'Courage (DO TOGETHER FEEL BAD — acting while afraid)', ['Courage (DO TOGETHER FEEL BAD — acting while afraid)','Doing bad things together','Acting fearfully','Feeling good together']),
+          PM('ka pu ba go je', 'Peace (MANY PEOPLE FEEL GOOD TOGETHER)', ['Peace (MANY PEOPLE FEEL GOOD TOGETHER)','War','Many people feel bad','People speaking together']),
+          PM('ka pu we ro', 'Democracy (MANY PEOPLE SAY WORD)', ['Democracy (MANY PEOPLE SAY WORD)','Many words said','People talking','The saying of words']),
+          WB('Hope (want future good)', ['wu','ya','go'], ['wu','ya','go','pa','ba','bi','sa','na']),
+          PM('sa ba go da sa de go', 'Pride (I feel good because I did good)', ['Pride (I feel good because I did good)','I feel good for you','I feel very good','I feel good now']),
+          PM('sa ba bi da na za', 'Grief (FEEL BAD BECAUSE NOT EXIST — something is gone)', ['Grief (FEEL BAD BECAUSE NOT EXIST — something is gone)','I feel bad now','I am afraid','Something bad happened']),
+        ]
+      },
+    ]
+  },
+];
+
+/* Flatten lessons */
+const ALL_LESSONS = UNITS.flatMap(u => u.lessons.map(l => ({...l, unitId: u.id, unitTitle: u.title, unitColor: u.color})));
+function getLesson(id) { return ALL_LESSONS.find(l => l.id === id); }
+
+/* ══════════════════════════════════════════════════════
+   STATE
+══════════════════════════════════════════════════════ */
+
+const STORAGE_KEY = 'sago-learn-v1';
+
+function buildInitialState() {
+  const progress = {};
+  ALL_LESSONS.forEach((l, i) => {
+    progress[l.id] = { status: i === 0 ? 'available' : 'locked', stars: 0, xp: 0 };
+  });
+  return {
+    version: '1', screen: 'home',
+    streak: 0, lastDate: '', totalXP: 0,
+    progress,
+    session: null,
+  };
+}
+
+let App = (() => {
+  try {
+    const raw = localStorage.getItem(STORAGE_KEY);
+    if (!raw) return buildInitialState();
+    const s = JSON.parse(raw);
+    if (s.version !== '1') return buildInitialState();
+    return s;
+  } catch { return buildInitialState(); }
+})();
+
+function save() {
+  try { localStorage.setItem(STORAGE_KEY, JSON.stringify(App)); } catch {}
+}
+
+/* ── Session-level UI state (not persisted) ── */
+let S = { // active session state
+  hearts: 3, stepIdx: 0, xp: 0, wrongThisStep: false,
+  steps: [], lessonId: null,
+  // word bank
+  wb: { answer: [], bank: [] },
+  // matching
+  mt: { selected: null, matched: new Set(), shaking: new Set() },
+  // choice selection
+  chosen: null,
+  // feedback
+  showFeedback: false, feedbackCorrect: false, feedbackMsg: '',
+  // step done (waiting for continue)
+  stepDone: false,
+};
+
+/* ══════════════════════════════════════════════════════
+   NAVIGATION
+══════════════════════════════════════════════════════ */
+
+function go(screen) {
+  App.screen = screen;
+  S.showFeedback = false;
+  save();
+  render();
+}
+
+function startLesson(lessonId) {
+  const lesson = getLesson(lessonId);
+  if (!lesson) return;
+  S = {
+    hearts: 3, stepIdx: 0, xp: 0, wrongThisStep: false,
+    steps: lesson.steps, lessonId,
+    wb: { answer: [], bank: [] },
+    mt: { selected: null, matched: new Set(), shaking: new Set() },
+    chosen: null, showFeedback: false, feedbackCorrect: false, feedbackMsg: '',
+    stepDone: false,
+  };
+  initStepState();
+  App.screen = 'lesson';
+  save();
+  render();
+}
+
+function initStepState() {
+  S.chosen = null;
+  S.wrongThisStep = false;
+  S.stepDone = false;
+  S.showFeedback = false;
+  const step = S.steps[S.stepIdx];
+  if (!step) return;
+  if (step.t === 'wb') {
+    const tokens = step.pool.map((syl, i) => ({ id: syl + '_' + i, syl, used: false }));
+    S.wb = { answer: [], bank: tokens };
+  }
+  if (step.t === 'match') {
+    const pairs = step.syls.map(syl => ({ syl, name: PHONICS[syl].name }));
+    const left = shuffle([...pairs]);
+    const right = shuffle([...pairs]);
+    S.mt = { left, right, selected: null, matched: new Set(), shaking: new Set() };
+  }
+}
+
+function nextStep() {
+  S.stepIdx++;
+  if (S.stepIdx >= S.steps.length) {
+    finishLesson();
+    return;
+  }
+  S.showFeedback = false;
+  initStepState();
+  render();
+}
+
+function finishLesson() {
+  const lid = S.lessonId;
+  const prog = App.progress[lid];
+  const stars = S.hearts >= 3 ? 3 : S.hearts >= 2 ? 2 : S.hearts >= 1 ? 1 : 1;
+  const bonusXP = s => s.hearts === 3 ? 10 : 0;
+  const earned = S.xp + bonusXP(S);
+  prog.status = 'complete';
+  prog.stars = Math.max(prog.stars, stars);
+  prog.xp = Math.max(prog.xp, earned);
+  App.totalXP += earned;
+
+  // Update streak
+  const today = new Date().toLocaleDateString('en-CA');
+  const yesterday = new Date(Date.now() - 86400000).toLocaleDateString('en-CA');
+  if (App.lastDate === yesterday) App.streak++;
+  else if (App.lastDate !== today) App.streak = 1;
+  App.lastDate = today;
+
+  // Unlock next lesson
+  const idx = ALL_LESSONS.findIndex(l => l.id === lid);
+  if (idx >= 0 && idx + 1 < ALL_LESSONS.length) {
+    const nextId = ALL_LESSONS[idx + 1].id;
+    if (App.progress[nextId].status === 'locked') App.progress[nextId].status = 'available';
+  }
+
+  App.screen = 'complete';
+  save();
+  render();
+  spawnConfetti();
+}
+
+function handleAnswer(correct) {
+  if (correct) {
+    S.xp += S.wrongThisStep ? 4 : 10;
+    S.feedbackCorrect = true;
+    S.feedbackMsg = pickCorrectMsg();
+  } else {
+    if (!S.wrongThisStep) {
+      S.hearts = Math.max(0, S.hearts - 1);
+      S.wrongThisStep = true;
+    }
+    S.feedbackCorrect = false;
+    const step = S.steps[S.stepIdx];
+    S.feedbackMsg = buildWrongMsg(step);
+    if (S.hearts === 0) {
+      // out of hearts — still let them finish but mark
+    }
+  }
+  S.showFeedback = true;
+  S.stepDone = correct;
+  render();
+}
+
+function buildWrongMsg(step) {
+  if (step.t === 'mc-m') return `${step.syl} = ${PHONICS[step.syl].name} — ${PHONICS[step.syl].concept}`;
+  if (step.t === 'mc-p') return `${step.syl} means ${PHONICS[step.syl].name}`;
+  if (step.t === 'wb') return `Answer: ${step.ans.join(' ')}`;
+  if (step.t === 'phrase-m') return `"${step.sago.join(' ')}" means: ${step.en}`;
+  return '';
+}
+
+function pickCorrectMsg() {
+  const msgs = ['Correct!', 'Nice work!', 'Exactly right!', 'Well done!', 'Perfect!', 'Spot on!'];
+  return msgs[Math.floor(Math.random() * msgs.length)];
+}
+
+/* ══════════════════════════════════════════════════════
+   RENDER
+══════════════════════════════════════════════════════ */
+
+function render() {
+  const root = document.getElementById('root');
+  root.innerHTML = renderScreen();
+  bindEvents();
+}
+
+function renderScreen() {
+  switch (App.screen) {
+    case 'home':     return renderHome();
+    case 'map':      return renderMap();
+    case 'lesson':   return renderLesson();
+    case 'complete': return renderComplete();
+    default:         return renderHome();
+  }
+}
+
+/* ── Home ── */
+function renderHome() {
+  const returning = App.totalXP > 0;
+  return `<div class="screen-home screen-enter">
+    <div class="home-logo">sago</div>
+    <div class="home-sub">A language built from 90 atoms of meaning — learnable in layers</div>
+    <div class="home-greeting">
+      <div class="g-sago">sa go ne hi</div>
+      <div class="g-gloss">SELF · GOOD · NOW · HERE — "Hello, I am well"</div>
+    </div>
+    ${returning ? `
+    <div class="home-stats">
+      <div class="home-stat"><span class="home-stat-num">🔥 ${App.streak}</span><span class="home-stat-lbl">Day Streak</span></div>
+      <div class="home-stat"><span class="home-stat-num">${App.totalXP}</span><span class="home-stat-lbl">Total XP</span></div>
+      <div class="home-stat"><span class="home-stat-num">${Object.values(App.progress).filter(p=>p.status==='complete').length}</span><span class="home-stat-lbl">Lessons Done</span></div>
+    </div>` : ''}
+    <button class="btn btn-primary" onclick="go('map')">${returning ? 'Continue Learning' : 'Start Learning'}</button>
+    <a href="pamphlet.html" style="font-size:0.8rem;color:var(--mid);text-decoration:none">What is Sago? →</a>
+  </div>`;
+}
+
+/* ── Map ── */
+function renderMap() {
+  let html = `<div class="screen-map">
+    <header class="map-header">
+      <button class="btn" style="background:none;color:var(--mid);font-size:0.85rem;padding:0.4rem 0.75rem;" onclick="go('home')">← Home</button>
+      <h1>Sago</h1>
+      <div class="map-hud">
+        <div class="hud-item"><span class="hud-icon">🔥</span>${App.streak}</div>
+        <div class="hud-item"><span class="hud-icon">⚡</span>${App.totalXP}</div>
+      </div>
+    </header>
+    <div class="map-body">`;
+
+  for (const unit of UNITS) {
+    html += `<div class="unit-banner ${unit.color}">${unit.title}</div>
+    <div class="map-path">`;
+    unit.lessons.forEach((lesson, i) => {
+      const prog = App.progress[lesson.id];
+      const status = prog ? prog.status : 'locked';
+      const stars = prog ? prog.stars : 0;
+      const starStr = status === 'complete' ? '⭐'.repeat(stars) : '';
+      html += `<div class="map-node-wrap">
+        <div class="map-node ${status}" data-lesson="${lesson.id}">
+          <div class="map-circle">${status === 'complete' ? '✓' : status === 'locked' ? '🔒' : lesson.icon}</div>
+          <div class="map-node-title">${lesson.title}${starStr ? '<br>'+starStr : ''}</div>
+        </div>
+      </div>`;
+    });
+    html += `</div>`;
+  }
+
+  html += `</div></div>`;
+  return html;
+}
+
+/* ── Lesson ── */
+function renderLesson() {
+  const step = S.steps[S.stepIdx];
+  const progress = ((S.stepIdx) / S.steps.length) * 100;
+  const hearts = [1,2,3].map(i => `<span class="heart ${i > S.hearts ? 'lost' : ''}">❤️</span>`).join('');
+
+  let bodyHtml = '';
+  if (step.t === 'intro')     bodyHtml = renderIntro(step);
+  else if (step.t === 'mc-m') bodyHtml = renderMCMeaning(step);
+  else if (step.t === 'mc-p') bodyHtml = renderMCPhonic(step);
+  else if (step.t === 'wb')   bodyHtml = renderWordBank(step);
+  else if (step.t === 'match') bodyHtml = renderMatching(step);
+  else if (step.t === 'phrase-m') bodyHtml = renderPhraseMC(step);
+
+  const footerBtn = buildFooterBtn(step);
+  const feedback = renderFeedback();
+
+  return `<div class="screen-lesson">
+    <header class="lesson-header">
+      <button class="btn-quit" onclick="go('map')">✕</button>
+      <div class="progress-track">
+        <div class="progress-fill" style="width:${progress}%"></div>
+      </div>
+      <div class="hearts-row">${hearts}</div>
+    </header>
+    <main class="lesson-body">${bodyHtml}</main>
+    <footer class="lesson-footer">${footerBtn}</footer>
+    ${feedback}
+  </div>`;
+}
+
+function buildFooterBtn(step) {
+  if (step.t === 'intro') {
+    return `<button class="btn btn-primary" id="btn-check" onclick="handleIntro()">Got it →</button>`;
+  }
+  if (step.t === 'match') {
+    // Matching auto-progresses, footer shows a hint
+    return `<button class="btn btn-disabled" id="btn-check">Match all pairs to continue</button>`;
+  }
+  const hasAnswer = step.t === 'wb' ? S.wb.answer.length > 0 : S.chosen !== null;
+  if (!hasAnswer) {
+    return `<button class="btn btn-disabled" id="btn-check">Select an answer</button>`;
+  }
+  return `<button class="btn btn-primary" id="btn-check" onclick="submitAnswer()">Check</button>`;
+}
+
+/* ── Intro ── */
+function renderIntro(step) {
+  const p = PHONICS[step.syl];
+  const lvlColors = {1:'var(--primary)',2:'var(--teal)',3:'var(--gold)',4:'var(--mid)',5:'var(--soft)'};
+  const lvlNames = {1:'L1 · Core',2:'L2 · Physical',3:'L3 · Grammar',4:'L4 · Wierzbicka',5:'L5 · Molecules'};
+  const color = lvlColors[p.level];
+  return `<div class="intro-card screen-enter">
+    <div style="background:${color}18;color:${color};padding:0.2rem 0.7rem;border-radius:20px;font-size:0.65rem;font-weight:700;letter-spacing:0.1em;text-transform:uppercase">${lvlNames[p.level]}</div>
+    <div style="font-family:'JetBrains Mono',monospace;font-size:5rem;font-weight:700;color:${color};line-height:1">${step.syl}</div>
+    <div style="font-size:1.2rem;font-weight:700;color:var(--ink);text-transform:uppercase;letter-spacing:0.1em">${p.name}</div>
+    <div style="font-size:0.9rem;color:var(--mid);max-width:260px;line-height:1.6">${p.concept}</div>
+  </div>`;
+}
+
+/* ── MC Meaning ── */
+function renderMCMeaning(step) {
+  const p = PHONICS[step.syl];
+  const options = shuffle([...step.pool]);
+  const opts = options.map(syl => {
+    const op = PHONICS[syl];
+    let cls = 'mc-option';
+    if (S.chosen !== null) {
+      if (syl === step.syl) cls += ' correct';
+      else if (syl === S.chosen) cls += ' wrong';
+    } else if (syl === S.chosen) cls += ' selected';
+    return `<div class="${cls}" data-val="${syl}" onclick="chooseOption('${syl}')">
+      <span class="mc-name">${op.name}</span>
+      <span class="mc-meaning">${op.concept.split(';')[0]}</span>
+    </div>`;
+  }).join('');
+  return `<div class="exercise-prompt">What does this mean?</div>
+    <div class="mc-stimulus screen-enter">
+      <span class="big-syl">${step.syl}</span>
+    </div>
+    <div class="mc-grid">${opts}</div>`;
+}
+
+/* ── MC Phonic ── */
+function renderMCPhonic(step) {
+  const correct = PHONICS[step.syl];
+  const options = shuffle([...step.pool]);
+  const opts = options.map(syl => {
+    const op = PHONICS[syl];
+    let cls = 'mc-option';
+    if (S.chosen !== null) {
+      if (syl === step.syl) cls += ' correct';
+      else if (syl === S.chosen) cls += ' wrong';
+    } else if (syl === S.chosen) cls += ' selected';
+    return `<div class="${cls}" data-val="${syl}" onclick="chooseOption('${syl}')">
+      <span class="mc-syl">${syl}</span>
+      <span class="mc-meaning">${op.concept.split(';')[0]}</span>
+    </div>`;
+  }).join('');
+  return `<div class="exercise-prompt">Which phonic means…</div>
+    <div class="mc-stimulus screen-enter">
+      <span class="big-name">${correct.name}</span>
+      <span class="big-sub">${correct.concept.split(';')[0]}</span>
+    </div>
+    <div class="mc-grid">${opts}</div>`;
+}
+
+/* ── Word Bank ── */
+function renderWordBank(step) {
+  const answerTokens = S.wb.answer.map(t =>
+    `<div class="wb-token wb-token-answer" data-id="${t.id}" onclick="removeFromAnswer('${t.id}')">
+      ${t.syl}<span class="wb-name-hint">${PHONICS[t.syl].name}</span>
+    </div>`
+  ).join('');
+  const bankTokens = S.wb.bank.map(t =>
+    `<div class="wb-token wb-token-bank ${t.used?'used':''}" data-id="${t.id}" onclick="addToAnswer('${t.id}')">
+      ${t.syl}
+    </div>`
+  ).join('');
+  const zoneClass = S.wb.answer.length > 0 ? 'wb-answer-zone has-tokens' : 'wb-answer-zone';
+  return `<div class="exercise-prompt">Translate to Sago</div>
+    <div style="font-size:1.15rem;font-weight:700;color:var(--ink);text-align:center;padding:0.5rem 0">${step.en}</div>
+    <div class="${zoneClass}" id="wb-answer">${answerTokens}</div>
+    <div class="wb-bank-zone">${bankTokens}</div>`;
+}
+
+/* ── Matching ── */
+function renderMatching(step) {
+  const leftItems = S.mt.left.map(item => {
+    let cls = 'match-item';
+    if (S.mt.matched.has(item.syl)) cls += ' matched';
+    else if (S.mt.shaking.has(item.syl)) cls += ' shaking';
+    else if (S.mt.selected && S.mt.selected.side === 'left' && S.mt.selected.syl === item.syl) cls += ' selected';
+    return `<button class="${cls}" data-side="left" data-syl="${item.syl}" onclick="clickMatch('left','${item.syl}')">
+      <span class="match-syl">${item.syl}</span>
+    </button>`;
+  }).join('');
+  const rightItems = S.mt.right.map(item => {
+    let cls = 'match-item';
+    if (S.mt.matched.has(item.syl)) cls += ' matched';
+    else if (S.mt.shaking.has(item.syl)) cls += ' shaking';
+    else if (S.mt.selected && S.mt.selected.side === 'right' && S.mt.selected.syl === item.syl) cls += ' selected';
+    return `<button class="${cls}" data-side="right" data-syl="${item.syl}" onclick="clickMatch('right','${item.syl}')">
+      <span class="match-name">${item.name}</span>
+    </button>`;
+  }).join('');
+  const progress = `${S.mt.matched.size}/${step.syls.length} matched`;
+  return `<div class="exercise-prompt">Match phonics to their meanings</div>
+    <div class="match-prompt">${progress}</div>
+    <div class="matching-grid"><div>${leftItems}</div><div>${rightItems}</div></div>`;
+}
+
+/* ── Phrase MC ── */
+function renderPhraseMC(step) {
+  const shuffled = shuffle([...step.choices]);
+  const opts = shuffled.map(choice => {
+    let cls = 'phrase-option';
+    if (S.chosen !== null) {
+      if (choice === step.en) cls += ' correct';
+      else if (choice === S.chosen) cls += ' wrong';
+    } else if (choice === S.chosen) cls += ' selected';
+    return `<button class="${cls}" onclick="choosePhrase('${escQ(choice)}')">${choice}</button>`;
+  }).join('');
+  const gloss = step.sago.map(s => PHONICS[s] ? PHONICS[s].name : s).join(' · ');
+  return `<div class="exercise-prompt">What does this mean?</div>
+    <div class="phrase-display screen-enter">
+      <span class="phrase-sago">${step.sago.join(' ')}</span>
+      <span class="phrase-gloss">${gloss}</span>
+    </div>
+    <div class="phrase-options">${opts}</div>`;
+}
+
+/* ── Feedback ── */
+function renderFeedback() {
+  if (!S.showFeedback) return '';
+  const cls = `feedback-panel visible ${S.feedbackCorrect ? 'is-correct' : 'is-wrong'}`;
+  const icon = S.feedbackCorrect ? '✓' : '✗';
+  const label = S.feedbackCorrect ? S.feedbackMsg : 'Not quite…';
+  const btnCls = S.feedbackCorrect ? 'btn-correct' : 'btn-wrong';
+  const answer = S.feedbackMsg && !S.feedbackCorrect ? `<div class="feedback-answer">${S.feedbackMsg}</div>` : '';
+  return `<div class="${cls}">
+    <div style="display:flex;align-items:center;gap:0.5rem;">
+      <div class="feedback-icon">${icon}</div>
+      <div class="feedback-label">${label}</div>
+    </div>
+    ${answer}
+    <button class="btn ${btnCls}" onclick="continueAfterFeedback()">Continue</button>
+  </div>`;
+}
+
+/* ── Complete ── */
+function renderComplete() {
+  const prog = App.progress[S.lessonId];
+  const stars = prog ? prog.stars : 1;
+  const starStr = '⭐'.repeat(stars) + '☆'.repeat(3 - stars);
+  const lesson = getLesson(S.lessonId);
+  return `<div class="screen-complete screen-enter">
+    <div class="complete-icon">🎉</div>
+    <div class="complete-title">Lesson Complete!</div>
+    <div style="font-size:0.9rem;color:var(--mid)">${lesson ? lesson.title : ''}</div>
+    <div class="complete-stars">${starStr}</div>
+    <div class="complete-xp">+${S.xp} XP earned</div>
+    <div class="complete-stats">
+      <div class="c-stat"><span class="c-stat-num">${S.xp}</span><span class="c-stat-lbl">XP</span></div>
+      <div class="c-stat"><span class="c-stat-num">❤️${S.hearts}</span><span class="c-stat-lbl">Hearts left</span></div>
+      <div class="c-stat"><span class="c-stat-num">🔥${App.streak}</span><span class="c-stat-lbl">Day streak</span></div>
+    </div>
+    <div class="complete-btns">
+      <button class="btn btn-primary" onclick="go('map')">Back to Map</button>
+      <button class="btn btn-secondary" onclick="startLesson('${S.lessonId}')">Practice Again</button>
+    </div>
+  </div>`;
+}
+
+/* ══════════════════════════════════════════════════════
+   INTERACTION HANDLERS
+══════════════════════════════════════════════════════ */
+
+function handleIntro() {
+  S.xp += 5;
+  nextStep();
+}
+
+function chooseOption(val) {
+  if (S.chosen !== null || S.showFeedback) return;
+  S.chosen = val;
+  const step = S.steps[S.stepIdx];
+  const correct = step.syl;
+  handleAnswer(val === correct);
+}
+
+function choosePhrase(val) {
+  if (S.chosen !== null || S.showFeedback) return;
+  S.chosen = val;
+  const step = S.steps[S.stepIdx];
+  handleAnswer(val === step.en);
+}
+
+function addToAnswer(id) {
+  if (S.showFeedback) return;
+  const token = S.wb.bank.find(t => t.id === id);
+  if (!token || token.used) return;
+  token.used = true;
+  S.wb.answer.push({ id: token.id, syl: token.syl });
+  renderStep();
+}
+
+function removeFromAnswer(id) {
+  if (S.showFeedback) return;
+  const idx = S.wb.answer.findIndex(t => t.id === id);
+  if (idx === -1) return;
+  S.wb.answer.splice(idx, 1);
+  const bankToken = S.wb.bank.find(t => t.id === id);
+  if (bankToken) bankToken.used = false;
+  renderStep();
+}
+
+function submitAnswer() {
+  if (S.showFeedback) return;
+  const step = S.steps[S.stepIdx];
+  if (step.t === 'wb') {
+    const ans = S.wb.answer.map(t => t.syl);
+    const correct = arraysEqual(ans, step.ans);
+    handleAnswer(correct);
+    return;
+  }
+  // other types handled via chooseOption
+}
+
+function continueAfterFeedback() {
+  if (S.stepDone) {
+    nextStep();
+  } else {
+    // Wrong - let them try again
+    S.showFeedback = false;
+    // Reset selections
+    const step = S.steps[S.stepIdx];
+    if (step.t === 'wb') {
+      // Clear answer so they can redo
+      S.wb.answer.forEach(t => {
+        const bt = S.wb.bank.find(b => b.id === t.id);
+        if (bt) bt.used = false;
+      });
+      S.wb.answer = [];
+    } else {
+      S.chosen = null;
+    }
+    render();
+  }
+}
+
+function clickMatch(side, syl) {
+  if (S.showFeedback || S.mt.matched.has(syl)) return;
+
+  const sel = S.mt.selected;
+  if (!sel) {
+    S.mt.selected = { side, syl };
+    renderStep();
+    return;
+  }
+
+  // Same side — change selection
+  if (sel.side === side) {
+    S.mt.selected = { side, syl };
+    renderStep();
+    return;
+  }
+
+  // Cross-side check
+  const leftSyl  = side === 'right' ? sel.syl : syl;
+  const rightSyl = side === 'left'  ? sel.syl : syl;
+
+  S.mt.selected = null;
+
+  if (leftSyl === rightSyl) {
+    // Correct pair
+    S.mt.matched.add(leftSyl);
+    S.xp += S.wrongThisStep ? 2 : 5;
+    renderStep();
+    if (S.mt.matched.size === S.steps[S.stepIdx].syls.length) {
+      // All matched - auto advance
+      setTimeout(() => { S.stepDone = true; nextStep(); }, 500);
+    }
+  } else {
+    // Wrong pair
+    if (!S.wrongThisStep) {
+      S.hearts = Math.max(0, S.hearts - 1);
+      S.wrongThisStep = true;
+    }
+    S.mt.shaking.add(leftSyl);
+    S.mt.shaking.add(rightSyl);
+    renderStep();
+    setTimeout(() => {
+      S.mt.shaking.clear();
+      renderStep();
+    }, 500);
+  }
+}
+
+/* ══════════════════════════════════════════════════════
+   PARTIAL RENDER (step-only, for WB and match)
+══════════════════════════════════════════════════════ */
+
+function renderStep() {
+  // Re-render just the lesson body + footer without full page refresh
+  const step = S.steps[S.stepIdx];
+  let bodyHtml = '';
+  if (step.t === 'wb')    bodyHtml = renderWordBank(step);
+  if (step.t === 'match') bodyHtml = renderMatching(step);
+
+  const body = document.querySelector('.lesson-body');
+  if (body) body.innerHTML = bodyHtml;
+
+  const footer = document.querySelector('.lesson-footer');
+  if (footer) footer.innerHTML = buildFooterBtn(step);
+
+  const prog = document.querySelector('.progress-fill');
+  if (prog) prog.style.width = ((S.stepIdx) / S.steps.length * 100) + '%';
+
+  const hearts = document.querySelector('.hearts-row');
+  if (hearts) hearts.innerHTML = [1,2,3].map(i => `<span class="heart ${i > S.hearts ? 'lost' : ''}">❤️</span>`).join('');
+
+  // Feedback overlay
+  let fb = document.querySelector('.feedback-panel');
+  if (!fb && S.showFeedback) {
+    const fbHtml = renderFeedback();
+    const div = document.createElement('div');
+    div.innerHTML = fbHtml;
+    document.querySelector('.screen-lesson').appendChild(div.firstChild);
+  } else if (fb) {
+    if (S.showFeedback) fb.outerHTML = renderFeedback();
+    else fb.remove();
+  }
+
+  bindEvents();
+}
+
+/* ══════════════════════════════════════════════════════
+   EVENTS
+══════════════════════════════════════════════════════ */
+
+function bindEvents() {
+  // Map nodes
+  document.querySelectorAll('.map-node:not(.locked)').forEach(node => {
+    node.addEventListener('click', () => {
+      const lid = node.dataset.lesson;
+      if (lid) startLesson(lid);
+    });
+  });
+}
+
+/* ══════════════════════════════════════════════════════
+   CONFETTI
+══════════════════════════════════════════════════════ */
+
+function spawnConfetti() {
+  const colors = ['#4f46e5','#0d9488','#d97706','#e11d48','#16a34a','#7c3aed'];
+  for (let i = 0; i < 60; i++) {
+    setTimeout(() => {
+      const el = document.createElement('div');
+      el.className = 'confetti-piece';
+      el.style.cssText = `
+        left: ${Math.random() * 100}%;
+        top: -10px;
+        background: ${colors[Math.floor(Math.random() * colors.length)]};
+        border-radius: ${Math.random() > 0.5 ? '50%' : '2px'};
+        width: ${6 + Math.random() * 8}px;
+        height: ${6 + Math.random() * 8}px;
+        animation-duration: ${1.5 + Math.random() * 2}s;
+        animation-delay: ${Math.random() * 0.5}s;
+      `;
+      document.body.appendChild(el);
+      setTimeout(() => el.remove(), 3500);
+    }, i * 20);
+  }
+}
+
+/* ══════════════════════════════════════════════════════
+   UTILS
+══════════════════════════════════════════════════════ */
+
+function shuffle(arr) {
+  for (let i = arr.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [arr[i], arr[j]] = [arr[j], arr[i]];
+  }
+  return arr;
+}
+
+function arraysEqual(a, b) {
+  if (a.length !== b.length) return false;
+  return a.every((v, i) => v === b[i]);
+}
+
+function escQ(str) {
+  return str.replace(/'/g, "&#39;").replace(/"/g, '&quot;');
+}
+
+/* ══════════════════════════════════════════════════════
+   INIT
+══════════════════════════════════════════════════════ */
+
+render();
+</script>
+</body>
+</html>
