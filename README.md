@@ -106,6 +106,14 @@ New words are proposed by opening a pull request adding an entry to [`language/c
 
 ---
 
+## Online
+
+- **Website & phonic explorer:** https://ryanfunk021.github.io/sago
+- **One-page overview:** `docs/pamphlet.html` (open locally or print)
+- **Interactive lessons:** `docs/learn.html` — Duolingo-style app, 12 lessons, no dependencies
+
+---
+
 ## Academic Paper
 
 ["Hello World: Sago and the Construction of a Language from Universal Semantic Primitives"](language/sago_paper.md) — Ryan Funk, May 2026.
@@ -117,18 +125,24 @@ New words are proposed by opening a pull request adding an entry to [`language/c
 ```
 language/
   PHONICS.md        The 90 primitive phonics (the alphabet)
-  GRAMMAR.md       Complete grammar (22 rules)
-  PHONOLOGY.md     How phonics flow together into words
-  concepts.json    Concept-based dictionary (language-neutral)
-  dictionary.json  English lookup table (legacy, 5,001 words)
-  sago_paper.md    Academic paper (submission version)
+  GRAMMAR.md        Complete grammar (22 rules)
+  PHONOLOGY.md      How phonics flow together into words
+  concepts.json     Canonical concept dictionary (language-neutral)
+  dictionary.json   English lookup table (legacy, 5,001 words)
+  sago_paper.md     Academic paper
 
 tools/
-  word_builder.py  Build or look up any concept
-  translate.py     Bidirectional translation
-  evaluate.py      Coverage and orthogonality analysis
   phonics.py        Shared phonic definitions module (import this)
-  requirements.txt Python dependencies
+  word_builder.py   Build or look up any concept (Claude-assisted)
+  canonize.py       Official governance tool — validate + add words
+  translate.py      Bidirectional Sago ↔ English translation
+  evaluate.py       Coverage and orthogonality analysis
+  build_concepts.py Rebuild concepts.json from source definitions
+
+docs/
+  index.html        Public website (GitHub Pages)
+  pamphlet.html     One-page printable/shareable overview
+  learn.html        Interactive Duolingo-style learning app
 ```
 
 ---
@@ -137,11 +151,20 @@ tools/
 
 Sago needs a speaker community to stabilize its conventions. Three ways to contribute:
 
-1. **Propose a word** — open a PR adding to `language/dictionary.json`
+1. **Propose a word** — open a GitHub Issue using the Word Proposal template; describe the concept language-neutrally and include the phonic breakdown
 2. **Report a collision** — two compositions for the same concept, or the same composition for two concepts
 3. **Translate something** — open an issue with your source text and the Sago output
 
-Word proposals require: the Sago word, its phonic sequence, phonic names, a concept description (language-neutral), and confidence (0.0–1.0).
+**Word governance workflow:**
+```bash
+cd tools
+python3 canonize.py --check lufa          # validate before proposing
+python3 canonize.py                       # interactive add (maintainers only)
+python3 canonize.py --list emotion        # browse a domain
+git add language/concepts.json docs/index.html
+git commit -m "canonize: lufa — light-to-energy by plants"
+git push
+```
 
 ---
 
