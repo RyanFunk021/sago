@@ -17,7 +17,7 @@ from pathlib import Path
 OUT = Path(__file__).parent.parent / "language" / "concepts.json"
 
 # ── Concept definitions ───────────────────────────────────────────────────────
-# Format: (sago_word, [phonics], [chord_names], concept_description, domain, level)
+# Format: (sago_word, [phonics], [phonic_names], concept_description, domain, level)
 # concept_description is language-neutral — describes the thing, not an English word
 
 CONCEPTS = [
@@ -246,11 +246,11 @@ CONCEPTS = [
 def build():
     entries = {}
     for row in CONCEPTS:
-        word, phonics, chord_names, concept, domain, level = row
+        word, phonics, phonic_names, concept, domain, level = row
         entries[word] = {
             "word": word,
             "phonics": phonics,
-            "chord_names": chord_names,
+            "phonic_names": phonic_names,
             "concept": concept,
             "domain": domain,
             "level": level,
@@ -265,7 +265,7 @@ def build():
         ),
         "stats": {
             "total": len(entries),
-            "primitive_chords": sum(1 for e in entries.values() if len(e["phonics"]) == 1),
+            "primitive_phonics": sum(1 for e in entries.values() if len(e["phonics"]) == 1),
             "composed_words": sum(1 for e in entries.values() if len(e["phonics"]) > 1),
         },
         "domains": sorted(set(e["domain"] for e in entries.values())),
@@ -274,7 +274,7 @@ def build():
 
     OUT.write_text(json.dumps(output, indent=2, ensure_ascii=False))
     print(f"Written {len(entries)} concepts to {OUT}")
-    print(f"  Primitive phonics: {output['stats']['primitive_chords']}")
+    print(f"  Primitive phonics: {output['stats']['primitive_phonics']}")
     print(f"  Composed words:   {output['stats']['composed_words']}")
     print(f"  Domains: {', '.join(output['domains'])}")
 

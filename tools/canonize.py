@@ -124,7 +124,7 @@ def rebuild_site(concepts: dict):
     )
 
     if new_html == html:
-        print("  Warning: Could not find CONCEPTS constant in index.html to update.")
+        print(f"  Site already up to date: {len(composed)} concepts embedded.")
         return
 
     INDEX_FILE.write_text(new_html)

@@ -88,7 +88,7 @@ New words are proposed by opening a pull request adding an entry to [`language/c
   "nafu": {
     "word": "nafu",
     "phonics": ["na", "fu"],
-    "chord_names": ["NOT", "HEAT"],
+    "phonic_names": ["NOT", "HEAT"],
     "concept": "absence of heat; low temperature",
     "domain": "physical",
     "level": 2
@@ -96,7 +96,7 @@ New words are proposed by opening a pull request adding an entry to [`language/c
   "fumo": {
     "word": "fumo",
     "phonics": ["fu", "mo"],
-    "chord_names": ["HEAT", "MOVE"],
+    "phonic_names": ["HEAT", "MOVE"],
     "concept": "heat in motion; combustion; fire",
     "domain": "physical",
     "level": 2
