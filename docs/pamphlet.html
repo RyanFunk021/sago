@@ -1,0 +1,1203 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sago — A Language Built from Meaning</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,600;1,400&family=JetBrains+Mono:wght@400;500&display=swap');
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --ink:       #1a1a2e;
+    --mid:       #4a4a6a;
+    --soft:      #8a8aaa;
+    --rule:      #e2e2ee;
+    --cream:     #fdfcf8;
+    --accent:    #5b3de8;
+    --accent2:   #2ec4b6;
+    --accent3:   #ff6b6b;
+    --gold:      #c9a84c;
+    --page-w:    900px;
+  }
+
+  html { font-size: 15px; }
+
+  body {
+    font-family: 'Inter', sans-serif;
+    background: var(--cream);
+    color: var(--ink);
+    line-height: 1.65;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* ── Print / screen layout ────────────────────────────────── */
+  .page {
+    max-width: var(--page-w);
+    margin: 0 auto;
+    padding: 3rem 2.5rem;
+  }
+
+  /* ── Hero ────────────────────────────────────────────────── */
+  .hero {
+    text-align: center;
+    border-bottom: 2px solid var(--rule);
+    padding-bottom: 2.5rem;
+    margin-bottom: 2.5rem;
+  }
+
+  .hero-eyebrow {
+    font-size: 0.7rem;
+    font-weight: 600;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 1rem;
+  }
+
+  .hero h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: 3.6rem;
+    font-weight: 600;
+    line-height: 1.1;
+    letter-spacing: -0.02em;
+    color: var(--ink);
+    margin-bottom: 0.5rem;
+  }
+
+  .hero h1 em {
+    font-style: italic;
+    color: var(--accent);
+  }
+
+  .hero-sub {
+    font-family: 'Playfair Display', serif;
+    font-style: italic;
+    font-size: 1.15rem;
+    color: var(--mid);
+    margin-bottom: 1.5rem;
+  }
+
+  .hero-tagline {
+    font-size: 0.95rem;
+    color: var(--mid);
+    max-width: 520px;
+    margin: 0 auto 1.8rem;
+  }
+
+  .sago-greeting {
+    display: inline-flex;
+    align-items: center;
+    gap: 1rem;
+    background: var(--ink);
+    color: #fff;
+    border-radius: 2rem;
+    padding: 0.6rem 1.4rem;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.9rem;
+  }
+
+  .sago-greeting .sago-word { color: var(--accent2); font-weight: 500; }
+  .sago-greeting .sago-gloss { color: #aaa; font-size: 0.78rem; }
+
+  /* ── Two-column layout ────────────────────────────────────── */
+  .columns {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2.5rem;
+    margin-bottom: 2.5rem;
+  }
+
+  .columns.three {
+    grid-template-columns: 1fr 1fr 1fr;
+  }
+
+  .col-full {
+    margin-bottom: 2.5rem;
+  }
+
+  /* ── Section titles ───────────────────────────────────────── */
+  .section-label {
+    font-size: 0.65rem;
+    font-weight: 700;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 0.6rem;
+  }
+
+  h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.4rem;
+    font-weight: 600;
+    color: var(--ink);
+    margin-bottom: 0.8rem;
+    line-height: 1.25;
+  }
+
+  h3 {
+    font-size: 0.85rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--mid);
+    margin-bottom: 0.6rem;
+  }
+
+  p {
+    font-size: 0.88rem;
+    color: var(--mid);
+    margin-bottom: 0.7rem;
+  }
+
+  p strong { color: var(--ink); }
+
+  /* ── Why block ────────────────────────────────────────────── */
+  .why-block {
+    background: linear-gradient(135deg, #5b3de808 0%, #2ec4b608 100%);
+    border: 1px solid var(--rule);
+    border-left: 3px solid var(--accent);
+    border-radius: 0.5rem;
+    padding: 1.2rem 1.4rem;
+  }
+
+  .why-block p { margin: 0; }
+
+  /* ── Key insight pills ───────────────────────────────────── */
+  .insights {
+    display: flex;
+    flex-direction: column;
+    gap: 0.6rem;
+  }
+
+  .insight {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.75rem;
+  }
+
+  .insight-icon {
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    background: var(--accent);
+    color: #fff;
+    font-size: 0.7rem;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    margin-top: 0.1rem;
+  }
+
+  .insight-icon.teal { background: var(--accent2); }
+  .insight-icon.coral { background: var(--accent3); }
+  .insight-icon.gold { background: var(--gold); }
+
+  .insight-text {
+    font-size: 0.85rem;
+    color: var(--mid);
+    line-height: 1.5;
+  }
+
+  .insight-text strong { color: var(--ink); display: block; font-size: 0.83rem; }
+
+  /* ── Phonic grid ─────────────────────────────────────────── */
+  .phonic-grid {
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    gap: 4px;
+    margin-bottom: 0.5rem;
+  }
+
+  .phonic-cell {
+    background: #fff;
+    border: 1px solid var(--rule);
+    border-radius: 5px;
+    text-align: center;
+    padding: 5px 3px;
+    transition: all 0.15s;
+  }
+
+  .phonic-cell:hover {
+    border-color: var(--accent);
+    background: #5b3de808;
+  }
+
+  .phonic-cell .syl {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.95rem;
+    font-weight: 500;
+    color: var(--ink);
+    display: block;
+    line-height: 1;
+  }
+
+  .phonic-cell .name {
+    font-size: 0.5rem;
+    font-weight: 600;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--soft);
+    display: block;
+    margin-top: 2px;
+    line-height: 1.2;
+  }
+
+  .phonic-cell.l1 { border-color: #5b3de830; background: #5b3de808; }
+  .phonic-cell.l1 .syl { color: var(--accent); }
+  .phonic-cell.l2 { border-color: #2ec4b630; background: #2ec4b608; }
+  .phonic-cell.l2 .syl { color: var(--accent2); }
+  .phonic-cell.l3 { border-color: #c9a84c30; background: #c9a84c08; }
+  .phonic-cell.l3 .syl { color: var(--gold); }
+  .phonic-cell.l4 .syl { color: var(--mid); }
+  .phonic-cell.l5 .syl { color: var(--soft); }
+
+  .tier-legend {
+    display: flex;
+    gap: 0.8rem;
+    flex-wrap: wrap;
+    margin-bottom: 0.8rem;
+  }
+
+  .tier-dot {
+    display: flex;
+    align-items: center;
+    gap: 0.3rem;
+    font-size: 0.68rem;
+    color: var(--mid);
+  }
+
+  .tier-dot span {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    display: inline-block;
+  }
+
+  /* ── Examples table ──────────────────────────────────────── */
+  .examples {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0.25rem 1.5rem;
+  }
+
+  .ex {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: 0 0.6rem;
+    align-items: baseline;
+    padding: 0.3rem 0;
+    border-bottom: 1px solid var(--rule);
+  }
+
+  .ex:last-child { border-bottom: none; }
+
+  .ex-sago {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.83rem;
+    font-weight: 500;
+    color: var(--ink);
+    white-space: nowrap;
+  }
+
+  .ex-right {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .ex-english {
+    font-size: 0.78rem;
+    color: var(--mid);
+    font-weight: 400;
+  }
+
+  .ex-gloss {
+    font-size: 0.65rem;
+    color: var(--soft);
+    font-style: italic;
+    line-height: 1.3;
+  }
+
+  /* ── Deep examples (composed words) ──────────────────────── */
+  .deep-examples {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .deep-ex {
+    background: #fff;
+    border: 1px solid var(--rule);
+    border-radius: 0.4rem;
+    padding: 0.55rem 0.8rem;
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: 0 0.8rem;
+    align-items: center;
+  }
+
+  .deep-ex .sago {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.95rem;
+    font-weight: 500;
+    color: var(--accent);
+  }
+
+  .deep-ex .english {
+    font-size: 0.8rem;
+    font-weight: 600;
+    color: var(--ink);
+    line-height: 1.2;
+  }
+
+  .deep-ex .breakdown {
+    font-size: 0.68rem;
+    color: var(--soft);
+    font-style: italic;
+    grid-column: 2;
+  }
+
+  /* ── Stats bar ───────────────────────────────────────────── */
+  .stats {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1px;
+    background: var(--rule);
+    border: 1px solid var(--rule);
+    border-radius: 0.5rem;
+    overflow: hidden;
+    margin-bottom: 2.5rem;
+  }
+
+  .stat {
+    background: #fff;
+    padding: 0.9rem 1rem;
+    text-align: center;
+  }
+
+  .stat-num {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.8rem;
+    font-weight: 600;
+    color: var(--accent);
+    line-height: 1;
+    display: block;
+  }
+
+  .stat-label {
+    font-size: 0.68rem;
+    font-weight: 600;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--soft);
+    margin-top: 0.25rem;
+    display: block;
+  }
+
+  /* ── Rule ────────────────────────────────────────────────── */
+  hr {
+    border: none;
+    border-top: 1px solid var(--rule);
+    margin: 2rem 0;
+  }
+
+  /* ── Grammar sample ──────────────────────────────────────── */
+  .grammar-rules {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .g-rule {
+    display: grid;
+    grid-template-columns: 2rem 1fr;
+    gap: 0 0.6rem;
+    align-items: baseline;
+  }
+
+  .g-num {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.7rem;
+    font-weight: 500;
+    color: var(--accent);
+    text-align: right;
+  }
+
+  .g-text {
+    font-size: 0.82rem;
+    color: var(--mid);
+    line-height: 1.5;
+  }
+
+  .g-text code {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.78rem;
+    color: var(--ink);
+    background: #f4f4f8;
+    padding: 0.05em 0.3em;
+    border-radius: 3px;
+  }
+
+  /* ── Footer ──────────────────────────────────────────────── */
+  .footer {
+    border-top: 2px solid var(--rule);
+    padding-top: 1.5rem;
+    margin-top: 2rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+
+  .footer-left {
+    font-size: 0.75rem;
+    color: var(--soft);
+  }
+
+  .footer-left strong { color: var(--mid); }
+
+  .footer-right {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.72rem;
+    color: var(--soft);
+  }
+
+  /* ── Print ───────────────────────────────────────────────── */
+  @media print {
+    body { background: #fff; }
+    .page { padding: 1.5cm 1.5cm; }
+    h2 { page-break-after: avoid; }
+  }
+
+  @media (max-width: 640px) {
+    .columns { grid-template-columns: 1fr; }
+    .columns.three { grid-template-columns: 1fr; }
+    .hero h1 { font-size: 2.4rem; }
+    .phonic-grid { grid-template-columns: repeat(5, 1fr); }
+    .stats { grid-template-columns: repeat(2, 1fr); }
+    .examples { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+<div class="page">
+
+  <!-- ── HERO ────────────────────────────────────────────── -->
+  <header class="hero">
+    <div class="hero-eyebrow">Constructed Language · Semantic Primitives · Universal Communication</div>
+    <h1><em>Sago</em></h1>
+    <div class="hero-sub">A language built entirely from the atoms of human meaning</div>
+    <p class="hero-tagline">
+      Every language hides its meaning inside words that evolved by accident.
+      Sago starts from meaning itself — 90 universal semantic units, each
+      a single spoken syllable, composing everything a person needs to say.
+    </p>
+    <div class="sago-greeting">
+      <span><span class="sago-word">sa go ne hi</span></span>
+      <span class="sago-gloss">SELF · GOOD · NOW · HERE — "Hello, I am well"</span>
+    </div>
+  </header>
+
+  <!-- ── STATS ────────────────────────────────────────────── -->
+  <div class="stats">
+    <div class="stat">
+      <span class="stat-num">90</span>
+      <span class="stat-label">Semantic phonics</span>
+    </div>
+    <div class="stat">
+      <span class="stat-num">5</span>
+      <span class="stat-label">Acquisition tiers</span>
+    </div>
+    <div class="stat">
+      <span class="stat-num">56%</span>
+      <span class="stat-label">Vocabulary coverage</span>
+    </div>
+    <div class="stat">
+      <span class="stat-num">74%</span>
+      <span class="stat-label">Meaning preserved</span>
+    </div>
+  </div>
+
+  <!-- ── WHY + INSIGHTS ────────────────────────────────────── -->
+  <div class="columns">
+    <div>
+      <div class="section-label">Why Sago</div>
+      <h2>Language shouldn't require a shared accident of history</h2>
+      <div class="why-block">
+        <p>
+          Wierzbicka's <strong>Natural Semantic Metalanguage</strong> research
+          identified ~65 semantic primes — concepts like SELF, WANT, GOOD, THINK —
+          that appear in every human language with no simpler equivalent.
+          They are the irreducible atoms of meaning.
+          Sago promotes them from a research tool to a spoken language.
+        </p>
+      </div>
+      <p style="margin-top: 0.8rem;">
+        Because every phonic maps to a universal concept, Sago is learnable
+        by speakers of any language without privileging the structure of English,
+        Mandarin, or Arabic. <strong>The meaning comes first; the words follow.</strong>
+      </p>
+    </div>
+    <div>
+      <div class="section-label">Key Properties</div>
+      <h2>Four design constraints</h2>
+      <div class="insights">
+        <div class="insight">
+          <div class="insight-icon">1</div>
+          <div class="insight-text">
+            <strong>Phonological completeness</strong>
+            18 consonants × 5 vowels = exactly 90 CV syllables = exactly 90 semantic units. No syllable is wasted or ambiguous.
+          </div>
+        </div>
+        <div class="insight">
+          <div class="insight-icon teal">2</div>
+          <div class="insight-text">
+            <strong>Natural flow</strong>
+            Every phonic ends in a vowel, every phonic starts with a consonant — so every boundary is a smooth V+C junction. No consonant clusters, ever.
+          </div>
+        </div>
+        <div class="insight">
+          <div class="insight-icon coral">3</div>
+          <div class="insight-text">
+            <strong>Tiered acquisition</strong>
+            8 phonics cover basic survival. 16 cover daily life. 32 cover nuanced grammar. You can begin speaking on day one.
+          </div>
+        </div>
+        <div class="insight">
+          <div class="insight-icon gold">4</div>
+          <div class="insight-text">
+            <strong>Cross-linguistic validity</strong>
+            Every phonic corresponds to a concept verified across 90+ languages. Nothing is borrowed from English etymology or European grammar.
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── PHONIC INVENTORY ─────────────────────────────────── -->
+  <div class="col-full">
+    <div class="section-label">The Alphabet</div>
+    <h2>All 90 Phonics — one per CV syllable</h2>
+    <div class="tier-legend">
+      <div class="tier-dot"><span style="background:#5b3de8"></span>L1 Core (8) — identity, negation, desire, valence, time, place</div>
+      <div class="tier-dot"><span style="background:#2ec4b6"></span>L2 Physical (8) — life, action, mind, elements</div>
+      <div class="tier-dot"><span style="background:#c9a84c"></span>L3 Grammar (16) — time sequence, causation, space, senses, speech</div>
+      <div class="tier-dot"><span style="background:#8a8aaa"></span>L4 Wierzbicka (32) — completes the NSM prime set</div>
+      <div class="tier-dot"><span style="background:#ccc"></span>L5 Molecules (26) — widespread concepts not composable from L1–L4</div>
+    </div>
+    <div class="phonic-grid">
+      <!-- L1 -->
+      <div class="phonic-cell l1"><span class="syl">sa</span><span class="name">SELF</span></div>
+      <div class="phonic-cell l1"><span class="syl">to</span><span class="name">OTHER</span></div>
+      <div class="phonic-cell l1"><span class="syl">na</span><span class="name">NOT</span></div>
+      <div class="phonic-cell l1"><span class="syl">wu</span><span class="name">WANT</span></div>
+      <div class="phonic-cell l1"><span class="syl">go</span><span class="name">GOOD</span></div>
+      <div class="phonic-cell l1"><span class="syl">bi</span><span class="name">BAD</span></div>
+      <div class="phonic-cell l1"><span class="syl">ne</span><span class="name">NOW</span></div>
+      <div class="phonic-cell l1"><span class="syl">hi</span><span class="name">HERE</span></div>
+      <!-- L2 -->
+      <div class="phonic-cell l2"><span class="syl">li</span><span class="name">ALIVE</span></div>
+      <div class="phonic-cell l2"><span class="syl">mo</span><span class="name">MOVE</span></div>
+      <div class="phonic-cell l2"><span class="syl">te</span><span class="name">THINK</span></div>
+      <div class="phonic-cell l2"><span class="syl">du</span><span class="name">WATER</span></div>
+      <div class="phonic-cell l2"><span class="syl">fu</span><span class="name">HEAT</span></div>
+      <div class="phonic-cell l2"><span class="syl">re</span><span class="name">AIR</span></div>
+      <div class="phonic-cell l2"><span class="syl">ko</span><span class="name">SOLID</span></div>
+      <div class="phonic-cell l2"><span class="syl">lu</span><span class="name">LIGHT</span></div>
+      <!-- L3 -->
+      <div class="phonic-cell l3"><span class="syl">pa</span><span class="name">BEFORE</span></div>
+      <div class="phonic-cell l3"><span class="syl">ya</span><span class="name">AFTER</span></div>
+      <div class="phonic-cell l3"><span class="syl">da</span><span class="name">BECAUSE</span></div>
+      <div class="phonic-cell l3"><span class="syl">di</span><span class="name">IF</span></div>
+      <div class="phonic-cell l3"><span class="syl">pi</span><span class="name">CAN</span></div>
+      <div class="phonic-cell l3"><span class="syl">ma</span><span class="name">MORE</span></div>
+      <div class="phonic-cell l3"><span class="syl">si</span><span class="name">SAME</span></div>
+      <div class="phonic-cell l3"><span class="syl">la</span><span class="name">FAR</span></div>
+      <div class="phonic-cell l3"><span class="syl">va</span><span class="name">ABOVE</span></div>
+      <div class="phonic-cell l3"><span class="syl">ja</span><span class="name">INSIDE</span></div>
+      <div class="phonic-cell l3"><span class="syl">ba</span><span class="name">FEEL</span></div>
+      <div class="phonic-cell l3"><span class="syl">ra</span><span class="name">HEAR</span></div>
+      <div class="phonic-cell l3"><span class="syl">we</span><span class="name">SAY</span></div>
+      <div class="phonic-cell l3"><span class="syl">ka</span><span class="name">MANY</span></div>
+      <div class="phonic-cell l3"><span class="syl">bo</span><span class="name">BODY</span></div>
+      <div class="phonic-cell l3"><span class="syl">pe</span><span class="name">KIND</span></div>
+      <!-- L4 -->
+      <div class="phonic-cell l4"><span class="syl">zo</span><span class="name">SOMEONE</span></div>
+      <div class="phonic-cell l4"><span class="syl">ze</span><span class="name">SOMETHING</span></div>
+      <div class="phonic-cell l4"><span class="syl">pu</span><span class="name">PEOPLE</span></div>
+      <div class="phonic-cell l4"><span class="syl">ta</span><span class="name">ONE</span></div>
+      <div class="phonic-cell l4"><span class="syl">ti</span><span class="name">TWO</span></div>
+      <div class="phonic-cell l4"><span class="syl">so</span><span class="name">SOME</span></div>
+      <div class="phonic-cell l4"><span class="syl">zu</span><span class="name">ALL</span></div>
+      <div class="phonic-cell l4"><span class="syl">fi</span><span class="name">FEW</span></div>
+      <div class="phonic-cell l4"><span class="syl">ga</span><span class="name">BIG</span></div>
+      <div class="phonic-cell l4"><span class="syl">gi</span><span class="name">SMALL</span></div>
+      <div class="phonic-cell l4"><span class="syl">no</span><span class="name">KNOW</span></div>
+      <div class="phonic-cell l4"><span class="syl">vi</span><span class="name">SEE</span></div>
+      <div class="phonic-cell l4"><span class="syl">tu</span><span class="name">TOUCH</span></div>
+      <div class="phonic-cell l4"><span class="syl">de</span><span class="name">DO</span></div>
+      <div class="phonic-cell l4"><span class="syl">ha</span><span class="name">HAPPEN</span></div>
+      <div class="phonic-cell l4"><span class="syl">ho</span><span class="name">HAVE</span></div>
+      <div class="phonic-cell l4"><span class="syl">za</span><span class="name">EXIST</span></div>
+      <div class="phonic-cell l4"><span class="syl">gu</span><span class="name">DIE</span></div>
+      <div class="phonic-cell l4"><span class="syl">su</span><span class="name">TRUE</span></div>
+      <div class="phonic-cell l4"><span class="syl">ro</span><span class="name">WORD</span></div>
+      <div class="phonic-cell l4"><span class="syl">mi</span><span class="name">MAYBE</span></div>
+      <div class="phonic-cell l4"><span class="syl">lo</span><span class="name">LIKE</span></div>
+      <div class="phonic-cell l4"><span class="syl">ve</span><span class="name">VERY</span></div>
+      <div class="phonic-cell l4"><span class="syl">ni</span><span class="name">NEAR</span></div>
+      <div class="phonic-cell l4"><span class="syl">be</span><span class="name">BELOW</span></div>
+      <div class="phonic-cell l4"><span class="syl">ri</span><span class="name">SIDE</span></div>
+      <div class="phonic-cell l4"><span class="syl">wi</span><span class="name">WHEN</span></div>
+      <div class="phonic-cell l4"><span class="syl">wa</span><span class="name">WHERE</span></div>
+      <div class="phonic-cell l4"><span class="syl">mu</span><span class="name">MOMENT</span></div>
+      <div class="phonic-cell l4"><span class="syl">po</span><span class="name">PART</span></div>
+      <div class="phonic-cell l4"><span class="syl">nu</span><span class="name">ANOTHER</span></div>
+      <div class="phonic-cell l4"><span class="syl">yo</span><span class="name">THIS</span></div>
+      <!-- L5 -->
+      <div class="phonic-cell l5"><span class="syl">le</span><span class="name">TREE</span></div>
+      <div class="phonic-cell l5"><span class="syl">ge</span><span class="name">MOON</span></div>
+      <div class="phonic-cell l5"><span class="syl">fo</span><span class="name">FOOT</span></div>
+      <div class="phonic-cell l5"><span class="syl">bu</span><span class="name">BIRD</span></div>
+      <div class="phonic-cell l5"><span class="syl">ru</span><span class="name">ROAD</span></div>
+      <div class="phonic-cell l5"><span class="syl">se</span><span class="name">STAR</span></div>
+      <div class="phonic-cell l5"><span class="syl">do</span><span class="name">DAY</span></div>
+      <div class="phonic-cell l5"><span class="syl">fa</span><span class="name">PLANT</span></div>
+      <div class="phonic-cell l5"><span class="syl">me</span><span class="name">MAN</span></div>
+      <div class="phonic-cell l5"><span class="syl">ku</span><span class="name">MOTHER</span></div>
+      <div class="phonic-cell l5"><span class="syl">je</span><span class="name">TOGETHER</span></div>
+      <div class="phonic-cell l5"><span class="syl">ki</span><span class="name">ANIMAL</span></div>
+      <div class="phonic-cell l5"><span class="syl">hu</span><span class="name">FATHER</span></div>
+      <div class="phonic-cell l5"><span class="syl">ye</span><span class="name">EYE</span></div>
+      <div class="phonic-cell l5"><span class="syl">he</span><span class="name">EARTH</span></div>
+      <div class="phonic-cell l5"><span class="syl">ji</span><span class="name">HARD</span></div>
+      <div class="phonic-cell l5"><span class="syl">vo</span><span class="name">SHARP</span></div>
+      <div class="phonic-cell l5"><span class="syl">vu</span><span class="name">MOUTH</span></div>
+      <div class="phonic-cell l5"><span class="syl">jo</span><span class="name">EAR</span></div>
+      <div class="phonic-cell l5"><span class="syl">ju</span><span class="name">ROUND</span></div>
+      <div class="phonic-cell l5"><span class="syl">fe</span><span class="name">TASTE</span></div>
+      <div class="phonic-cell l5"><span class="syl">yi</span><span class="name">BACK</span></div>
+      <div class="phonic-cell l5"><span class="syl">yu</span><span class="name">NIGHT</span></div>
+      <div class="phonic-cell l5"><span class="syl">zi</span><span class="name">GROUND</span></div>
+      <div class="phonic-cell l5"><span class="syl">ke</span><span class="name">CLOTH</span></div>
+      <div class="phonic-cell l5"><span class="syl">wo</span><span class="name">NOSE</span></div>
+    </div>
+  </div>
+
+  <hr>
+
+  <!-- ── EXAMPLES ─────────────────────────────────────────── -->
+  <div class="col-full">
+    <div class="section-label">50 Phrases — Everyday to Profound</div>
+    <h2>The language in use</h2>
+    <p>Each phrase is Sago text · English meaning · phonic analysis in italic</p>
+
+    <div class="examples" style="margin-top: 1rem;">
+
+      <!-- GREETINGS & SOCIAL -->
+      <div style="grid-column: 1 / -1; margin: 0.4rem 0 0.2rem;">
+        <h3>Greetings &amp; Social</h3>
+      </div>
+
+      <div class="ex">
+        <div class="ex-sago">sa go ne hi</div>
+        <div class="ex-right">
+          <span class="ex-english">Hello / I am well here</span>
+          <span class="ex-gloss">SELF · GOOD · NOW · HERE</span>
+        </div>
+      </div>
+      <div class="ex">
+        <div class="ex-sago">sa mo la</div>
+        <div class="ex-right">
+          <span class="ex-english">Goodbye</span>
+          <span class="ex-gloss">SELF · MOVE · FAR</span>
+        </div>
+      </div>
+      <div class="ex">
+        <div class="ex-sago">to go mi?</div>
+        <div class="ex-right">
+          <span class="ex-english">Are you well?</span>
+          <span class="ex-gloss">OTHER · GOOD · MAYBE?</span>
+        </div>
+      </div>
+      <div class="ex">
+        <div class="ex-sago">sa go da to</div>
+        <div class="ex-right">
+          <span class="ex-english">Thank you</span>
+          <span class="ex-gloss">SELF · GOOD · BECAUSE · OTHER</span>
+        </div>
+      </div>
+      <div class="ex">
+        <div class="ex-sago">sa ba bi da sa</div>
+        <div class="ex-right">
+          <span class="ex-english">I'm sorry</span>
+          <span class="ex-gloss">SELF · FEEL · BAD · BECAUSE · SELF</span>
+        </div>
+      </div>
+      <div class="ex">
+        <div class="ex-sago">wu mo hi</div>
+        <div class="ex-right">
+          <span class="ex-english">Please come</span>
+          <span class="ex-gloss">WANT · MOVE · HERE</span>
+        </div>
+      </div>
+
+      <!-- NEEDS & STATES -->
+      <div style="grid-column: 1 / -1; margin: 0.6rem 0 0.2rem;">
+        <h3>Needs &amp; Physical States</h3>
+      </div>
+
+      <div class="ex">
+        <div class="ex-sago">sa wu du</div>
+        <div class="ex-right">
+          <span class="ex-english">I'm thirsty</span>
+          <span class="ex-gloss">SELF · WANT · WATER</span>
+        </div>
+      </div>
+      <div class="ex">
+        <div class="ex-sago">sa wu ze</div>
+        <div class="ex-right">
+          <span class="ex-english">I'm hungry</span>
+          <span class="ex-gloss">SELF · WANT · SOMETHING</span>
+        </div>
+      </div>
+      <div class="ex">
+        <div class="ex-sago">sa li bi</div>
+        <div class="ex-right">
+          <span class="ex-english">I am sick</span>
+          <span class="ex-gloss">SELF · ALIVE · BAD</span>
+        </div>
+      </div>
+      <div class="ex">
+        <div class="ex-sago">sa li go</div>
+        <div class="ex-right">
+          <span class="ex-english">I am healthy</span>
+          <span class="ex-gloss">SELF · ALIVE · GOOD</span>
+        </div>
+      </div>
+      <div class="ex">
+        <div class="ex-sago">sa wu li na te</div>
+        <div class="ex-right">
+          <span class="ex-english">I want to sleep</span>
+          <span class="ex-gloss">SELF · WANT · ALIVE · NOT · THINK</span>
+        </div>
+      </div>
+      <div class="ex">
+        <div class="ex-sago">sa bo bi</div>
+        <div class="ex-right">
+          <span class="ex-english">My body hurts</span>
+          <span class="ex-gloss">SELF · BODY · BAD</span>
+        </div>
+      </div>
+
+      <!-- QUESTIONS -->
+      <div style="grid-column: 1 / -1; margin: 0.6rem 0 0.2rem;">
+        <h3>Questions</h3>
+      </div>
+
+      <div class="ex">
+        <div class="ex-sago">ze to wu mi?</div>
+        <div class="ex-right">
+          <span class="ex-english">What do you want?</span>
+          <span class="ex-gloss">SOMETHING · OTHER · WANT · MAYBE?</span>
+        </div>
+      </div>
+      <div class="ex">
+        <div class="ex-sago">zo mo hi mi?</div>
+        <div class="ex-right">
+          <span class="ex-english">Who is coming?</span>
+          <span class="ex-gloss">SOMEONE · MOVE · HERE · MAYBE?</span>
+        </div>
+      </div>
+      <div class="ex">
+        <div class="ex-sago">wa to za mi?</div>
+        <div class="ex-right">
+          <span class="ex-english">Where are you?</span>
+          <span class="ex-gloss">WHERE · OTHER · EXIST · MAYBE?</span>
+        </div>
+      </div>
+      <div class="ex">
+        <div class="ex-sago">wi to mo mi?</div>
+        <div class="ex-right">
+          <span class="ex-english">When will you move?</span>
+          <span class="ex-gloss">WHEN · OTHER · MOVE · MAYBE?</span>
+        </div>
+      </div>
+      <div class="ex">
+        <div class="ex-sago">da mi to de yo mi?</div>
+        <div class="ex-right">
+          <span class="ex-english">Why did you do this?</span>
+          <span class="ex-gloss">BECAUSE · MAYBE · OTHER · DO · THIS?</span>
+        </div>
+      </div>
+      <div class="ex">
+        <div class="ex-sago">sa na te</div>
+        <div class="ex-right">
+          <span class="ex-english">I don't understand</span>
+          <span class="ex-gloss">SELF · NOT · THINK</span>
+        </div>
+      </div>
+
+      <!-- MOVEMENT & LOCATION -->
+      <div style="grid-column: 1 / -1; margin: 0.6rem 0 0.2rem;">
+        <h3>Movement &amp; Location</h3>
+      </div>
+
+      <div class="ex">
+        <div class="ex-sago">sa mo hi</div>
+        <div class="ex-right">
+          <span class="ex-english">I am coming</span>
+          <span class="ex-gloss">SELF · MOVE · HERE</span>
+        </div>
+      </div>
+      <div class="ex">
+        <div class="ex-sago">sa mo la</div>
+        <div class="ex-right">
+          <span class="ex-english">I am leaving</span>
+          <span class="ex-gloss">SELF · MOVE · FAR</span>
+        </div>
+      </div>
+      <div class="ex">
+        <div class="ex-sago">sa mo fo</div>
+        <div class="ex-right">
+          <span class="ex-english">I am walking</span>
+          <span class="ex-gloss">SELF · MOVE · FOOT</span>
+        </div>
+      </div>
+      <div class="ex">
+        <div class="ex-sago">sa mo re va</div>
+        <div class="ex-right">
+          <span class="ex-english">I am flying</span>
+          <span class="ex-gloss">SELF · MOVE · AIR · ABOVE</span>
+        </div>
+      </div>
+      <div class="ex">
+        <div class="ex-sago">to za ni sa</div>
+        <div class="ex-right">
+          <span class="ex-english">You are near me</span>
+          <span class="ex-gloss">OTHER · EXIST · NEAR · SELF</span>
+        </div>
+      </div>
+      <div class="ex">
+        <div class="ex-sago">sa mo da wu du</div>
+        <div class="ex-right">
+          <span class="ex-english">I move to get water</span>
+          <span class="ex-gloss">SELF · MOVE · BECAUSE · WANT · WATER</span>
+        </div>
+      </div>
+
+      <!-- TIME -->
+      <div style="grid-column: 1 / -1; margin: 0.6rem 0 0.2rem;">
+        <h3>Time</h3>
+      </div>
+
+      <div class="ex">
+        <div class="ex-sago">pa sa mo hi</div>
+        <div class="ex-right">
+          <span class="ex-english">I came (past)</span>
+          <span class="ex-gloss">BEFORE · SELF · MOVE · HERE</span>
+        </div>
+      </div>
+      <div class="ex">
+        <div class="ex-sago">ya to mo hi</div>
+        <div class="ex-right">
+          <span class="ex-english">You will come (future)</span>
+          <span class="ex-gloss">AFTER · OTHER · MOVE · HERE</span>
+        </div>
+      </div>
+      <div class="ex">
+        <div class="ex-sago">sa ne mo</div>
+        <div class="ex-right">
+          <span class="ex-english">I am moving right now</span>
+          <span class="ex-gloss">SELF · NOW · MOVE (progressive)</span>
+        </div>
+      </div>
+      <div class="ex">
+        <div class="ex-sago">sa pa mo ma</div>
+        <div class="ex-right">
+          <span class="ex-english">I usually move / habitually</span>
+          <span class="ex-gloss">SELF · BEFORE · MOVE · MORE</span>
+        </div>
+      </div>
+
+      <!-- EMOTION -->
+      <div style="grid-column: 1 / -1; margin: 0.6rem 0 0.2rem;">
+        <h3>Emotions</h3>
+      </div>
+
+      <div class="ex">
+        <div class="ex-sago">sa ba go</div>
+        <div class="ex-right">
+          <span class="ex-english">I feel good / happy</span>
+          <span class="ex-gloss">SELF · FEEL · GOOD</span>
+        </div>
+      </div>
+      <div class="ex">
+        <div class="ex-sago">sa ba bi</div>
+        <div class="ex-right">
+          <span class="ex-english">I feel bad / sad</span>
+          <span class="ex-gloss">SELF · FEEL · BAD</span>
+        </div>
+      </div>
+      <div class="ex">
+        <div class="ex-sago">sa ba go ma to</div>
+        <div class="ex-right">
+          <span class="ex-english">I love you</span>
+          <span class="ex-gloss">SELF · FEEL · GOOD · MORE · OTHER</span>
+        </div>
+      </div>
+      <div class="ex">
+        <div class="ex-sago">sa ba bi da ya ze</div>
+        <div class="ex-right">
+          <span class="ex-english">I am afraid</span>
+          <span class="ex-gloss">SELF · FEEL · BAD · BECAUSE · AFTER · SOMETHING</span>
+        </div>
+      </div>
+      <div class="ex">
+        <div class="ex-sago">sa ba bi da na za</div>
+        <div class="ex-right">
+          <span class="ex-english">I grieve / something is gone</span>
+          <span class="ex-gloss">SELF · FEEL · BAD · BECAUSE · NOT · EXIST</span>
+        </div>
+      </div>
+      <div class="ex">
+        <div class="ex-sago">sa wu ya go</div>
+        <div class="ex-right">
+          <span class="ex-english">I have hope</span>
+          <span class="ex-gloss">SELF · WANT · AFTER · GOOD</span>
+        </div>
+      </div>
+
+      <!-- THINKING & KNOWING -->
+      <div style="grid-column: 1 / -1; margin: 0.6rem 0 0.2rem;">
+        <h3>Thinking &amp; Knowing</h3>
+      </div>
+
+      <div class="ex">
+        <div class="ex-sago">sa no yo</div>
+        <div class="ex-right">
+          <span class="ex-english">I know this</span>
+          <span class="ex-gloss">SELF · KNOW · THIS</span>
+        </div>
+      </div>
+      <div class="ex">
+        <div class="ex-sago">sa na no</div>
+        <div class="ex-right">
+          <span class="ex-english">I don't know</span>
+          <span class="ex-gloss">SELF · NOT · KNOW</span>
+        </div>
+      </div>
+      <div class="ex">
+        <div class="ex-sago">sa te to</div>
+        <div class="ex-right">
+          <span class="ex-english">I understand you</span>
+          <span class="ex-gloss">SELF · THINK · OTHER</span>
+        </div>
+      </div>
+      <div class="ex">
+        <div class="ex-sago">sa te ya</div>
+        <div class="ex-right">
+          <span class="ex-english">I am learning</span>
+          <span class="ex-gloss">SELF · THINK · AFTER</span>
+        </div>
+      </div>
+      <div class="ex">
+        <div class="ex-sago">sa te pa</div>
+        <div class="ex-right">
+          <span class="ex-english">I remember</span>
+          <span class="ex-gloss">SELF · THINK · BEFORE</span>
+        </div>
+      </div>
+      <div class="ex">
+        <div class="ex-sago">sa te yu</div>
+        <div class="ex-right">
+          <span class="ex-english">I am dreaming</span>
+          <span class="ex-gloss">SELF · THINK · NIGHT</span>
+        </div>
+      </div>
+
+      <!-- NATURE & WORLD -->
+      <div style="grid-column: 1 / -1; margin: 0.6rem 0 0.2rem;">
+        <h3>Nature &amp; World</h3>
+      </div>
+
+      <div class="ex">
+        <div class="ex-sago">lu ga za</div>
+        <div class="ex-right">
+          <span class="ex-english">The sun exists / it is daytime</span>
+          <span class="ex-gloss">LIGHT · BIG · EXIST</span>
+        </div>
+      </div>
+      <div class="ex">
+        <div class="ex-sago">du mo be ha</div>
+        <div class="ex-right">
+          <span class="ex-english">Rain is falling</span>
+          <span class="ex-gloss">WATER · MOVE · BELOW · HAPPEN</span>
+        </div>
+      </div>
+      <div class="ex">
+        <div class="ex-sago">na fu za re</div>
+        <div class="ex-right">
+          <span class="ex-english">It is cold outside</span>
+          <span class="ex-gloss">NOT · HEAT · EXIST · AIR</span>
+        </div>
+      </div>
+      <div class="ex">
+        <div class="ex-sago">fu mo za</div>
+        <div class="ex-right">
+          <span class="ex-english">There is fire</span>
+          <span class="ex-gloss">HEAT · MOVE · EXIST</span>
+        </div>
+      </div>
+      <div class="ex">
+        <div class="ex-sago">ka le za la</div>
+        <div class="ex-right">
+          <span class="ex-english">A forest is far away</span>
+          <span class="ex-gloss">MANY · TREE · EXIST · FAR</span>
+        </div>
+      </div>
+      <div class="ex">
+        <div class="ex-sago">ge za ya</div>
+        <div class="ex-right">
+          <span class="ex-english">The moon will appear</span>
+          <span class="ex-gloss">MOON · EXIST · AFTER</span>
+        </div>
+      </div>
+
+      <!-- DEEP CONCEPTS -->
+      <div style="grid-column: 1 / -1; margin: 0.6rem 0 0.2rem;">
+        <h3>Deep Concepts — where meaning crystallizes</h3>
+      </div>
+
+    </div><!-- end .examples -->
+
+    <div class="deep-examples" style="margin-top: 0.3rem;">
+      <div class="deep-ex">
+        <span class="sago">na de na</span>
+        <span class="english">Freedom</span>
+        <span class="breakdown">NOT · DO · NOT — the absence of the prevention of action (Berlin's negative liberty)</span>
+      </div>
+      <div class="deep-ex">
+        <span class="sago">te su na vi</span>
+        <span class="english">Faith</span>
+        <span class="breakdown">THINK · TRUE · NOT · SEE — believing truly without evidence (belief beyond observation)</span>
+      </div>
+      <div class="deep-ex">
+        <span class="sago">de je ba bi</span>
+        <span class="english">Courage</span>
+        <span class="breakdown">DO · TOGETHER · FEEL · BAD — acting while feeling bad; doing despite fear</span>
+      </div>
+      <div class="deep-ex">
+        <span class="sago">sa ba go da sa de go</span>
+        <span class="english">Pride</span>
+        <span class="breakdown">SELF · FEEL · GOOD · BECAUSE · SELF · DO · GOOD — good feeling caused by one's own good action</span>
+      </div>
+      <div class="deep-ex">
+        <span class="sago">we pa ka za</span>
+        <span class="english">History</span>
+        <span class="breakdown">SAY · BEFORE · MANY · EXIST — the accumulated sayings of the past that exist now</span>
+      </div>
+      <div class="deep-ex">
+        <span class="sago">ka pu we ro</span>
+        <span class="english">Democracy</span>
+        <span class="breakdown">MANY · PEOPLE · SAY · WORD — governance by the words of many</span>
+      </div>
+    </div>
+  </div>
+
+  <hr>
+
+  <!-- ── GRAMMAR SNAPSHOT + HOW TO READ ──────────────────── -->
+  <div class="columns">
+    <div>
+      <div class="section-label">Grammar in Brief</div>
+      <h2>Five rules cover most sentences</h2>
+      <div class="grammar-rules">
+        <div class="g-rule">
+          <span class="g-num">1</span>
+          <span class="g-text"><strong>Word order:</strong> <code>[TIME] TOPIC VERB [OBJECT]</code> — no exceptions, no agreement.</span>
+        </div>
+        <div class="g-rule">
+          <span class="g-num">2</span>
+          <span class="g-text"><strong>No copula:</strong> <code>sa go</code> = "I am good." Topic + state = "is."</span>
+        </div>
+        <div class="g-rule">
+          <span class="g-num">3</span>
+          <span class="g-text"><strong>Tense by prefix:</strong> <code>pa</code> = past, <code>ya</code> = future. No tense marker = present.</span>
+        </div>
+        <div class="g-rule">
+          <span class="g-num">4</span>
+          <span class="g-text"><strong>Negation:</strong> <code>na</code> immediately before what it negates. <code>sa na wu</code> = "I don't want."</span>
+        </div>
+        <div class="g-rule">
+          <span class="g-num">5</span>
+          <span class="g-text"><strong>Questions:</strong> <code>mi</code> at end for yes/no. WH-phonic first for content. <code>ze to wu mi?</code> = "What do you want?"</span>
+        </div>
+        <div class="g-rule">
+          <span class="g-num">6</span>
+          <span class="g-text"><strong>Causation:</strong> <code>da</code> = because/so. <code>sa mo da sa wu du</code> = "I move because I want water."</span>
+        </div>
+        <div class="g-rule">
+          <span class="g-num">7</span>
+          <span class="g-text"><strong>Flow:</strong> Phonics concatenate directly — <code>na + fu → nafu</code> (cold), <code>fu + mo → fumo</code> (fire). No clusters.</span>
+        </div>
+      </div>
+    </div>
+
+    <div>
+      <div class="section-label">How to Read Sago</div>
+      <h2>Each syllable is a concept</h2>
+      <p>Read Sago left to right, one CV syllable at a time. Each syllable is one atom of meaning.</p>
+
+      <div style="background:#fff; border: 1px solid var(--rule); border-radius: 0.5rem; padding: 1rem; margin-bottom: 1rem;">
+        <div style="font-family: 'JetBrains Mono', monospace; font-size: 1rem; color: var(--ink); margin-bottom: 0.5rem; letter-spacing: 0.05em;">
+          sa &nbsp; ba &nbsp; go &nbsp; ma &nbsp; to
+        </div>
+        <div style="font-size: 0.72rem; color: var(--soft); font-style: italic; margin-bottom: 0.6rem;">
+          SELF · FEEL · GOOD · MORE · OTHER
+        </div>
+        <div style="font-size: 0.85rem; color: var(--ink); font-weight: 600;">
+          "I love you"
+        </div>
+      </div>
+
+      <div style="background:#fff; border: 1px solid var(--rule); border-radius: 0.5rem; padding: 1rem; margin-bottom: 1rem;">
+        <div style="font-family: 'JetBrains Mono', monospace; font-size: 1rem; color: var(--ink); margin-bottom: 0.5rem; letter-spacing: 0.05em;">
+          ka &nbsp; pu &nbsp; ba &nbsp; go &nbsp; je
+        </div>
+        <div style="font-size: 0.72rem; color: var(--soft); font-style: italic; margin-bottom: 0.6rem;">
+          MANY · PEOPLE · FEEL · GOOD · TOGETHER
+        </div>
+        <div style="font-size: 0.85rem; color: var(--ink); font-weight: 600;">
+          "Peace"
+        </div>
+      </div>
+
+      <p style="font-size: 0.8rem; margin: 0;">
+        Phonics can fuse into flowing words:
+        <span style="font-family: 'JetBrains Mono', monospace; color: var(--accent);">nafu</span> (cold),
+        <span style="font-family: 'JetBrains Mono', monospace; color: var(--accent);">fumo</span> (fire),
+        <span style="font-family: 'JetBrains Mono', monospace; color: var(--accent);">bago</span> (joy).
+        Because every phonic ends in a vowel, adjacent phonics always
+        connect smoothly — Sago flows like water.
+      </p>
+    </div>
+  </div>
+
+  <!-- ── FOOTER ─────────────────────────────────────────────── -->
+  <footer class="footer">
+    <div class="footer-left">
+      <strong>Sago</strong> · A constructed language from universal semantic primitives ·
+      Based on Wierzbicka's Natural Semantic Metalanguage ·
+      Ryan Funk, 2026 · CC BY 4.0
+    </div>
+    <div class="footer-right">github.com/RyanFunk021/sago</div>
+  </footer>
+
+</div><!-- .page -->
+</body>
+</html>
